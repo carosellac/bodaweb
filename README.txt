@@ -2,18 +2,26 @@ BODA WEB — LANDING DE INVITACIONES DE CASAMIENTO
 
 Archivos:
 - index.html       Estructura de la página
-- styles.css       Estilos responsive
-- script.js        Interacciones (menú, previews, formularios de demostración)
-- assets/          Fotografías, decoración y previews de invitaciones
+- styles.css       Estilos (celular, tablet y computadora)
+- script.js        Comportamiento (menú, vistas previas, formulario) y DATOS DE CONTACTO
+- assets/          Fotos, flores decorativas, vistas previas e imagen para compartir
+- favicon.*        Ícono de la pestaña y del acceso directo en el celular
+- robots.txt       Permiso para los buscadores
 
-CÓMO ABRIRLA
-1. Descomprimí el ZIP.
-2. Abrí index.html en Chrome, Edge o Firefox.
-3. Para publicarla, subí todos los archivos a tu alojamiento manteniendo sus rutas.
+PUBLICACIÓN
+- Repositorio: github.com/carosellac/bodaweb (rama master). Cada push se publica solo en Vercel.
+- Dirección actual: https://bodaweb-rose.vercel.app
+- Si se conecta un dominio propio, cambiar la dirección en index.html (canonical, og:url y og:image).
+
+LO QUE HAY QUE COMPLETAR ANTES DE VENDER
+1. script.js, al principio, el bloque CONTACTO: WhatsApp, Instagram y email.
+   Con el WhatsApp cargado, el formulario abre WhatsApp con el pedido ya escrito.
+2. Opiniones: la sección está apagada (hidden) hasta tener reseñas reales. Instrucciones en index.html.
+3. Las vistas previas de los tres diseños (assets/plantilla-*.webp) son chicas (menos de 300 px):
+   reemplazarlas por capturas grandes (1200 px de ancho o más) de los diseños reales.
+4. Los precios, los planes y las respuestas de "Preguntas frecuentes" son texto de ejemplo.
 
 NOTAS
-- Se recreó la composición a partir del diseño visual, usando contenido HTML/CSS real.
-- Los precios, planes, nombre de marca, reseñas y fotos son ejemplos que debes ajustar antes de publicar.
-- El formulario solo prepara/copía una solicitud localmente. No guarda ni envía datos.
-- Configurá tus enlaces reales de redes, contacto y sistema de venta antes de lanzar la web.
-- Se usan tipografías de Google Fonts; si no hay conexión, se utilizan tipografías alternativas.
+- La foto de portada es de Unsplash (uso libre). Si hay una foto propia, reemplazar
+  assets/hero-couple.webp (1600 px de ancho), hero-couple-movil.webp (900 px) y compartir.jpg (1200×630).
+- Tipografías de Google Fonts; sin conexión se usan tipografías alternativas.
