@@ -100,6 +100,13 @@ const CONTACTO = {
 
   $('#year').textContent = String(new Date().getFullYear());
 
+  /* ---------- Las secciones aparecen suavemente al bajar ---------- */
+  const reveal = $$('[data-reveal]');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    reveal.forEach(el => io.observe(el));
+  } else reveal.forEach(el => el.classList.add('visto'));
+
   /* ---------- Menú: marca la sección que se está leyendo ---------- */
   const navLinks = $$('.desktop-nav a');
   // 'Inicio' apunta a la cabecera (fija y chica): para marcarlo se observa la portada
