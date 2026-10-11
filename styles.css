@@ -52,7 +52,7 @@ p{line-height:1.5}
 .hero-photo{position:absolute;inset:0 0 0 auto;width:58%;z-index:-1;background-image:linear-gradient(90deg,#f3ece5 0%,#f3ece5cc 8%,transparent 30%),url('assets/hero-couple.webp');background-size:cover;background-position:60% center}
 .hero:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#f5eee9aa 0%,#f5eee900 55%);pointer-events:none}
 /* Rama dibujada en la esquina de la portada */
-.hero-blooms{position:absolute;width:150px;height:200px;left:-28px;top:14px;pointer-events:none;opacity:.55;transform:scaleX(-1) rotate(8deg)}
+.hero-blooms{position:absolute;width:140px;height:250px;left:-6px;top:30px;pointer-events:none;color:#a89489;opacity:.6;transform:scaleX(-1)}
 .hero-container{min-height:520px;display:flex;align-items:center}
 .hero-copy{position:relative;width:52%;max-width:580px;padding:36px 0 32px 0}
 .eyebrow{color:#bd8679;letter-spacing:2px;font-size:13px;font-weight:700;margin:0 0 14px}
@@ -85,9 +85,9 @@ p{line-height:1.5}
 .feature{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;font-family:var(--serif);font-size:17px;line-height:1.1}
 .feature .icon{height:34px;width:34px;stroke-width:1.45;color:#6e6f58}
 .feature:nth-child(2n) .icon,.feature:nth-child(3n) .icon{color:#8e5543}
-.features-flower{position:absolute;pointer-events:none;z-index:0;opacity:.9}
-.flower-left{left:-16px;bottom:-24px;width:150px;height:195px;transform:rotate(-6deg)}
-.flower-right{right:-14px;bottom:-30px;width:150px;height:195px;transform:rotate(4deg)}
+.features-flower{position:absolute;pointer-events:none;z-index:0;color:#8f8178;opacity:.75}
+.flower-left{left:-6px;bottom:-20px;width:138px;height:245px;transform:rotate(-8deg)}
+.flower-right{right:-6px;bottom:-24px;width:138px;height:245px;transform:scaleX(-1) rotate(-6deg)}
 
 /* PASOS */
 .how{padding-block:52px 48px;background:#fdfbf8;overflow:hidden}
@@ -121,7 +121,7 @@ p{line-height:1.5}
 .price-card .btn{width:100%;margin-top:auto;padding-inline:12px}
 .pricing-handnote{font-family:var(--script);font-size:28px;color:#8c7870;align-self:center;text-align:center;transform:rotate(-7deg);line-height:1.02;white-space:nowrap}
 .pricing-handnote span{font-size:30px}
-.pricing-flower{position:absolute;bottom:-22px;left:-10px;width:110px;height:143px;opacity:.7;pointer-events:none;transform:scaleX(-1)}
+.pricing-flower{position:absolute;bottom:-18px;left:-4px;width:100px;height:178px;color:#8f8178;opacity:.6;pointer-events:none;transform:scaleX(-1)}
 
 /* OPINIONES (apagada hasta tener reseñas reales; ver index.html) */
 .testimonials{background:#fbf9f6;padding:48px 0 44px}
