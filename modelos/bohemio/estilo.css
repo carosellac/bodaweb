@@ -68,6 +68,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .portada{min-height:100vh;min-height:100svh;display:grid;place-items:center;background:#fff;padding:0;overflow:hidden}
 .lamina{container-type:inline-size;width:min(100vw,460px,51vh);width:min(100vw,460px,51svh);background:#fff;position:relative}
 .lamina-adentro{display:flex;flex-direction:column;align-items:center;text-align:center;padding:3cqw 5cqw 6cqw;color:var(--terracota)}
+.portada-textos{display:flex;flex-direction:column;align-items:center;width:100%}
 .hexagono{display:block;width:100%;height:auto;aspect-ratio:840/700;overflow:visible}
 .lema{margin:-1cqw 0 0;display:flex;flex-direction:column;align-items:center;line-height:1}
 .lema-1{font-family:var(--serif);font-size:15.5cqw;font-weight:500;letter-spacing:-.05em;line-height:.95;color:var(--terracota);text-transform:uppercase;white-space:nowrap}
@@ -259,4 +260,19 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 @media (min-width:720px){
   .portada{background:var(--arena);padding:3vh 24px}
   .lamina{width:min(460px,45vh);width:min(460px,45svh);border:1px solid var(--linea);border-radius:10px;box-shadow:0 18px 60px rgba(35,65,59,.12)}
+}
+
+/* Portada en la COMPU: composición horizontal a pantalla completa.
+   El hexágono a la izquierda y los textos a la derecha. .portada-textos pasa a ser el contenedor de
+   medida, así los textos guardan exactamente las proporciones del celular, sólo que más grandes.
+   Los anchos se atan al ALTO de la pantalla para que todo entre sin bajar en una notebook. */
+@media (min-width:1000px){
+  .portada{background:#fff;padding:4vh 4vw;position:relative}
+  .portada::before{content:"";position:absolute;inset:18px;border:1px solid var(--ocre-claro);pointer-events:none}
+  .portada::after{content:"";position:absolute;inset:24px;border:1px solid var(--linea);pointer-events:none}
+  .lamina{container-type:normal;width:min(1640px,100%);border:0;border-radius:0;box-shadow:none;background:transparent}
+  .lamina-adentro{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);align-items:center;gap:3vw;padding:0}
+  .hexagono{width:min(100%,92vh);justify-self:center}
+  .portada-textos{container-type:inline-size;width:min(100%,62vh,660px);justify-self:center}
+  .portada-textos .portada-intro{margin-top:5cqw}
 }
