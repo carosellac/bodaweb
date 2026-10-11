@@ -51,8 +51,8 @@ p{line-height:1.5}
 .hero{position:relative;isolation:isolate;background:#f3ece5;min-height:520px;overflow:hidden}
 .hero-photo{position:absolute;inset:0 0 0 auto;width:58%;z-index:-1;background-image:linear-gradient(90deg,#f3ece5 0%,#f3ece5cc 8%,transparent 30%),url('assets/hero-couple.webp');background-size:cover;background-position:60% center}
 .hero:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#f5eee9aa 0%,#f5eee900 55%);pointer-events:none}
-/* Flores de la esquina: con un degradado en los bordes para que no se vean como un parche */
-.hero-blooms{position:absolute;width:150px;height:280px;left:0;top:0;background:url('assets/hero-flowers.webp') left top/100% 100% no-repeat;pointer-events:none;mix-blend-mode:multiply;opacity:.9;mask-image:linear-gradient(90deg,#000 55%,transparent 100%),linear-gradient(180deg,#000 55%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,#000 55%,transparent 100%),linear-gradient(180deg,#000 55%,transparent 100%);mask-composite:intersect;-webkit-mask-composite:source-in}
+/* Rama dibujada en la esquina de la portada */
+.hero-blooms{position:absolute;width:150px;height:200px;left:-28px;top:14px;pointer-events:none;opacity:.55;transform:scaleX(-1) rotate(8deg)}
 .hero-container{min-height:520px;display:flex;align-items:center}
 .hero-copy{position:relative;width:52%;max-width:580px;padding:36px 0 32px 0}
 .eyebrow{color:#bd8679;letter-spacing:2px;font-size:13px;font-weight:700;margin:0 0 14px}
@@ -85,9 +85,9 @@ p{line-height:1.5}
 .feature{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;font-family:var(--serif);font-size:17px;line-height:1.1}
 .feature .icon{height:34px;width:34px;stroke-width:1.45;color:#6e6f58}
 .feature:nth-child(2n) .icon,.feature:nth-child(3n) .icon{color:#8e5543}
-.features-flower{position:absolute;mix-blend-mode:multiply;opacity:.85;object-fit:contain;pointer-events:none;z-index:0}
-.flower-left{left:0;bottom:-9px;width:145px}
-.flower-right{right:0;bottom:-60px;width:155px}
+.features-flower{position:absolute;pointer-events:none;z-index:0;opacity:.9}
+.flower-left{left:-16px;bottom:-24px;width:150px;height:195px;transform:rotate(-6deg)}
+.flower-right{right:-14px;bottom:-30px;width:150px;height:195px;transform:rotate(4deg)}
 
 /* PASOS */
 .how{padding-block:52px 48px;background:#fdfbf8;overflow:hidden}
@@ -121,7 +121,7 @@ p{line-height:1.5}
 .price-card .btn{width:100%;margin-top:auto;padding-inline:12px}
 .pricing-handnote{font-family:var(--script);font-size:28px;color:#8c7870;align-self:center;text-align:center;transform:rotate(-7deg);line-height:1.02;white-space:nowrap}
 .pricing-handnote span{font-size:30px}
-.pricing-flower{position:absolute;bottom:-3px;left:0;mix-blend-mode:multiply;opacity:.75;width:90px;pointer-events:none}
+.pricing-flower{position:absolute;bottom:-22px;left:-10px;width:110px;height:143px;opacity:.7;pointer-events:none;transform:scaleX(-1)}
 
 /* OPINIONES (apagada hasta tener reseñas reales; ver index.html) */
 .testimonials{background:#fbf9f6;padding:48px 0 44px}
