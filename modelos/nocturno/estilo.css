@@ -1,0 +1,234 @@
+/* ============ ELEGANTE NOCTURNO — azul noche, dorado y art déco ============ */
+:root{
+  --noche:#0b1526;--negro:#070b14;--marfil:#f4efe4;--gris:#9aa3b2;
+  --oro:#d4af37;--oro-claro:#f1d27a;--oro-oscuro:#b8902c;
+  --oro-tenue:rgba(212,175,55,.38);--oro-sutil:rgba(212,175,55,.18);--oro-brillo:rgba(241,210,122,.22);
+  --degrade-oro:linear-gradient(135deg,#f1d27a,#b8902c);
+  --sombra:0 24px 60px rgba(0,0,0,.45);
+  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+  --cinzel:'Cinzel','Trajan Pro',Georgia,serif;
+  --script:'Great Vibes','Brush Script MT',cursive;
+}
+*,*::before,*::after{box-sizing:border-box}
+/* Scroll suave sólo al tocar un enlace (hay foco): un scrollTo programático queda instantáneo y no frena la carga diferida */
+html:focus-within{scroll-behavior:smooth}
+body{margin:0;background:var(--noche);color:var(--marfil);font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--marfil);margin:0 0 14px;line-height:1.15}
+h2{font-size:clamp(32px,5vw,46px)}
+h3{font-size:25px}
+p{margin:0 0 14px}
+a{color:inherit}
+::selection{background:var(--oro);color:var(--negro)}
+
+/* Secciones: alternan azul noche y negro azulado */
+section{padding:76px 20px;text-align:center;position:relative}
+.fondo-b{background:var(--negro);border-top:1px solid var(--oro-sutil);border-bottom:1px solid var(--oro-sutil)}
+.contenido{max-width:1040px;margin:0 auto}
+.antetitulo{font-family:var(--cinzel);font-size:12px;letter-spacing:.38em;text-transform:uppercase;color:var(--oro);margin-bottom:14px;font-weight:500}
+.separador{display:block;width:min(260px,80%);height:16px;margin:18px auto;color:var(--oro)}
+.script{font-family:var(--script);font-weight:400;letter-spacing:0}
+.oro-texto{color:var(--oro);background:var(--degrade-oro);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.filete{display:block;width:min(240px,70%);height:6px;margin:14px auto;border-top:1px solid var(--oro);border-bottom:1px solid var(--oro-tenue)}
+
+/* Fotos: leve filtro cálido para entonar con el dorado */
+.portada-foto,.cuadro img{filter:sepia(.15) contrast(1.05)}
+
+/* Esquinas art déco (4 copias del mismo símbolo, giradas) */
+.esquinas svg{position:absolute;width:34px;height:34px;color:var(--oro);pointer-events:none}
+.esquinas svg:nth-child(1){top:9px;left:9px}
+.esquinas svg:nth-child(2){top:9px;right:9px;transform:scaleX(-1)}
+.esquinas svg:nth-child(3){bottom:9px;left:9px;transform:scaleY(-1)}
+.esquinas svg:nth-child(4){bottom:9px;right:9px;transform:scale(-1)}
+
+/* Botones */
+.boton{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--cinzel);font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;padding:14px 26px;border:1px solid var(--oro-oscuro);background:var(--degrade-oro);color:var(--negro);text-decoration:none;cursor:pointer;transition:filter .25s,transform .25s,background .25s,color .25s;min-height:50px;text-align:center;line-height:1.3}
+.boton:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.boton-linea{background:transparent;color:var(--oro);border-color:var(--oro)}
+.boton-linea:hover{background:var(--oro-sutil);color:var(--oro-claro);filter:none}
+.boton svg{width:16px;height:16px;flex:none}
+.boton-chico{padding:10px 14px;min-height:44px;font-size:11px;letter-spacing:.16em}
+
+/* Portada: foto a pantalla completa, degradé de abajo hacia arriba */
+.portada{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:60px 20px 96px;overflow:hidden;isolation:isolate;background:var(--negro);text-align:center}
+.portada-foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;z-index:-3}
+.portada-velo{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(7,11,20,.42) 0%,rgba(7,11,20,.18) 28%,rgba(11,21,38,.6) 56%,rgba(11,21,38,.94) 78%,var(--noche) 100%)}
+.destellos{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.destellos svg{position:absolute;width:14px;height:14px;color:var(--oro-claro);opacity:.55;animation:titilar 4s ease-in-out infinite}
+.destellos .d1{top:9%;left:12%;width:18px;height:18px}
+.destellos .d2{top:15%;left:78%;width:12px;height:12px;animation-delay:1.3s}
+.destellos .d3{top:26%;left:30%;width:9px;height:9px;animation-delay:2.1s}
+.destellos .d4{top:33%;left:88%;width:16px;height:16px;animation-delay:.7s}
+.destellos .d5{top:44%;left:6%;width:11px;height:11px;animation-delay:2.8s}
+.destellos .d6{top:50%;left:64%;width:8px;height:8px;animation-delay:1.9s}
+.destellos .d7{top:6%;left:50%;width:10px;height:10px;animation-delay:3.2s}
+.destellos .d8{top:38%;left:46%;width:7px;height:7px;animation-delay:.4s}
+.destellos .d9{top:22%;left:92%;width:9px;height:9px;animation-delay:2.4s}
+@keyframes titilar{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.85;transform:scale(1)}}
+.portada-contenido{position:relative;width:100%;max-width:760px;display:flex;flex-direction:column;align-items:center}
+.monograma{display:inline-grid;place-items:center;width:76px;height:76px;color:var(--oro);font-family:var(--cinzel);font-size:16px;letter-spacing:.1em;margin-bottom:26px;position:relative;z-index:0}
+.monograma::before,.monograma::after{content:"";position:absolute;left:50%;top:50%;width:52px;height:52px;transform:translate(-50%,-50%) rotate(45deg);border:1px solid var(--oro);z-index:-1}
+.monograma::after{width:42px;height:42px;border-color:var(--oro-tenue)}
+.portada h1{display:flex;flex-direction:column;align-items:center;margin:0 0 6px;line-height:1}
+.portada h1 .script{font-size:clamp(66px,19vw,128px);line-height:1.05;padding:0 .12em .08em;display:block}
+.portada h1 em{font-family:var(--serif);font-style:italic;font-size:clamp(28px,7vw,46px);color:var(--oro);line-height:1;margin:-4px 0 2px;font-weight:400}
+.portada .filete{margin:10px auto 18px}
+.portada-fecha{font-family:var(--cinzel);font-size:clamp(16px,4.4vw,22px);letter-spacing:.14em;text-transform:uppercase;color:var(--marfil);margin:0 0 6px}
+.portada-lugar{font-family:var(--cinzel);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gris);margin:0 0 28px}
+.botones{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;width:100%}
+.portada .botones .boton{flex:1 1 220px;max-width:320px}
+.bajar{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:46px;height:46px;display:grid;place-items:center;color:var(--oro);border:1px solid var(--oro-tenue);border-radius:50%;animation:flotar 2.4s ease-in-out infinite;z-index:1}
+.bajar svg{width:22px;height:22px}
+@keyframes flotar{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+
+/* Cuenta regresiva: cajas con borde dorado y números Cinzel */
+.cuenta{padding:56px 20px 60px}
+.cuenta-cajas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:600px;margin:0 auto}
+.cuenta-cajas div{position:relative;border:1px solid var(--oro-tenue);padding:20px 4px 14px;background:linear-gradient(180deg,rgba(212,175,55,.06),rgba(212,175,55,0))}
+.cuenta-cajas div::before{content:"";position:absolute;inset:4px;border:1px solid var(--oro-sutil);pointer-events:none}
+.cuenta-cajas strong{display:block;font-family:var(--cinzel);font-weight:500;font-size:clamp(28px,7.4vw,50px);line-height:1;color:var(--oro-claro);font-variant-numeric:tabular-nums}
+.cuenta-cajas span{display:block;font-family:var(--cinzel);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gris);margin-top:8px}
+.cuenta-llego{display:none;font-size:30px;font-style:italic;color:var(--oro-claro);margin-top:12px}
+.cuenta.llego .cuenta-cajas{display:none}.cuenta.llego .cuenta-llego{display:block}
+
+/* Frase */
+.frase{padding:60px 20px}
+.frase p{font-size:clamp(23px,3.6vw,32px);font-style:italic;font-weight:400;color:var(--marfil);max-width:720px;margin:0 auto;line-height:1.45}
+
+/* Cuadros: marco dorado fino con margen interior */
+.cuadro{margin:0;padding:8px;border:1px solid var(--oro-tenue);background:var(--negro);position:relative;overflow:hidden}
+.cuadro::before{content:"";position:absolute;inset:3px;border:1px solid var(--oro-sutil);pointer-events:none;z-index:1}
+.cuadro img{width:100%;height:100%;object-fit:cover;aspect-ratio:1;transition:transform .5s ease}
+
+/* Historia */
+.historia-grilla{display:grid;gap:44px;align-items:center;text-align:left}
+.historia-fotos{position:relative;padding:0 24px 56px 0}
+.cuadro-alto img{aspect-ratio:4/5}
+.cuadro-chico{position:absolute;right:0;bottom:0;width:50%;box-shadow:var(--sombra);background:var(--noche)}
+.cuadro-chico img{aspect-ratio:1}
+.historia-texto h2{margin-bottom:22px}
+.historia-texto p{font-size:18px;color:var(--marfil)}
+.historia-texto p+p{color:var(--gris)}
+
+/* Ceremonia y fiesta */
+.evento-tarjetas{display:grid;gap:22px;margin-top:34px}
+.tarjeta{background:var(--negro);border:1px solid var(--oro-tenue);padding:44px 26px 36px;position:relative;box-shadow:var(--sombra)}
+.tarjeta-icono{display:inline-grid;place-items:center;width:58px;height:58px;border:1px solid var(--oro);color:var(--oro);margin-bottom:18px;transform:rotate(45deg);position:relative}
+.tarjeta-icono::before{content:"";position:absolute;inset:4px;border:1px solid var(--oro-sutil)}
+.tarjeta-icono svg{width:24px;height:24px;transform:rotate(-45deg)}
+.tarjeta h3{margin-bottom:6px;font-size:28px}
+.tarjeta-hora{font-family:var(--cinzel);font-size:26px;letter-spacing:.08em;color:var(--oro-claro);margin-bottom:12px}
+.tarjeta-lugar{font-size:22px;color:var(--marfil);margin-bottom:4px}
+.tarjeta-direccion{color:var(--gris);font-size:17px;margin-bottom:22px}
+
+/* Itinerario: línea vertical dorada con rombos */
+.linea-tiempo{list-style:none;margin:40px auto 0;padding:0;max-width:640px;text-align:left;position:relative}
+.linea-tiempo::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,transparent,var(--oro) 8%,var(--oro) 92%,transparent)}
+.linea-tiempo li{position:relative;padding:0 0 32px 36px}
+.linea-tiempo li:last-child{padding-bottom:0}
+.linea-tiempo li::before{content:"";position:absolute;left:3px;top:8px;width:11px;height:11px;transform:rotate(45deg);background:var(--negro);border:1px solid var(--oro);box-shadow:inset 0 0 0 2px var(--negro),inset 0 0 0 7px var(--oro)}
+.linea-tiempo time{display:block;font-family:var(--cinzel);font-size:17px;letter-spacing:.14em;color:var(--oro);line-height:1.4;margin-bottom:2px}
+.linea-tiempo h3{font-size:24px;margin-bottom:4px}
+.linea-tiempo p{color:var(--gris);font-size:17px;margin:0}
+
+/* Vestimenta */
+.vestimenta h2{font-style:italic;margin:4px 0 14px}
+.vestimenta p{max-width:560px;margin:0 auto;color:var(--gris)}
+
+/* Galería: cuadros con marco dorado */
+.galeria-grilla{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:34px}
+.galeria-grilla .cuadro:hover img{transform:scale(1.04)}
+.galeria-grilla .cuadro:hover{border-color:var(--oro)}
+
+/* Regalos */
+.tarjeta-regalos{max-width:620px;margin:0 auto;padding:48px 24px 40px;background:var(--negro)}
+.regalos-texto{max-width:520px;margin:0 auto 26px;color:var(--gris)}
+.datos-regalo{max-width:460px;margin:0 auto;text-align:left}
+.datos-regalo p{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 14px;padding:14px 0;border-bottom:1px solid var(--oro-sutil);margin:0}
+.datos-regalo span{grid-column:1/-1}
+.datos-regalo p:first-child{border-top:1px solid var(--oro-sutil)}
+.datos-regalo span{font-family:var(--cinzel);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gris)}
+.datos-regalo strong{font-weight:500;color:var(--marfil);font-size:19px;letter-spacing:.02em;overflow-wrap:anywhere;min-width:0}
+
+/* Confirmación: campos transparentes con borde dorado tenue */
+.confirmar-plazo{color:var(--gris);margin-bottom:34px}
+.confirmar-plazo strong{color:var(--marfil);font-weight:500}
+#confirmacion{max-width:560px;margin:0 auto;text-align:left;display:grid;gap:20px;color-scheme:dark}
+#confirmacion label{display:grid;gap:8px;font-family:var(--cinzel);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--oro);font-weight:500}
+#confirmacion input,#confirmacion textarea{font:inherit;font-family:var(--serif);font-size:18px;letter-spacing:0;text-transform:none;color:var(--marfil);padding:13px 14px;border:1px solid var(--oro-tenue);background:rgba(244,239,228,.03);width:100%;border-radius:0;min-height:50px;transition:border-color .2s,box-shadow .2s}
+#confirmacion input::placeholder,#confirmacion textarea::placeholder{color:rgba(154,163,178,.7)}
+#confirmacion input:focus,#confirmacion textarea:focus{outline:none;border-color:var(--oro);box-shadow:0 0 0 3px var(--oro-sutil)}
+#confirmacion fieldset{border:1px solid var(--oro-tenue);padding:14px 16px 12px;margin:0;display:flex;flex-wrap:wrap;gap:10px 26px}
+#confirmacion legend{font-family:var(--cinzel);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--oro);font-weight:500;padding:0 8px}
+.opcion{display:flex!important;align-items:center;gap:12px;font-family:var(--serif)!important;font-size:18px!important;letter-spacing:0!important;text-transform:none!important;color:var(--marfil)!important;cursor:pointer;min-height:44px}
+#confirmacion .opcion input{width:18px;height:18px;min-height:0;padding:0;margin:0;flex:none;accent-color:var(--oro);box-shadow:none}
+.dos-columnas{display:grid;gap:20px}
+.error{color:#e8a08a;font-family:var(--cinzel);font-size:13px;letter-spacing:.04em;margin:0}
+.listo{display:grid;gap:12px;border-top:1px solid var(--oro-sutil);padding-top:20px}
+.listo p{color:var(--gris)}
+.listo p strong{color:var(--marfil);font-weight:500}
+.listo textarea{font-size:16px}
+[data-copiado]{font-family:var(--cinzel);font-size:12px;letter-spacing:.1em;color:var(--oro)}
+
+/* Pie */
+.pie{text-align:center;padding:64px 20px 36px;border-top:1px solid var(--oro-sutil);background:var(--negro)}
+.pie-nombres{display:flex;flex-direction:column;align-items:center;margin:4px 0 0;line-height:1}
+.pie-nombres .script{font-size:clamp(52px,14vw,88px);line-height:1.1;padding:0 .12em}
+.pie-nombres em{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--oro);line-height:1;margin:-4px 0}
+.pie-hashtag{font-family:var(--cinzel);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--oro);margin:14px 0 16px}
+.pie-gracias{font-style:italic;color:var(--gris)}
+.credito{font-family:var(--cinzel);font-size:11px;letter-spacing:.12em;color:#5f6a7c;margin-top:34px}
+.credito a{color:inherit}
+
+/* Visor de fotos */
+.visor{border:0;padding:0;background:transparent;max-width:min(96vw,1100px);max-height:96vh;overflow:visible}
+.visor::backdrop{background:rgba(7,11,20,.94)}
+.visor img{max-width:min(96vw,1100px);max-height:88vh;width:auto;height:auto;margin:auto;border:1px solid var(--oro-tenue);padding:6px;background:var(--negro);box-shadow:0 30px 80px #000c}
+.visor-boton{position:fixed;width:46px;height:46px;border-radius:50%;border:1px solid var(--oro-tenue);background:rgba(7,11,20,.7);color:var(--oro-claro);display:grid;place-items:center;cursor:pointer}
+.visor-boton svg{width:22px;height:22px}
+.visor-cerrar{top:14px;right:14px}
+.visor-izq{left:10px;top:50%;transform:translateY(-50%)}
+.visor-der{right:10px;top:50%;transform:translateY(-50%)}
+
+/* Música */
+.musica{position:fixed;right:16px;bottom:16px;width:52px;height:52px;border-radius:50%;border:1px solid var(--oro);background:var(--negro);color:var(--oro);display:grid;place-items:center;cursor:pointer;box-shadow:var(--sombra);z-index:5}
+.musica svg{width:22px;height:22px}
+.musica.sonando{background:var(--degrade-oro);color:var(--negro);animation:girar 3s linear infinite}
+@keyframes girar{to{transform:rotate(360deg)}}
+
+/* Aparición suave */
+[data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+[data-reveal].visto{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}.bajar,.musica.sonando,.destellos svg{animation:none}}
+
+/* Tablet */
+@media (min-width:720px){
+  section{padding:96px 32px}
+  .portada{padding:80px 32px 110px}
+  .portada h1{flex-direction:row;align-items:baseline;gap:18px;flex-wrap:wrap;justify-content:center}
+  .portada h1 .script{font-size:clamp(84px,11vw,132px)}
+  .portada h1 em{font-size:clamp(34px,4.5vw,54px);margin:0}
+  .portada .botones .boton{flex:0 1 auto}
+  .historia-grilla{grid-template-columns:1fr 1fr;gap:64px}
+  .evento-tarjetas{grid-template-columns:1fr 1fr}
+  .tarjeta{padding:52px 36px 44px}
+  .linea-tiempo::before{left:118px}
+  .linea-tiempo li{display:grid;grid-template-columns:88px 1fr;gap:52px;padding:0 0 34px}
+  .linea-tiempo li::before{left:113px;top:10px}
+  .linea-tiempo time{text-align:right;font-size:19px;margin:0;line-height:1.5}
+  .galeria-grilla{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .dos-columnas{grid-template-columns:1fr 1fr}
+  .tarjeta-regalos{padding:56px 48px 48px}
+  .pie-nombres{flex-direction:row;align-items:baseline;gap:16px;justify-content:center}
+  .pie-nombres em{margin:0}
+}
+
+/* Computadora */
+@media (min-width:1000px){
+  .portada-velo{background:linear-gradient(180deg,rgba(7,11,20,.38) 0%,rgba(7,11,20,.14) 30%,rgba(11,21,38,.55) 58%,rgba(11,21,38,.94) 82%,var(--noche) 100%)}
+  .cuadro{padding:10px}
+  .historia-fotos{padding:0 40px 72px 0}
+  .galeria-grilla{gap:20px}
+  .linea-tiempo{max-width:720px}
+}

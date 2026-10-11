@@ -19,7 +19,6 @@ const CONTACTO = {
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const menuButton = $('.mobile-menu-toggle');
   const mobileNav = $('#mobile-nav');
-  const previewDialog = $('#preview-dialog');
   const orderDialog = $('#order-dialog');
   const form = $('#order-form');
   let selectedDesign = '';
@@ -71,16 +70,19 @@ const CONTACTO = {
   });
   $$('#mobile-nav a').forEach(link => link.addEventListener('click', closeMenu));
 
-  $$('.js-preview').forEach(card => card.addEventListener('click', () => {
-    selectedDesign = card.dataset.design || '';
-    $('#preview-title').textContent = selectedDesign;
-    const image = $('#preview-image');
-    image.src = card.dataset.image || '';
-    image.alt = 'Vista previa ampliada del diseño ' + selectedDesign;
-    showDialog(previewDialog);
+  /* ---------- Diseño elegido: "Quiero este" en la tarjeta, o ?diseno=… en la dirección ---------- */
+  const designLine = $('#order-design');
+  function elegirDiseno(nombre) {
+    selectedDesign = String(nombre || '').trim();
+    if (!designLine) return;
+    designLine.hidden = !selectedDesign;
+    $('strong', designLine).textContent = selectedDesign;
+  }
+  $$('.js-elegir').forEach(button => button.addEventListener('click', () => {
+    elegirDiseno(button.dataset.design);
+    showOrder(button);
   }));
   function showOrder(trigger) {
-    if (previewDialog?.open) closeDialog(previewDialog);
     closeMenu();
     showDialog(orderDialog);
     setTimeout(() => $('input[name="pareja"]', orderDialog)?.focus(), 50);
@@ -99,6 +101,8 @@ const CONTACTO = {
   }));
 
   $('#year').textContent = String(new Date().getFullYear());
+  const disenoEnLaDireccion = new URLSearchParams(location.search).get('diseno');
+  if (disenoEnLaDireccion) { elegirDiseno(disenoEnLaDireccion); setTimeout(() => showOrder(), 300); }
 
   /* ---------- Las secciones aparecen suavemente al bajar ---------- */
   const reveal = $$('[data-reveal]');

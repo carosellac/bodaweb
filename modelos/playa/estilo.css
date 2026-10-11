@@ -1,0 +1,226 @@
+/* ============ PLAYA & VERANO — azul mar, coral, arena y olas ============ */
+:root{
+  --cielo:#eaf6f8;--agua:#1f9bb0;--teal:#0e4d5c;--coral:#ff7f66;--coral-oscuro:#f0634a;--arena:#f6e7c9;--blanco:#fff;
+  --texto:#1f4a56;--suave:#5b7f89;--linea:#cfe7ec;
+  --sombra:0 14px 36px rgba(14,77,92,.14);--sombra-coral:0 10px 26px rgba(255,127,102,.42);
+  --sans:'Poppins',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --script:'Yellowtail','Brush Script MT','Segoe Script',cursive;
+  --radio:20px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--blanco);color:var(--texto);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+h1,h2,h3{margin:0 0 12px;color:var(--teal);font-weight:700;line-height:1.15}
+h2{font-size:clamp(30px,7.4vw,46px);letter-spacing:-.01em}
+h3{font-size:22px;font-weight:600}
+p{margin:0 0 14px}
+a{color:inherit}
+.script{font-family:var(--script);font-weight:400;font-style:normal;color:var(--coral);font-size:1.3em;line-height:1;padding:0 .08em}
+
+/* Bloques de color y olas */
+.bloque{position:relative;padding:68px 22px 118px;background:var(--blanco);overflow:hidden}
+.contenido{max-width:1040px;margin:0 auto;text-align:center;position:relative}
+.angosto{max-width:680px}
+.antetitulo{font-size:12px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--coral);margin:0 0 10px}
+.fondo-cielo{background:var(--cielo)}
+.fondo-arena{background:var(--arena)}
+.fondo-teal{background:var(--teal);color:#fff}
+.fondo-teal h2,.fondo-teal h3{color:#fff}
+.fondo-teal .antetitulo{color:var(--arena)}
+.ola{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:56px;display:block;z-index:1;color:#fff;pointer-events:none}
+.ola path{fill:currentColor}
+.ola-blanca{color:var(--blanco)}.ola-cielo{color:var(--cielo)}.ola-arena{color:var(--arena)}.ola-teal{color:var(--teal)}
+.ola-volteada{transform:scaleX(-1)}
+.adorno{position:absolute;pointer-events:none;z-index:0}
+.olita{display:block;width:120px;height:30px;margin:8px auto 0;color:var(--agua)}
+
+/* Botones píldora */
+.boton{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 17px/1.2 var(--sans);padding:14px 28px;min-height:50px;border-radius:999px;border:2px solid var(--coral);background:var(--coral);color:#fff;text-decoration:none;cursor:pointer;box-shadow:var(--sombra-coral);transition:transform .2s,background .2s,color .2s,box-shadow .2s}
+.boton:hover{background:var(--coral-oscuro);border-color:var(--coral-oscuro);transform:translateY(-2px)}
+.boton svg{width:20px;height:20px;flex:none}
+.boton-blanco{background:rgba(255,255,255,.16);border-color:#fff;color:#fff;box-shadow:none;backdrop-filter:blur(4px)}
+.boton-blanco:hover{background:#fff;border-color:#fff;color:var(--teal)}
+.boton-linea{background:transparent;color:var(--coral);box-shadow:none}
+.boton-linea:hover{background:var(--coral);color:#fff}
+
+/* Portada: foto a pantalla completa con velo teal y ola blanca abajo */
+.portada{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:72px 20px 132px;overflow:hidden;isolation:isolate;color:#fff;background:var(--teal)}
+.portada-foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.portada-velo{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(14,77,92,.18) 0%,rgba(14,77,92,.28) 40%,rgba(14,77,92,.8) 100%)}
+.portada-contenido{width:100%;max-width:760px;display:flex;flex-direction:column;align-items:center}
+.portada-sol{width:56px;height:56px;color:var(--arena);margin-bottom:10px;animation:girar 24s linear infinite}
+.portada-ante{font-size:13px;letter-spacing:.34em;text-transform:uppercase;font-weight:600;margin:0 0 10px;opacity:.95}
+.portada h1{font-family:var(--script);font-weight:400;color:#fff;font-size:clamp(68px,19vw,124px);line-height:1;display:flex;flex-direction:column;align-items:center;margin:0 0 22px;padding:0 10px;text-shadow:0 3px 6px rgba(14,77,92,.35),0 14px 44px rgba(14,77,92,.6)}
+.portada h1 em{font-style:normal;color:var(--coral);font-size:.6em;line-height:1;margin:4px 0 8px}
+.portada-fecha{display:inline-block;background:#fff;color:var(--teal);font-weight:600;font-size:17px;padding:12px 24px;border-radius:999px;box-shadow:0 12px 30px rgba(6,34,42,.3);margin:0 0 14px}
+.portada-lugar{display:flex;align-items:center;justify-content:center;gap:6px;font-size:17px;font-weight:500;margin:0 0 28px;text-shadow:0 2px 10px rgba(14,77,92,.6)}
+.portada-lugar svg{width:20px;height:20px;color:var(--arena)}
+.botones{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;width:100%}
+.portada .boton{flex:1 1 230px;max-width:330px}
+@keyframes girar{to{transform:rotate(360deg)}}
+
+/* Cuenta regresiva: píldoras blancas con números teal */
+.cuenta-pildoras{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:600px;margin:26px auto 0}
+.cuenta-pildoras div{background:#fff;border-radius:48px;padding:22px 4px 16px;box-shadow:var(--sombra);border:1px solid var(--linea)}
+.cuenta-pildoras strong{display:block;font-size:clamp(28px,7.6vw,50px);font-weight:700;line-height:1;color:var(--teal);font-variant-numeric:tabular-nums}
+.cuenta-pildoras span{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--agua);font-weight:600;margin-top:6px}
+.cuenta-llego{display:none;font-size:28px;font-weight:700;color:var(--coral);margin:26px 0 0}
+.cuenta.llego .cuenta-pildoras{display:none}.cuenta.llego .cuenta-llego{display:block}
+
+/* Frase */
+.frase-texto{font-size:clamp(20px,5.2vw,26px);font-weight:500;color:var(--teal);line-height:1.45;margin:8px 0 0}
+.adorno-sol{right:14px;top:22px;width:84px;height:84px;color:var(--coral);opacity:.35}
+
+/* Historia */
+.historia-contenido{display:grid;gap:36px;text-align:left}
+.historia-fotos{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;position:relative;padding-top:14px}
+.historia-fotos img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radio);box-shadow:var(--sombra)}
+.historia-fotos img:nth-child(2){margin-top:44px;border-radius:var(--radio) var(--radio) 70px var(--radio)}
+.historia-estrella{position:absolute;right:16px;top:0;width:62px;height:62px;color:var(--coral);transform:rotate(14deg)}
+.historia-texto h2{margin-bottom:18px}
+.historia-texto p{color:var(--texto)}
+
+/* Ceremonia y fiesta: bloque teal con tarjetas blancas */
+.evento-intro{color:rgba(255,255,255,.82);max-width:520px;margin:0 auto}
+.evento-tarjetas{display:grid;gap:18px;margin-top:30px}
+.tarjeta{background:#fff;color:var(--texto);border-radius:28px;padding:34px 24px 30px;box-shadow:0 18px 40px rgba(0,0,0,.2);position:relative;text-align:center}
+.fondo-teal .tarjeta h3{color:var(--teal);font-size:24px;margin-bottom:0}
+.tarjeta-icono{display:inline-grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--coral);color:#fff;margin-bottom:14px;box-shadow:var(--sombra-coral)}
+.tarjeta-icono svg{width:30px;height:30px}
+.tarjeta-hora{font-size:42px;font-weight:700;color:var(--coral);line-height:1;margin:6px 0 12px;font-variant-numeric:tabular-nums}
+.tarjeta-hora small{font-size:17px;font-weight:600;color:var(--suave);margin-left:5px}
+.tarjeta-lugar{font-weight:600;color:var(--teal);font-size:19px;line-height:1.35;margin-bottom:4px}
+.tarjeta-direccion{color:var(--suave);margin-bottom:20px}
+.adorno-palmera{right:14px;top:30px;width:118px;height:170px;color:#fff;opacity:.16}
+.adorno-palmera-chica{left:14px;bottom:64px;width:80px;height:116px;color:#fff;opacity:.14;transform:scaleX(-1)}
+
+/* Itinerario: tarjetas con ícono y hora coral (apiladas en el celular, tira en tablet, grilla en compu) */
+.itinerario-tira{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:14px;text-align:left}
+.momento{background:#fff;border-radius:var(--radio);padding:20px 20px 20px 18px;box-shadow:var(--sombra);display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:start}
+.momento-icono{width:52px;height:52px;border-radius:16px;background:var(--cielo);color:var(--agua);display:grid;place-items:center}
+.momento-icono svg{width:28px;height:28px}
+.momento time{display:block;font-weight:700;color:var(--coral);font-size:22px;line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.momento h3{font-size:19px;margin-bottom:4px}
+.momento p{margin:0;color:var(--suave);font-size:17px;line-height:1.5}
+
+/* Vestimenta */
+.vestimenta-icono{display:block;width:88px;height:96px;color:var(--agua);margin:0 auto 12px}
+.vestimenta h2{font-size:clamp(24px,5.8vw,36px);line-height:1.25}
+.vestimenta p{max-width:600px;margin:0 auto;color:var(--suave)}
+
+/* Galería: 2 columnas, bordes de 20px, dos fotos anchas */
+.galeria-grilla{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:28px}
+.galeria-grilla img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--radio);box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .3s}
+.galeria-grilla img.ancha{grid-column:span 2;aspect-ratio:2.07/1}
+.galeria-grilla img:hover{transform:scale(1.02)}
+.adorno-conchilla{right:16px;top:26px;width:72px;height:72px;color:var(--arena);opacity:.4}
+
+/* Regalos: sobre arena, con la tarjeta del alias en blanco */
+.regalos-tarjeta{background:#fff;border-radius:28px;padding:30px 22px 10px;box-shadow:var(--sombra);max-width:560px;margin:26px auto 0;text-align:center}
+.regalos-texto{margin-bottom:22px}
+.datos-regalo{text-align:left}
+.datos-regalo p{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:center;padding:14px 0;border-top:1px dashed var(--linea);margin:0}
+.datos-regalo span{grid-column:1;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--agua);font-weight:700}
+.datos-regalo strong{grid-column:1;font-weight:700;color:var(--teal);font-size:19px;overflow-wrap:anywhere;line-height:1.3}
+.datos-regalo .boton{grid-column:2;grid-row:1/3;padding:10px 18px;min-height:46px;font-size:15px}
+.adorno-estrella{left:14px;bottom:70px;width:70px;height:70px;color:var(--coral);opacity:.4;transform:rotate(-12deg)}
+
+/* Confirmación */
+.confirmar-plazo{color:var(--suave);max-width:520px;margin:0 auto 26px}
+.confirmar-plazo strong{color:var(--teal)}
+#confirmacion{max-width:600px;margin:0 auto;text-align:left;display:grid;gap:16px;background:var(--cielo);border-radius:28px;padding:24px 18px 26px;border:1px solid var(--linea)}
+#confirmacion label{display:grid;gap:6px;font-size:14px;font-weight:600;color:var(--teal)}
+#confirmacion input,#confirmacion textarea{font:inherit;font-size:17px;color:var(--teal);padding:12px 16px;border:2px solid #fff;background:#fff;width:100%;border-radius:16px;min-height:50px;box-shadow:0 4px 14px rgba(14,77,92,.06)}
+#confirmacion input::placeholder,#confirmacion textarea::placeholder{color:#8aa6ad}
+#confirmacion input:focus,#confirmacion textarea:focus{outline:none;border-color:var(--agua)}
+#confirmacion fieldset{border:0;padding:0;margin:0;display:grid;gap:10px}
+#confirmacion legend{font-size:14px;font-weight:600;color:var(--teal);padding:0;margin-bottom:10px}
+.opcion{display:flex!important;align-items:center;gap:12px;font-size:17px!important;font-weight:500!important;color:var(--teal)!important;cursor:pointer;background:#fff;border-radius:16px;padding:11px 16px;min-height:50px;border:2px solid #fff;transition:border-color .2s}
+.opcion:has(input:checked){border-color:var(--coral)}
+#confirmacion .opcion input{width:18px;height:18px;min-height:0;padding:0;margin:0;flex:none;border:0;box-shadow:none;accent-color:var(--coral)}
+.dos-columnas{display:grid;gap:16px}
+.error{color:#b4321f;font-weight:600;font-size:15px;margin:0;background:#fff;border-radius:12px;padding:10px 14px;border-left:4px solid #b4321f}
+#confirmacion .boton[type="submit"]{width:100%}
+.listo{display:grid;gap:10px;border-top:1px dashed var(--linea);padding-top:16px}
+.listo p{margin:0}
+.listo textarea{font-size:16px}
+[data-copiado]{font-size:14px;color:var(--agua);font-weight:600}
+
+/* Pie */
+.pie{background:var(--teal);color:#fff;text-align:center;padding:30px 22px 34px;position:relative;overflow:hidden}
+.pie-adornos{display:flex;justify-content:center;align-items:flex-end;gap:18px;color:var(--arena);opacity:.55;margin-bottom:18px}
+.pie-adornos svg{width:46px;height:66px}
+.pie-adornos .pie-sol{width:40px;height:40px;margin-bottom:12px;color:var(--coral)}
+.pie-adornos .pie-palmera-der{transform:scaleX(-1)}
+.pie-nombres{font-size:30px;font-weight:700;margin:0;line-height:1.2}
+.pie-nombres em{font-style:normal;color:var(--coral)}
+.pie-hashtag{color:var(--coral);font-weight:600;letter-spacing:.08em;margin:4px 0 14px}
+.pie-gracias{color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 26px}
+.credito{font-size:13px;color:rgba(255,255,255,.55);margin:0}
+.credito a{color:inherit}
+
+/* Visor de fotos */
+.visor{border:0;padding:0;background:transparent;max-width:min(96vw,1100px);max-height:96vh;overflow:visible}
+.visor::backdrop{background:rgba(6,34,42,.92)}
+.visor img{max-width:min(96vw,1100px);max-height:88vh;width:auto;height:auto;margin:auto;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.visor-boton{position:fixed;width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(4px)}
+.visor-boton:hover{background:var(--coral)}
+.visor-boton svg{width:24px;height:24px}
+.visor-cerrar{top:14px;right:14px}
+.visor-izq{left:10px;top:50%;transform:translateY(-50%)}
+.visor-der{right:10px;top:50%;transform:translateY(-50%)}
+
+/* Música */
+.musica{position:fixed;right:18px;bottom:18px;width:54px;height:54px;border-radius:50%;border:0;background:var(--coral);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:var(--sombra-coral);z-index:5}
+.musica svg{width:24px;height:24px}
+.musica.sonando{background:var(--teal);animation:latir 1.4s ease-in-out infinite}
+@keyframes latir{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(31,155,176,.55)}50%{transform:scale(1.07);box-shadow:0 0 0 14px rgba(31,155,176,0)}}
+
+/* Aparición suave */
+[data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+[data-reveal].visto{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}.portada-sol,.musica.sonando{animation:none}}
+
+/* Tablet: el itinerario pasa a tira horizontal con scroll-snap */
+@media (min-width:600px){
+  .itinerario-tira{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding:10px 2px 24px;scrollbar-width:thin;scrollbar-color:var(--agua) transparent;-webkit-overflow-scrolling:touch}
+  .momento{flex:0 0 270px;scroll-snap-align:start;grid-template-columns:1fr;gap:12px;padding:24px 22px 22px}
+}
+
+/* Tablet y computadora */
+@media (min-width:720px){
+  .bloque{padding:96px 32px 150px}
+  .ola{height:76px}
+  .portada{padding:90px 32px 160px}
+  .portada h1{flex-direction:row;gap:.18em;align-items:baseline;font-size:clamp(84px,11vw,132px)}
+  .portada h1 em{margin:0}
+  .portada .boton{flex:0 1 auto;min-width:240px}
+  .cuenta-pildoras{gap:16px}
+  .cuenta-pildoras div{padding:28px 8px 22px}
+  .historia-contenido{grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .historia-fotos img:nth-child(2){margin-top:64px}
+  .evento-tarjetas{grid-template-columns:1fr 1fr;gap:24px}
+  .tarjeta{padding:40px 30px 36px}
+  .galeria-grilla{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .galeria-grilla img.ancha{aspect-ratio:2.06/1}
+  .regalos-tarjeta{padding:36px 36px 14px}
+  #confirmacion{padding:32px 30px 34px}
+  .dos-columnas{grid-template-columns:1fr 1fr}
+  .adorno-sol{width:120px;height:120px;right:40px;top:40px}
+  .adorno-palmera{width:160px;height:230px;right:40px;top:40px}
+  .adorno-palmera-chica{width:110px;height:160px;left:40px;bottom:90px}
+  .adorno-conchilla{width:100px;height:100px;right:40px;top:50px}
+  .adorno-estrella{width:96px;height:96px;left:40px;bottom:110px}
+  .pie{padding:40px 32px 40px}
+  .pie-nombres{font-size:36px}
+}
+
+@media (min-width:1000px){
+  .ola{height:90px}
+  .itinerario-tira{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));overflow:visible;padding:0;margin-top:36px}
+  .momento{flex:none;padding:26px 20px 24px}
+  .historia-contenido{gap:72px}
+  .frase-texto{font-size:28px}
+}

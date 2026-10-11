@@ -1,0 +1,167 @@
+/* ============ MODERNO & MINIMALISTA — blanco, negro, tipografía grande ============ */
+:root{
+  /* --gris va en direcciones y etiquetas de 12-15px: tiene que dar ≥4,5:1 sobre blanco (#6b6b6b = 5,3:1) */
+  --fondo:#ffffff;--tinta:#111111;--texto:#333333;--gris:#6b6b6b;--linea:#e2e2e2;--suave:#f4f4f4;
+  --display:'Space Grotesk','Inter',Arial,sans-serif;
+  --sans:'Inter',Arial,sans-serif;
+  --margen:clamp(20px,5vw,72px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--sans);font-size:17px;line-height:1.6;font-weight:300;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:var(--display);font-weight:500;color:var(--tinta);margin:0 0 12px;line-height:1.05;letter-spacing:-.02em}
+h2{font-size:clamp(30px,4.2vw,46px)}
+h3{font-size:22px}
+p{margin:0 0 12px}
+a{color:inherit;text-decoration:none}
+section{padding:64px var(--margen);border-top:1px solid var(--linea)}
+.numero{font-family:var(--display);font-size:14px;color:var(--tinta);margin-bottom:34px;letter-spacing:.02em}
+.numero span{color:var(--gris)}
+.chico{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gris);margin-bottom:10px}
+.gris{color:var(--gris)}
+.grande{font-family:var(--display);font-size:clamp(22px,2.6vw,30px);line-height:1.25;color:var(--tinta);letter-spacing:-.01em}
+
+/* Botones y enlaces */
+.boton{display:inline-flex;align-items:center;gap:12px;background:var(--tinta);color:#fff;font-family:var(--display);font-size:15px;font-weight:500;padding:16px 24px;border:1px solid var(--tinta);cursor:pointer;min-height:50px;transition:gap .25s,background .25s}
+.boton:hover{gap:18px;background:#000}
+.boton svg{width:18px;height:18px}
+/* Los enlaces subrayados (mapa, calendario, copiar) miden 44px de alto para el dedo; el subrayado va
+   con text-decoration y no con border-bottom, así queda pegado a la palabra aunque la caja crezca */
+.enlace{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-size:15px;color:var(--tinta);border:0;background:none;padding:8px 0;cursor:pointer;line-height:1.6;font-weight:500;min-height:44px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+.enlace svg{width:16px;height:16px;transition:transform .25s}
+.enlace:hover svg{transform:translateX(4px)}
+
+/* Barra superior */
+/* Los enlaces de la barra miden 44px de alto; el padding de la barra baja a 6px para que siga midiendo 57px
+   (la portada resta ese alto en su min-height) */
+.barra{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:6px var(--margen);background:#ffffffe6;backdrop-filter:blur(8px);border-bottom:1px solid var(--linea)}
+.barra-marca{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.04em;color:var(--tinta)}
+.barra-enlaces{display:flex;gap:18px;font-size:14px;align-items:center}
+.barra-enlaces a,.barra-marca{display:inline-flex;align-items:center;min-height:44px}
+.barra-enlaces a{color:var(--gris)}
+.barra-enlaces a:hover{color:var(--tinta)}
+.barra-cta{color:var(--tinta)!important;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+
+/* Portada */
+.portada{display:grid;min-height:calc(100svh - 57px)}
+.portada-texto{padding:54px var(--margen) 44px;display:flex;flex-direction:column;justify-content:center}
+.portada h1{font-size:clamp(58px,13vw,150px);font-weight:500;letter-spacing:-.04em;line-height:.92;text-transform:uppercase;display:flex;flex-direction:column;margin:10px 0 24px}
+.portada h1 .y{font-weight:300;font-size:.55em;color:var(--gris);line-height:1.1}
+.portada-fecha{font-family:var(--display);font-size:clamp(28px,4vw,44px);color:var(--tinta);letter-spacing:-.02em;margin:0;font-weight:300}
+.portada-lugar{font-size:15px;color:var(--gris);margin-bottom:30px}
+.botones{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.portada-foto{margin:0;overflow:hidden;border-top:1px solid var(--linea)}
+.portada-foto img{width:100%;height:100%;min-height:62vw;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+
+/* Cuenta regresiva */
+.cuenta-fila{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.cuenta-fila div{border-left:1px solid var(--tinta);padding-left:12px}
+.cuenta-fila strong{display:block;font-family:var(--display);font-weight:300;font-size:clamp(40px,9vw,96px);line-height:1;color:var(--tinta);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.cuenta-fila span{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.cuenta-llego{display:none;font-family:var(--display);font-size:clamp(40px,9vw,96px);color:var(--tinta);letter-spacing:-.04em}
+.cuenta.llego .cuenta-fila{display:none}.cuenta.llego .cuenta-llego{display:block}
+
+/* Frase */
+.frase{padding-block:80px;text-align:center}
+.frase p{font-family:var(--display);font-size:clamp(28px,5vw,56px);line-height:1.1;letter-spacing:-.03em;color:var(--tinta);max-width:900px;margin:0 auto;font-weight:300}
+
+/* Historia */
+.historia-grilla{display:grid;gap:36px}
+.historia-texto h2{margin-bottom:22px}
+.historia-fotos{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.historia-fotos img{aspect-ratio:3/4;object-fit:cover;width:100%;filter:grayscale(1);transition:filter .5s}
+.historia-fotos img:nth-child(2){margin-top:40px}
+.historia-fotos img:hover{filter:none}
+
+/* Evento */
+.evento-filas{border-top:1px solid var(--tinta)}
+.fila{display:grid;grid-template-columns:1fr auto;gap:6px 18px;padding:24px 0;border-bottom:1px solid var(--linea);align-items:start}
+.fila-hora{grid-column:1/-1;font-family:var(--display);font-size:clamp(34px,5vw,56px);line-height:1;color:var(--tinta);letter-spacing:-.03em;font-weight:300}
+.fila-datos p{margin:0;font-size:18px;color:var(--tinta)}
+.fila-datos p.gris{color:var(--gris);font-size:15px}
+.fila h3{margin-bottom:4px;font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+.fila .enlace{align-self:end}
+.evento-extra{display:grid;gap:36px;margin-top:44px}
+.itinerario{list-style:none;margin:0;padding:0}
+.itinerario li{display:flex;gap:18px;padding:10px 0;border-bottom:1px solid var(--linea);font-size:17px;color:var(--tinta)}
+.itinerario span{font-family:var(--display);color:var(--gris);width:52px;flex:none;font-variant-numeric:tabular-nums}
+
+/* Galería */
+.galeria-grilla{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+/* Todas 4:5: mezclar cuadradas con 4:5 dejaba huecos blancos al pie de la columna */
+.galeria-grilla img{aspect-ratio:4/5;object-fit:cover;width:100%;filter:grayscale(1);transition:filter .5s,transform .5s}
+.galeria-grilla img:hover{filter:none}
+
+/* Regalos */
+.regalos-grilla{display:grid;gap:30px}
+.datos-regalo{margin:0;border-top:1px solid var(--tinta)}
+.datos-regalo div{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--linea)}
+.datos-regalo dt{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.datos-regalo dd{margin:0;font-family:var(--display);font-size:18px;color:var(--tinta);overflow-wrap:anywhere}
+
+/* Confirmación */
+.confirmar-grilla{display:grid;gap:32px}
+#confirmacion{display:grid;gap:22px}
+#confirmacion label{display:grid;gap:8px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+#confirmacion input,#confirmacion textarea{font:inherit;font-size:18px;letter-spacing:0;text-transform:none;color:var(--tinta);padding:12px 0;border:0;border-bottom:1px solid var(--tinta);background:transparent;width:100%;border-radius:0;min-height:48px;font-weight:300}
+#confirmacion input::placeholder,#confirmacion textarea::placeholder{color:#8a8a8a}
+#confirmacion input:focus,#confirmacion textarea:focus{outline:none;border-bottom-width:2px}
+#confirmacion fieldset{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:12px}
+#confirmacion legend{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gris);padding:0;margin-bottom:12px}
+.opcion{display:inline-flex!important;align-items:center;gap:10px;font-size:16px!important;letter-spacing:0!important;text-transform:none!important;color:var(--tinta)!important;cursor:pointer;border:1px solid var(--tinta);padding:12px 18px;min-height:48px}
+.opcion:has(input:checked){background:var(--tinta);color:#fff!important}
+#confirmacion .opcion input{width:16px;height:16px;min-height:0;padding:0;accent-color:var(--tinta);margin:0;flex:none}
+/* Sobre la pastilla negra el radio se invierte: blanco con el punto negro, si no desaparece */
+#confirmacion .opcion:has(input:checked) input{accent-color:#fff}
+.dos-columnas{display:grid;gap:22px}
+.error{color:#c0392b;font-size:14px;margin:0}
+.listo{display:grid;gap:12px;border-top:1px solid var(--linea);padding-top:20px}
+.listo textarea{border:1px solid var(--linea)!important;padding:12px!important;font-size:15px!important}
+.listo .enlace{justify-self:start}
+[data-copiado]{font-size:13px;color:var(--gris)}
+
+/* Pie */
+.pie{padding:56px var(--margen) 28px;border-top:1px solid var(--tinta);background:var(--tinta);color:#fff}
+.pie-nombres{font-family:var(--display);font-size:clamp(34px,6vw,64px);letter-spacing:-.03em;text-transform:uppercase;margin:0;line-height:1}
+.pie-datos{color:#9a9a9a;margin:12px 0 40px;font-size:15px}
+.credito{font-size:12px;color:#8a8a8a}
+.credito a{color:#bbb;border-bottom:1px solid #555}
+
+/* Visor */
+.visor{border:0;padding:0;background:transparent;max-width:min(96vw,1100px);max-height:96vh;overflow:visible}
+.visor::backdrop{background:#000000f0}
+.visor img{max-width:min(96vw,1100px);max-height:88vh;width:auto;height:auto;margin:auto}
+.visor-boton{position:fixed;width:46px;height:46px;border:1px solid #ffffff55;background:#000;color:#fff;display:grid;place-items:center;cursor:pointer}
+.visor-boton svg{width:22px;height:22px}
+.visor-cerrar{top:14px;right:14px}
+.visor-izq{left:10px;top:50%;transform:translateY(-50%)}
+.visor-der{right:10px;top:50%;transform:translateY(-50%)}
+
+/* Música */
+.musica{position:fixed;right:16px;bottom:16px;width:52px;height:52px;border:1px solid var(--tinta);background:#fff;color:var(--tinta);display:grid;place-items:center;cursor:pointer;z-index:5}
+.musica svg{width:22px;height:22px}
+.musica.sonando{background:var(--tinta);color:#fff}
+
+/* Aparición suave */
+[data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+[data-reveal].visto{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}}
+
+/* Tablet y computadora */
+@media (min-width:720px){
+  .dos-columnas{grid-template-columns:1fr 1fr}
+  .evento-extra{grid-template-columns:1fr 1fr;gap:60px}
+  .galeria-grilla{grid-template-columns:repeat(3,1fr);gap:16px}
+  .fila{grid-template-columns:160px 1fr auto;padding:30px 0}
+  .fila-hora{grid-column:auto}
+}
+@media (min-width:980px){
+  .portada{grid-template-columns:1.1fr 1fr}
+  .portada-foto{border-top:0;border-left:1px solid var(--linea)}
+  .portada-foto img{min-height:0;height:100%}
+  .historia-grilla{grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .regalos-grilla{grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .confirmar-grilla{grid-template-columns:1fr 1.4fr;gap:80px;align-items:start}
+}
