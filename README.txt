@@ -17,7 +17,7 @@ PUBLICACIÓN
 LOS 6 MODELOS (carpeta modelos/)
   modelos/clasico/       Clásico & Romántico   crema, dorado viejo, serif, tarjeta con marco
   modelos/minimalista/   Moderno & Minimalista blanco y negro, tipografía enorme, fotos en blanco y negro
-  modelos/bohemio/       Bohemio & Natural     arena y terracota, fotos en arco, adornos botánicos
+  modelos/bohemio/       Bohemio & Natural     portada con la foto en un hexágono dorado y ramas; verde y dorado
   modelos/nocturno/      Elegante Nocturno     azul noche y dorado, estilo gala / black tie
   modelos/jardin/        Jardín en Acuarela    manchas de color pastel, flores, fotos tipo polaroid
   modelos/playa/         Playa & Verano        azul mar y coral, olas entre secciones

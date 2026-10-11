@@ -1,10 +1,13 @@
 /* ============ BOHEMIO & NATURAL — arena, terracota, salvia y arcos ============ */
 :root{
-  --arena:#f3ebdd;--crema:#faf5ec;--terracota:#c2703e;--terracota-oscura:#a85c2e;
-  --salvia:#8a9a7b;--salvia-clara:#e7ebdf;--ocre:#d9a66b;--ocre-claro:#eacfa6;
-  --marron:#3f2f25;--texto:#4f3f33;--suave:#857366;--linea:#e4d7c2;
-  --sombra:0 24px 50px rgba(63,47,37,.10);
-  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  /* Los nombres de las variables vienen del diseño anterior: "terracota" es hoy el VERDE y "ocre" el DORADO */
+  --arena:#f6f4ee;--crema:#fdfcf8;--terracota:#2c635a;--terracota-oscura:#1f4c44;
+  --salvia:#7d9f93;--salvia-clara:#e7efea;--ocre:#c6ac75;--ocre-claro:#e6d8b6;
+  --marron:#23413b;--texto:#3b4a46;--suave:#66766f;--linea:#e2dccc;
+  --dorado-nombres:#bfa064;
+  --sombra:0 24px 50px rgba(35,65,59,.10);
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --guion:'Italianno','Allura','Brush Script MT',cursive;
   --sans:'Nunito','Segoe UI',Arial,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -13,7 +16,7 @@ body{margin:0;background:var(--arena);color:var(--texto);font-family:var(--sans)
 img{max-width:100%;display:block}
 [hidden]{display:none!important}
 h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--marron);margin:0 0 14px;line-height:1.08}
-h2{font-size:clamp(34px,6vw,52px);font-style:italic;font-weight:300;letter-spacing:-.01em}
+h2{font-size:clamp(38px,6.6vw,56px);font-style:italic;font-weight:500;letter-spacing:-.01em}
 h2 em{font-style:italic;color:var(--terracota)}
 h3{font-size:24px;font-weight:500}
 p{margin:0 0 14px}
@@ -49,7 +52,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Botones píldora */
 .boton{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:14px 26px;border:1.5px solid var(--terracota);border-radius:999px;background:var(--terracota);color:#fff;text-decoration:none;cursor:pointer;transition:background .25s,color .25s,transform .25s,box-shadow .25s;min-height:48px;line-height:1.2}
-.boton:hover{background:var(--terracota-oscura);border-color:var(--terracota-oscura);transform:translateY(-1px);box-shadow:0 10px 24px rgba(194,112,62,.25)}
+.boton:hover{background:var(--terracota-oscura);border-color:var(--terracota-oscura);transform:translateY(-1px);box-shadow:0 10px 24px rgba(44,99,90,.25)}
 .boton-linea{background:transparent;color:var(--terracota)}
 .boton-linea:hover{background:var(--terracota);color:#fff}
 .boton svg{width:17px;height:17px;flex:none}
@@ -58,25 +61,27 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 /* Arcos: la forma que atraviesa todo el modelo */
 .arco,.galeria-arcos img{border-radius:999px 999px 0 0;object-fit:cover;width:100%}
 
-/* ================= PORTADA ================= */
-.portada{position:relative;min-height:100svh;display:grid;align-content:center;padding:28px 18px 84px;overflow:hidden;text-align:center}
-.portada-adentro{display:flex;flex-direction:column;align-items:center;width:100%;max-width:1100px;margin:0 auto;position:relative;z-index:1}
-.portada-cabeza{display:flex;flex-direction:column;align-items:center;margin-bottom:22px}
-.monograma{display:inline-grid;place-items:center;width:58px;height:58px;border-radius:50%;border:1.5px solid var(--terracota);color:var(--terracota);font-family:var(--serif);font-style:italic;font-size:19px;letter-spacing:.04em;margin-bottom:12px;background:var(--crema)}
-.portada-cabeza .etiqueta{margin:0;color:var(--salvia)}
-.arco-marco{position:relative;width:78%;max-width:420px;margin:0 auto}
-.arco-marco::before{content:"";position:absolute;inset:0;transform:translate(10px,10px);border:1.5px solid var(--terracota);border-radius:999px 999px 0 0;opacity:.75;z-index:0}
-.arco-marco .arco{position:relative;z-index:1;aspect-ratio:4/5;object-position:50% 72%;box-shadow:var(--sombra)}
-.arco-marco::after{content:"";position:absolute;left:0;right:0;bottom:0;height:36%;background:linear-gradient(180deg,rgba(243,235,221,0),var(--arena) 94%);z-index:2;pointer-events:none}
-.portada-nombres{position:relative;z-index:3;margin:-.55em 0 10px;font-size:clamp(44px,11.5vw,88px);font-style:italic;font-weight:300;line-height:1.02;display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:0 .22em;color:var(--marron)}
-.portada-nombres em{font-style:italic;color:var(--terracota);font-size:.72em;font-weight:300}
-.portada-datos{display:flex;flex-direction:column;align-items:center}
-.portada-fecha{font-family:var(--serif);font-size:22px;color:var(--marron);margin:0 0 2px}
-.portada-lugar{font-family:var(--sans);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--suave);margin:0 0 24px;font-weight:700}
+/* ================= PORTADA =================
+   Lámina vertical que entra ENTERA en la primera pantalla del celular (ancho limitado por el alto).
+   .lamina es el contenedor de medida: todo lo de adentro se mide en cqw (% de su ancho), así la
+   composición se ve igual en cualquier teléfono. En la compu, la lámina flota sobre el fondo. */
+.portada{min-height:100vh;min-height:100svh;display:grid;place-items:center;background:#fff;padding:0;overflow:hidden}
+.lamina{container-type:inline-size;width:min(100vw,460px,51vh);width:min(100vw,460px,51svh);background:#fff;position:relative}
+.lamina-adentro{display:flex;flex-direction:column;align-items:center;text-align:center;padding:3cqw 5cqw 6cqw;color:var(--terracota)}
+.hexagono{display:block;width:100%;height:auto;aspect-ratio:840/700;overflow:visible}
+.lema{margin:-1cqw 0 0;display:flex;flex-direction:column;align-items:center;line-height:1}
+.lema-1{font-family:var(--serif);font-size:15.5cqw;font-weight:500;letter-spacing:-.05em;line-height:.95;color:var(--terracota);text-transform:uppercase;white-space:nowrap}
+.lema-2{font-family:var(--guion);font-size:29cqw;font-weight:400;line-height:.8;color:var(--ocre);margin-top:-3cqw;transform:rotate(-1deg);white-space:nowrap}
+.portada-intro{font-family:var(--serif);font-size:4.6cqw;font-weight:600;line-height:1.25;margin:6cqw 0 1.5cqw;max-width:88%;color:var(--terracota)}
+.portada-nombres{font-family:var(--serif);font-size:9.6cqw;font-weight:400;letter-spacing:-.035em;line-height:1.02;text-transform:uppercase;color:var(--dorado-nombres);margin:0;text-wrap:balance}
+.portada-nombres em{font-style:italic;text-transform:none}
+.portada-fecha{font-family:var(--serif);font-size:10cqw;font-weight:500;letter-spacing:-.03em;line-height:1.05;text-transform:uppercase;color:var(--terracota);margin:2cqw 0 0;white-space:nowrap}
+.regla{width:17%;height:max(1.5px,.5cqw);background:var(--ocre);margin:4cqw auto 3.5cqw}
+.portada-lugar{font-family:var(--sans);font-size:3.2cqw;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--suave);margin:0 0 5cqw}
+.portada .botones{display:flex;flex-wrap:nowrap;gap:2.5cqw;justify-content:center;width:100%}
+.portada .boton{font-size:max(11px,3.1cqw);padding:0 4cqw;min-height:46px;letter-spacing:.06em;white-space:nowrap}
+.portada .boton svg{width:max(14px,3.8cqw);height:max(14px,3.8cqw)}
 .botones{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-.bajar{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);width:44px;height:44px;display:grid;place-items:center;color:var(--terracota);border:1.5px solid var(--terracota);border-radius:50%;animation:flotar 2.2s ease-in-out infinite;z-index:2;background:var(--crema)}
-.bajar svg{width:22px;height:22px}
-@keyframes flotar{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
 
 /* ================= CUENTA REGRESIVA ================= */
 .cuenta{padding:48px 18px 40px}
@@ -129,7 +134,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .vestimenta .etiqueta{color:var(--salvia)}
 .vestimenta h2{font-size:clamp(26px,5vw,40px);max-width:640px;margin:0 auto 18px;position:relative;z-index:1}
 .paleta{list-style:none;display:flex;justify-content:center;gap:12px;margin:0 0 20px;padding:0;position:relative;z-index:1}
-.paleta li{width:30px;height:30px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55),0 2px 8px rgba(63,47,37,.15)}
+.paleta li{width:30px;height:30px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55),0 2px 8px rgba(35,65,59,.15)}
 .vestimenta-nota{max-width:540px;margin:0 auto;color:var(--texto);position:relative;z-index:1}
 
 /* ================= GALERÍA ================= */
@@ -156,9 +161,9 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .confirmar-plazo{color:var(--suave);margin:0 auto 28px;max-width:520px}
 #confirmacion{max-width:560px;margin:0 auto;text-align:left;display:grid;gap:16px;background:var(--crema);border:1.5px solid var(--linea);border-radius:28px;padding:26px 20px 28px;position:relative;z-index:1}
 #confirmacion label{display:grid;gap:6px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--suave);font-weight:700}
-#confirmacion input,#confirmacion textarea{font:inherit;font-family:var(--sans);font-size:17px;letter-spacing:0;text-transform:none;color:var(--marron);padding:13px 16px;border:1.5px solid var(--linea);background:#fffdf8;width:100%;border-radius:16px;min-height:48px}
+#confirmacion input,#confirmacion textarea{font:inherit;font-family:var(--sans);font-size:17px;letter-spacing:0;text-transform:none;color:var(--marron);padding:13px 16px;border:1.5px solid var(--linea);background:#fff;width:100%;border-radius:16px;min-height:48px}
 #confirmacion textarea{border-radius:18px;resize:vertical}
-#confirmacion input:focus,#confirmacion textarea:focus{outline:none;border-color:var(--terracota);box-shadow:0 0 0 3px rgba(194,112,62,.15)}
+#confirmacion input:focus,#confirmacion textarea:focus{outline:none;border-color:var(--terracota);box-shadow:0 0 0 3px rgba(44,99,90,.15)}
 #confirmacion fieldset{border:1.5px solid var(--linea);border-radius:18px;padding:12px 16px 12px;margin:0;display:flex;flex-wrap:wrap;gap:8px 24px}
 #confirmacion legend{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--suave);font-weight:700;padding:0 8px}
 .opcion{display:flex!important;align-items:center;gap:10px;font-family:var(--sans)!important;font-size:17px!important;letter-spacing:0!important;text-transform:none!important;color:var(--marron)!important;cursor:pointer;font-weight:400!important;min-height:44px}
@@ -178,15 +183,15 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .pie-nombres{font-family:var(--serif);font-size:clamp(36px,8vw,52px);font-style:italic;font-weight:300;color:var(--crema);margin:0;line-height:1.1;position:relative;z-index:1}
 .pie-nombres em{color:var(--ocre)}
 .pie-hashtag{font-family:var(--sans);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--ocre);margin:10px 0 16px;font-weight:700;position:relative;z-index:1}
-.pie-gracias{font-family:var(--serif);font-style:italic;font-size:19px;color:rgba(243,235,221,.8);max-width:420px;margin:0 auto;position:relative;z-index:1}
-.credito{font-family:var(--sans);font-size:11px;letter-spacing:.1em;color:rgba(243,235,221,.55);margin:34px 0 0;position:relative;z-index:1}
+.pie-gracias{font-family:var(--serif);font-style:italic;font-size:19px;color:rgba(246,244,238,.8);max-width:420px;margin:0 auto;position:relative;z-index:1}
+.credito{font-family:var(--sans);font-size:11px;letter-spacing:.1em;color:rgba(246,244,238,.55);margin:34px 0 0;position:relative;z-index:1}
 .credito a{color:inherit}
 
 /* ================= VISOR DE FOTOS ================= */
 .visor{border:0;padding:0;background:transparent;max-width:min(96vw,1100px);max-height:96vh;overflow:visible}
-.visor::backdrop{background:rgba(63,47,37,.92)}
+.visor::backdrop{background:rgba(35,65,59,.92)}
 .visor img{max-width:min(96vw,1100px);max-height:88vh;width:auto;height:auto;margin:auto;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.visor-boton{position:fixed;width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(243,235,221,.5);background:rgba(63,47,37,.5);color:var(--arena);display:grid;place-items:center;cursor:pointer}
+.visor-boton{position:fixed;width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(246,244,238,.5);background:rgba(35,65,59,.5);color:var(--arena);display:grid;place-items:center;cursor:pointer}
 .visor-boton svg{width:22px;height:22px}
 .visor-cerrar{top:14px;right:14px}
 .visor-izq{left:10px;top:50%;transform:translateY(-50%)}
@@ -196,7 +201,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .musica{position:fixed;right:16px;bottom:16px;width:52px;height:52px;border-radius:50%;border:1.5px solid var(--terracota);background:var(--crema);color:var(--terracota);display:grid;place-items:center;cursor:pointer;box-shadow:var(--sombra);z-index:5}
 .musica svg{width:22px;height:22px}
 .musica.sonando{background:var(--terracota);color:#fff;animation:latir 1.6s ease-in-out infinite}
-@keyframes latir{0%,100%{box-shadow:0 0 0 0 rgba(194,112,62,.45)}70%{box-shadow:0 0 0 14px rgba(194,112,62,0)}}
+@keyframes latir{0%,100%{box-shadow:0 0 0 0 rgba(44,99,90,.45)}70%{box-shadow:0 0 0 14px rgba(44,99,90,0)}}
 
 /* ================= APARICIÓN SUAVE ================= */
 [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
@@ -233,15 +238,6 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* ================= COMPUTADORA ================= */
 @media (min-width:1000px){
-  .portada{padding:48px 40px 90px}
-  .portada-adentro{display:grid;grid-template-columns:minmax(0,1fr) 420px;grid-template-areas:"cabeza arco" "nombres arco" "datos arco";column-gap:72px;align-items:center;justify-items:start;text-align:left;max-width:1040px}
-  .portada-cabeza{grid-area:cabeza;align-items:flex-start;align-self:end;margin-bottom:18px}
-  .arco-marco{grid-area:arco;width:100%;max-width:420px;justify-self:end;margin:0}
-  .arco-marco::after{height:0}
-  .portada-nombres{grid-area:nombres;margin:0 0 18px;justify-content:flex-start;font-size:clamp(64px,7vw,92px)}
-  .portada-datos{grid-area:datos;align-items:flex-start;align-self:start}
-  .portada-fecha{font-size:26px}
-  .botones{justify-content:flex-start}
   .historia{gap:80px;padding-top:80px}
   .historia-fotos{gap:20px;padding:0 16px}
   .historia-fotos img:first-child{margin-bottom:48px}
@@ -258,3 +254,9 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 }
 
 .cuenta.llego .etiqueta{display:none}
+
+/* Portada en tablet y compu: la lámina flota sobre el fondo, con marco fino y sombra */
+@media (min-width:720px){
+  .portada{background:var(--arena);padding:3vh 24px}
+  .lamina{width:min(460px,45vh);width:min(460px,45svh);border:1px solid var(--linea);border-radius:10px;box-shadow:0 18px 60px rgba(35,65,59,.12)}
+}

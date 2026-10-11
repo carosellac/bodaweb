@@ -15,7 +15,13 @@ const DATOS = {
   // Fecha y hora de la ceremonia: año-mes-día T hora:minutos (hora argentina -03:00)
   fecha: '2027-02-13T18:00:00-03:00',
   fechaTexto: 'Sábado 13 de febrero de 2027',
+  fechaCorta: '13 febrero 2027',   // la fecha grande de la portada (corta, entra en un renglón)
   lugarCorto: 'Mar de las Pampas',
+
+  // Portada: las dos líneas grandes (verde y dorada) y la frase de arriba de los nombres
+  lema1: 'El amor',
+  lema2: 'es paciente',
+  invitacion: 'Te invitamos a celebrar nuestro casamiento',
 
   frase: 'Entre el bosque y el mar, con los pies en la arena y el corazón lleno. Vení a celebrar con nosotros.',
 
