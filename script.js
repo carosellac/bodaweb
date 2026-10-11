@@ -42,8 +42,10 @@ const CONTACTO = {
   const canal = whatsapp ? 'whatsapp' : email ? 'email' : 'copiar';
   const submitButton = $('#form-submit');
   if (submitButton) {
-    submitButton.textContent = canal === 'whatsapp' ? 'Enviar por WhatsApp' : canal === 'email' ? 'Enviar por email' : 'Preparar mi solicitud';
+    submitButton.textContent = canal === 'whatsapp' ? 'Enviar por WhatsApp' : canal === 'email' ? 'Enviar por email' : 'Preparar mi pedido';
   }
+  const faqMas = $('#faq-mas');
+  if (faqMas && enlaces.whatsapp) { const a = $('a', faqMas); a.href = enlaces.whatsapp; a.target = '_blank'; a.rel = 'noopener'; faqMas.hidden = false; }
 
   /* ---------- Ventanas ---------- */
   function showDialog(dialog) {
@@ -67,7 +69,10 @@ const CONTACTO = {
     mobileNav.hidden = isOpen;
     menuButton.setAttribute('aria-expanded', String(!isOpen));
     menuButton.setAttribute('aria-label', isOpen ? 'Abrir menú' : 'Cerrar menú');
+    if (!isOpen) $('a', mobileNav)?.focus();
   });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && mobileNav && !mobileNav.hidden) { closeMenu(); menuButton?.focus(); } });
+  document.addEventListener('click', event => { if (mobileNav && !mobileNav.hidden && !event.target.closest('.site-header')) closeMenu(); });
   $$('#mobile-nav a').forEach(link => link.addEventListener('click', closeMenu));
 
   /* ---------- Diseño elegido: "Quiero este" en la tarjeta, o ?diseno=… en la dirección ---------- */
@@ -129,26 +134,34 @@ const CONTACTO = {
   }
 
   /* ---------- Formulario ---------- */
-  const fieldLabels = { pareja: 'los nombres de la pareja', email: 'tu email', fecha: 'la fecha del casamiento' };
+  const fieldLabels = { pareja: 'los nombres de la pareja', email: 'tu email' };
+  const fechaField = form?.elements?.fecha;
+  if (fechaField) { const hoy = new Date(); hoy.setMinutes(hoy.getMinutes() - hoy.getTimezoneOffset()); fechaField.min = hoy.toISOString().slice(0, 10); }
   function fechaLegible(iso) {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
     return m ? m[3] + '/' + m[2] + '/' + m[1] : iso || '';
   }
   function validar() {
     const faltan = [];
-    for (const name of ['pareja', 'email', 'fecha']) {
+    for (const name of ['pareja', 'email']) {
       const field = form.elements[name];
       const ok = field.value.trim() && field.checkValidity();
       field.classList.toggle('invalid', !ok);
+      field.setAttribute('aria-invalid', ok ? 'false' : 'true');
       if (!ok) faltan.push(field);
     }
+    // La fecha es opcional, pero si la cargan no puede ser pasada
+    const fechaPasada = fechaField && fechaField.value && fechaField.validity.rangeUnderflow;
+    fechaField?.classList.toggle('invalid', !!fechaPasada);
+    fechaField?.setAttribute('aria-invalid', fechaPasada ? 'true' : 'false');
     const errorBox = $('#form-error');
-    if (faltan.length) {
-      const primero = faltan[0];
-      errorBox.textContent = primero.value.trim() && primero.name === 'email'
-        ? 'Revisa tu email: parece incompleto.'
-        : 'Falta completar ' + faltan.map(f => fieldLabels[f.name]).join(', ') + '.';
+    const primero = faltan[0] || (fechaPasada ? fechaField : null);
+    if (primero) {
+      errorBox.textContent = faltan.length
+        ? (primero.value.trim() && primero.name === 'email' ? 'Revisa tu email: parece incompleto.' : 'Falta completar ' + faltan.map(f => fieldLabels[f.name]).join(' y ') + '.')
+        : 'La fecha de la boda ya pasó: revísala.';
       errorBox.hidden = false;
+      primero.setAttribute('aria-describedby', 'form-error');
       primero.focus();
       return false;
     }
@@ -156,10 +169,17 @@ const CONTACTO = {
     return true;
   }
   form?.addEventListener('input', event => {
-    if (event.target.classList?.contains('invalid') && event.target.checkValidity() && event.target.value.trim()) {
-      event.target.classList.remove('invalid');
+    const field = event.target;
+    if (field.classList?.contains('invalid') && field.checkValidity() && (field.value.trim() || field.name === 'fecha')) {
+      field.classList.remove('invalid');
+      field.setAttribute('aria-invalid', 'false');
+      field.removeAttribute('aria-describedby');
     }
+    // Si cambian algo después de preparar el pedido, el resumen viejo deja de valer
+    $('#order-result').hidden = true;
+    $('#copy-feedback').textContent = '';
   });
+  orderDialog?.addEventListener('close', () => { $('#order-result').hidden = true; });
   form?.addEventListener('submit', event => {
     event.preventDefault();
     if (!validar()) return;
@@ -168,9 +188,10 @@ const CONTACTO = {
       'Hola, quiero pedir mi invitación web para boda.',
       'Pareja: ' + String(data.get('pareja')).trim(),
       'Email: ' + String(data.get('email')).trim(),
-      'Fecha: ' + fechaLegible(String(data.get('fecha'))),
+      'Fecha: ' + (String(data.get('fecha') || '').trim() ? fechaLegible(String(data.get('fecha'))) : 'todavía no definida'),
       'Precio: $ 55.000 (todo incluido)',
-      ...(selectedDesign ? ['Diseño: ' + selectedDesign] : [])
+      ...(selectedDesign ? ['Diseño: ' + selectedDesign] : []),
+      ...(String(data.get('mensaje') || '').trim() ? ['Mensaje: ' + String(data.get('mensaje')).trim()] : [])
     ].join('\n');
     $('#order-summary').value = summary;
     $('#copy-feedback').textContent = '';
@@ -185,6 +206,7 @@ const CONTACTO = {
       resultText.innerHTML = '<strong>Tu solicitud está lista.</strong> Cópiala y envíanosla por el medio que prefieras.';
     }
     $('#order-result').hidden = false;
+    resultText.focus({ preventScroll: true });
     $('#order-result').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   });
   $('#copy-summary')?.addEventListener('click', async () => {

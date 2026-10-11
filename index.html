@@ -32,6 +32,7 @@
   <script defer src="script.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <!-- Biblioteca de íconos SVG: toda la interfaz se puede editar sin imágenes planas. -->
   <svg aria-hidden="true" class="svg-defs" xmlns="http://www.w3.org/2000/svg">
     <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 1 0-7.8 7.8l1.1 1.1L12 21l7.8-7.4 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></symbol>
@@ -63,39 +64,39 @@
     <div class="header-inner container">
       <a href="#inicio" class="brand" aria-label="Boda Web, volver al inicio">
         <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M23.8 40.3 8.2 24.8C-2.9 13.8 12.8-2.8 23.8 9.4 34.8-2.8 50.5 13.8 39.4 24.8Z" stroke="currentColor" stroke-width="2.1"/><path d="m13 12 22 27M36 11 14 35" stroke="currentColor" stroke-width="1.5"/></svg>
-        <span class="brand-name">Boda Web<small>MÁS QUE UNA INVITACIÓN</small></span>
+        <span class="brand-name">Boda Web<small aria-hidden="true">MÁS QUE UNA INVITACIÓN</small></span>
       </a>
       <nav class="desktop-nav" aria-label="Navegación principal">
         <a href="#inicio" class="current">Inicio</a>
         <a href="#disenos">Diseños</a>
         <a href="#como-funciona">Cómo funciona</a>
-        <a href="#precios">Precios</a>
+        <a href="#precios">Precio</a>
         <a href="#faq">Preguntas</a>
       </nav>
-      <button type="button" class="btn btn-primary header-cta js-start">Crear la mía</button>
+      <button type="button" class="btn btn-primary header-cta js-start"><span class="cta-largo">Quiero mi invitación</span><span class="cta-corto">Pedir ahora</span></button>
       <button type="button" class="mobile-menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
     </div>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Navegación móvil" hidden>
-      <a href="#inicio">Inicio</a><a href="#disenos">Diseños</a><a href="#como-funciona">Cómo funciona</a><a href="#precios">Precios</a><a href="#faq">Preguntas frecuentes</a>
+      <a href="#inicio">Inicio</a><a href="#disenos">Diseños</a><a href="#como-funciona">Cómo funciona</a><a href="#precios">Precio</a><a href="#faq">Preguntas frecuentes</a>
     </nav>
   </header>
 
-  <main>
+  <main id="contenido" tabindex="-1">
     <section class="hero" aria-labelledby="hero-title">
       <svg class="hero-blooms" aria-hidden="true"><use href="#f-rama"/></svg>
       <div class="container hero-container">
         <div class="hero-copy">
           <p class="eyebrow">INVITACIONES DE BODA DIGITALES</p>
           <h1 id="hero-title">Tu invitación de boda<br />en forma de <em>página web</em></h1>
-          <p class="hero-description">Elegante, práctica y completamente personalizada. Comparte todos los detalles de tu gran día en un solo lugar, de una forma moderna y memorable.</p>
+          <p class="hero-description">Una página con todo lo de tu boda: fecha, lugar con mapa, confirmación de asistencia, fotos y cuenta regresiva. La compartes por WhatsApp con un solo link.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#disenos">Ver diseños <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a>
-            <button class="btn btn-outline js-start" type="button">Crear la mía</button>
+            <button class="btn btn-outline js-start" type="button">Quiero mi invitación</button>
           </div>
           <ul class="hero-perks">
-            <li><svg class="icon"><use href="#i-heart"/></svg>Diseños únicos</li>
-            <li><svg class="icon"><use href="#i-users"/></svg>Fácil de compartir</li>
-            <li><svg class="icon"><use href="#i-device"/></svg>Se ve bien en todos los dispositivos</li>
+            <li><svg class="icon"><use href="#i-heart"/></svg><a href="#precios">Un solo precio: <strong>$55.000</strong>, todo incluido</a></li>
+            <li><svg class="icon"><use href="#i-users"/></svg>Tus invitados confirman desde el celular</li>
+            <li><svg class="icon"><use href="#i-device"/></svg>Se comparte con un solo link</li>
           </ul>
         </div>
         <div class="hero-visual">
@@ -185,7 +186,7 @@
         <div class="section-intro"><p class="eyebrow">PASO A PASO</p><h2 id="how-title">Cómo funciona</h2><p class="lead">Tu invitación lista en tres pasos, sin complicaciones.</p></div>
         <ol class="steps">
           <li class="how-step"><span class="step-number" aria-hidden="true">01</span><h3>Elige tu diseño</h3><p>Explora nuestros diseños y encuentra el que más se adapte a tu estilo.</p></li>
-          <li class="how-step"><span class="step-number" aria-hidden="true">02</span><h3>Personaliza tu información</h3><p>Agrega los detalles de tu boda, fotos y todo lo que quieras compartir.</p></li>
+          <li class="how-step"><span class="step-number" aria-hidden="true">02</span><h3>Envíanos tus datos</h3><p>Nombres, fecha, lugar, horarios, fotos y lo que quieras contar. Nosotros armamos la página.</p></li>
           <li class="how-step"><span class="step-number" aria-hidden="true">03</span><h3>Comparte tu invitación</h3><p>Recibe tu página web y compártela con tus invitados por WhatsApp, email o redes sociales.</p></li>
         </ol>
       </div>
@@ -194,7 +195,7 @@
     <section data-reveal class="pricing" id="precios" aria-labelledby="pricing-title">
       <svg class="pricing-flower" aria-hidden="true"><use href="#f-flores"/></svg>
       <div class="container">
-        <div class="section-intro"><p class="eyebrow">PRECIO</p><h2 id="pricing-title">Un solo precio, <em>todo incluido</em></h2><p class="lead">Sin planes ni extras: tu invitación completa, con todo lo que necesitas para tu boda.</p></div>
+        <div class="section-intro"><p class="eyebrow">PRECIO</p><h2 id="pricing-title">Un solo precio, <em>todo incluido</em></h2><p class="lead">Sin planes ni extras: tu invitación completa, con todo lo que necesitas.</p></div>
         <article class="price-card">
           <div class="price-card-inner">
             <p class="price-label">Invitación web completa</p>
@@ -202,14 +203,16 @@
             <p class="price-note">Pesos argentinos · pago único</p>
             <ul>
               <li>Diseño a elección</li>
+              <li>Tu propio link para compartir</li>
               <li>Tu información y fotos</li>
-              <li>Confirmación de asistencia online</li>
+              <li>Confirmación de asistencia</li>
               <li>Mapa del evento</li>
-              <li>Enlace a mesa de regalos</li>
-              <li>Galería de fotos</li>
               <li>Cuenta regresiva</li>
+              <li>Galería de fotos</li>
               <li>Música de fondo</li>
               <li>Itinerario del día</li>
+              <li>Mesa de regalos</li>
+              <li>Cambios después de publicar</li>
               <li>Soporte personalizado</li>
             </ul>
             <button type="button" class="btn btn-primary js-start">Quiero mi invitación</button>
@@ -245,10 +248,11 @@
         </div>
         <div class="faq-column">
           <details><summary>¿Por cuánto tiempo estará disponible mi página?</summary><p>Queda publicada hasta después de la boda, para que tus invitados la consulten hasta el último día. El plazo exacto se acuerda al contratar y se puede extender.</p></details>
-          <details><summary>¿Puedo tener la invitación en inglés también?</summary><p>Sí, se puede preparar en español y en inglés. Decínoslo al hacer el pedido y te confirmamos cómo queda.</p></details>
+          <details><summary>¿Puedo tener la invitación en inglés también?</summary><p>Sí, se puede preparar en español y en inglés. Dínoslo al hacer el pedido y te confirmamos cómo queda.</p></details>
           <details><summary>¿Qué formas de pago aceptan?</summary><p>Te las informamos al confirmar el pedido, según el país desde el que contrates.</p></details>
         </div>
         </div>
+        <p class="faq-mas" id="faq-mas" hidden>¿Tienes otra duda? <a data-contacto-whatsapp href="#contacto">Escríbenos por WhatsApp</a></p>
       </div>
     </section>
   </main>
@@ -257,10 +261,10 @@
     <svg class="footer-branch footer-branch-left" aria-hidden="true"><use href="#f-flores"/></svg>
     <svg class="footer-branch footer-branch-right" aria-hidden="true"><use href="#f-rama"/></svg>
     <div class="container">
-      <div class="footer-cta"><p class="eyebrow">¿EMPEZAMOS?</p><h2>¿Listos para crear <em>su invitación</em>?</h2><p class="lead">Hagamos que su historia de amor también se cuente online.</p><button class="btn btn-primary js-start" type="button">Crear mi invitación <svg class="icon icon-btn"><use href="#i-arrow"/></svg></button></div>
+      <div class="footer-cta"><p class="eyebrow">¿EMPEZAMOS?</p><h2>¿Empezamos con <em>tu invitación</em>?</h2><p class="lead">Dinos la fecha y te decimos cuándo la tienes.</p><button class="btn btn-primary js-start" type="button">Quiero mi invitación <svg class="icon icon-btn"><use href="#i-arrow"/></svg></button></div>
       <div class="footer-bottom">
-        <a href="#inicio" class="brand footer-brand"><svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M23.8 40.3 8.2 24.8C-2.9 13.8 12.8-2.8 23.8 9.4 34.8-2.8 50.5 13.8 39.4 24.8Z" stroke="currentColor" stroke-width="2.1"/><path d="m13 12 22 27M36 11 14 35" stroke="currentColor" stroke-width="1.5"/></svg><span class="brand-name">Boda Web<small>MÁS QUE UNA INVITACIÓN</small></span></a>
-        <nav class="footer-links" aria-label="Enlaces del pie"><a href="#inicio">Inicio</a><a href="#disenos">Diseños</a><a href="#precios">Precios</a><a href="#faq">Preguntas</a><a href="#contacto" class="js-start">Contacto</a></nav>
+        <a href="#inicio" class="brand footer-brand"><svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M23.8 40.3 8.2 24.8C-2.9 13.8 12.8-2.8 23.8 9.4 34.8-2.8 50.5 13.8 39.4 24.8Z" stroke="currentColor" stroke-width="2.1"/><path d="m13 12 22 27M36 11 14 35" stroke="currentColor" stroke-width="1.5"/></svg><span class="brand-name">Boda Web<small aria-hidden="true">MÁS QUE UNA INVITACIÓN</small></span></a>
+        <nav class="footer-links" aria-label="Enlaces del pie"><a href="#inicio">Inicio</a><a href="#disenos">Diseños</a><a href="#precios">Precio</a><a href="#faq">Preguntas</a></nav>
         <!-- Los enlaces se completan solos desde CONTACTO (script.js); el que no tenga dato se oculta -->
         <div class="socials"><a data-contacto="instagram" href="#contacto" aria-label="Instagram" hidden><svg class="icon"><use href="#i-instagram"/></svg></a><a data-contacto="whatsapp" href="#contacto" aria-label="WhatsApp" hidden><svg class="icon"><use href="#i-whatsapp"/></svg></a><a data-contacto="email" href="#contacto" aria-label="Correo electrónico" hidden><svg class="icon"><use href="#i-mail"/></svg></a></div>
       </div>
@@ -270,16 +274,17 @@
 
   <dialog class="dialog order-dialog" id="order-dialog" aria-labelledby="order-title">
     <button class="dialog-close" type="button" data-close aria-label="Cerrar"><svg class="icon"><use href="#i-close"/></svg></button>
-    <p class="eyebrow">EL COMIENZO DE ALGO ESPECIAL</p><h2 id="order-title">Crea tu invitación</h2>
-    <p>Completa tus datos y te respondemos con la fecha de entrega y los pasos a seguir.</p>
+    <h2 id="order-title">Pide tu invitación</h2>
+    <p>Déjanos tus datos y te respondemos con la fecha de entrega y cómo seguimos.</p>
     <p class="order-design" id="order-design" hidden>Diseño elegido: <strong></strong> · <a href="#disenos" data-close>cambiar</a></p>
     <form id="order-form" novalidate>
       <label>Nombres de la pareja <input required name="pareja" placeholder="Ej. Valentina y Matías" maxlength="100" autocomplete="off" /></label>
       <label>Tu email <input required type="email" name="email" placeholder="nombre@correo.com" autocomplete="email" inputmode="email" /></label>
-      <label>Fecha del casamiento <input required type="date" name="fecha" /></label>
+      <label>Fecha de la boda <span class="opcional">(si ya la tienen)</span> <input type="date" name="fecha" /></label>
+      <label>¿Algo más que quieras contarnos? <span class="opcional">(opcional)</span> <textarea name="mensaje" rows="3" maxlength="600" placeholder="Por ejemplo: la boda es en otro país, queremos la invitación en inglés…"></textarea></label>
       <p class="form-error" id="form-error" role="alert" hidden></p>
-      <button type="submit" class="btn btn-primary form-submit" id="form-submit">Enviar mi solicitud</button>
-      <div id="order-result" class="order-result" hidden><p id="order-result-text"></p><textarea readonly id="order-summary" rows="6" aria-label="Resumen de tu solicitud"></textarea><button type="button" class="btn btn-outline" id="copy-summary">Copiar solicitud</button><span id="copy-feedback" aria-live="polite"></span></div>
+      <button type="submit" class="btn btn-primary form-submit" id="form-submit">Enviar pedido</button>
+      <div id="order-result" class="order-result" aria-live="polite" hidden><p id="order-result-text" tabindex="-1"></p><textarea readonly id="order-summary" rows="6" aria-label="Resumen de tu solicitud"></textarea><button type="button" class="btn btn-outline" id="copy-summary">Copiar solicitud</button><span id="copy-feedback" aria-live="polite"></span></div>
     </form>
   </dialog>
 </body>
