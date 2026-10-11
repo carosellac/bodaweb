@@ -19,7 +19,8 @@ LO QUE HAY QUE COMPLETAR ANTES DE VENDER
 2. Opiniones: la sección está apagada (hidden) hasta tener reseñas reales. Instrucciones en index.html.
 3. Las vistas previas de los tres diseños (assets/plantilla-*.webp) son chicas (menos de 300 px):
    reemplazarlas por capturas grandes (1200 px de ancho o más) de los diseños reales.
-4. Los precios, los planes y las respuestas de "Preguntas frecuentes" son texto de ejemplo.
+4. Precio único: $ 55.000 (pesos argentinos, pago único). Está en index.html (sección Precios) y en
+   script.js (renglón "Precio:" del pedido): si cambia, tocar los dos lugares.
 
 NOTAS
 - La foto de portada es de Unsplash (uso libre). Si hay una foto propia, reemplazar

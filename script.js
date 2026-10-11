@@ -21,7 +21,6 @@ const CONTACTO = {
   const mobileNav = $('#mobile-nav');
   const previewDialog = $('#preview-dialog');
   const orderDialog = $('#order-dialog');
-  const planField = $('#plan-select');
   const form = $('#order-form');
   let selectedDesign = '';
 
@@ -81,8 +80,6 @@ const CONTACTO = {
     showDialog(previewDialog);
   }));
   function showOrder(trigger) {
-    const plan = trigger?.dataset?.plan;
-    if (plan && planField) planField.value = plan;
     if (previewDialog?.open) closeDialog(previewDialog);
     closeMenu();
     showDialog(orderDialog);
@@ -161,7 +158,7 @@ const CONTACTO = {
       'Pareja: ' + String(data.get('pareja')).trim(),
       'Email: ' + String(data.get('email')).trim(),
       'Fecha: ' + fechaLegible(String(data.get('fecha'))),
-      'Plan: ' + data.get('plan'),
+      'Precio: $ 55.000 (todo incluido)',
       ...(selectedDesign ? ['Diseño: ' + selectedDesign] : [])
     ].join('\n');
     $('#order-summary').value = summary;

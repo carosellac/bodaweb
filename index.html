@@ -12,7 +12,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Boda Web" />
   <meta property="og:title" content="Boda Web | Tu invitación de boda en forma de página web" />
-  <meta property="og:description" content="Diseños románticos, confirmación de asistencia, galería, música y toda la información de tu gran día en un solo lugar." />
+  <meta property="og:description" content="Diseños románticos, confirmación de asistencia, galería, música y toda la información de tu gran día. Un solo precio, todo incluido." />
   <meta property="og:url" content="https://bodaweb-rose.vercel.app/" />
   <meta property="og:image" content="https://bodaweb-rose.vercel.app/assets/compartir.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -153,10 +153,26 @@
     <section class="pricing" id="precios" aria-labelledby="pricing-title">
       <img class="pricing-flower" src="assets/floral-precio.webp" alt="" loading="lazy" aria-hidden="true" />
       <div class="container pricing-grid">
-        <div class="pricing-intro"><h2 id="pricing-title">Planes para cada<br />historia de amor</h2><p>Diseños increíbles, con todo lo que necesitas. Elige el plan perfecto para tu boda.</p></div>
-        <article class="price-card"><svg class="icon plan-icon"><use href="#i-heart"/></svg><h3>Básico</h3><p class="price">US$ 79</p><ul><li>Diseño a elección</li><li>Tu información y fotos</li><li>Confirmación de asistencia online</li><li>Mapa del evento</li><li>Enlace a mesa de regalos</li></ul><button type="button" class="btn btn-outline js-start" data-plan="Básico">Elegir plan</button></article>
-        <article class="price-card featured"><div class="popular-label">RECOMENDADO</div><svg class="icon plan-icon"><use href="#i-diamond"/></svg><h3>Premium</h3><p class="price">US$ 129</p><ul><li>Todo lo del plan Básico</li><li>Galería de fotos ilimitada</li><li>Cuenta regresiva</li><li>Música de fondo</li><li>Itinerario del día</li><li>Soporte personalizado</li></ul><button type="button" class="btn btn-primary js-start" data-plan="Premium">Elegir plan</button></article>
-        <article class="price-card"><svg class="icon plan-icon"><use href="#i-globe"/></svg><h3>Bilingüe</h3><p class="price">US$ 149</p><ul><li>Todo lo del plan Premium</li><li>Sitio en español e inglés</li><li>Contenido personalizado por idioma</li><li>Ideal para bodas con invitados de diferentes países</li></ul><button type="button" class="btn btn-outline js-start" data-plan="Bilingüe">Elegir plan</button></article>
+        <div class="pricing-intro"><h2 id="pricing-title">Un solo precio,<br />todo incluido</h2><p>Sin planes ni extras: tu invitación completa, con todo lo que necesitas para tu boda.</p></div>
+        <article class="price-card featured">
+          <div class="popular-label">TODO INCLUIDO</div>
+          <svg class="icon plan-icon"><use href="#i-diamond"/></svg>
+          <h3>Invitación web completa</h3>
+          <p class="price">$ 55.000 <small>pesos argentinos, pago único</small></p>
+          <ul>
+            <li>Diseño a elección</li>
+            <li>Tu información y fotos</li>
+            <li>Confirmación de asistencia online</li>
+            <li>Mapa del evento</li>
+            <li>Enlace a mesa de regalos</li>
+            <li>Galería de fotos</li>
+            <li>Cuenta regresiva</li>
+            <li>Música de fondo</li>
+            <li>Itinerario del día</li>
+            <li>Soporte personalizado</li>
+          </ul>
+          <button type="button" class="btn btn-primary js-start">Quiero mi invitación</button>
+        </article>
         <div class="pricing-handnote" aria-hidden="true">Un recuerdo<br />digital para<br />siempre <span>♡</span></div>
       </div>
     </section>
@@ -181,12 +197,12 @@
         <div class="faq-intro"><h2 id="faq-title">Preguntas frecuentes</h2><p>Resolvemos tus dudas.</p></div>
         <div class="faq-column">
           <details><summary>¿Cuánto tiempo tarda en estar lista mi invitación?</summary><p>Depende del diseño elegido y de cuándo nos envíes los datos y las fotos. Al hacer tu pedido te confirmamos la fecha de entrega antes de empezar.</p></details>
-          <details><summary>¿Puedo hacer cambios después de publicarla?</summary><p>Sí. Los datos de la boda (lugar, horarios, itinerario) se pueden corregir después de publicada. La cantidad de cambios incluidos depende del plan contratado.</p></details>
+          <details><summary>¿Puedo hacer cambios después de publicarla?</summary><p>Sí. Los datos de la boda (lugar, horarios, itinerario) se pueden corregir después de publicada.</p></details>
           <details><summary>¿Necesito conocimientos técnicos?</summary><p>No. Eliges el diseño, nos envías tus datos y fotos, y nosotros armamos la página. Tú solo la compartes.</p></details>
         </div>
         <div class="faq-column">
           <details><summary>¿Por cuánto tiempo estará disponible mi página?</summary><p>Queda publicada hasta después de la boda, para que tus invitados la consulten hasta el último día. El plazo exacto se acuerda al contratar y se puede extender.</p></details>
-          <details><summary>¿Puedo tener la invitación en inglés también?</summary><p>Sí. El plan Bilingüe incluye la invitación completa en español y en inglés, con el contenido adaptado a cada idioma.</p></details>
+          <details><summary>¿Puedo tener la invitación en inglés también?</summary><p>Sí, se puede preparar en español y en inglés. Decínoslo al hacer el pedido y te confirmamos cómo queda.</p></details>
           <details><summary>¿Qué formas de pago aceptan?</summary><p>Te las informamos al confirmar el pedido, según el país desde el que contrates.</p></details>
         </div>
       </div>
@@ -222,7 +238,7 @@
     <form id="order-form" novalidate>
       <label>Nombres de la pareja <input required name="pareja" placeholder="Ej. Valentina y Matías" maxlength="100" autocomplete="off" /></label>
       <label>Tu email <input required type="email" name="email" placeholder="nombre@correo.com" autocomplete="email" inputmode="email" /></label>
-      <div class="form-columns"><label>Fecha del casamiento <input required type="date" name="fecha" /></label><label>Plan <select name="plan" id="plan-select"><option>Básico</option><option selected>Premium</option><option>Bilingüe</option></select></label></div>
+      <label>Fecha del casamiento <input required type="date" name="fecha" /></label>
       <p class="form-error" id="form-error" role="alert" hidden></p>
       <button type="submit" class="btn btn-primary form-submit" id="form-submit">Enviar mi solicitud</button>
       <div id="order-result" class="order-result" hidden><p id="order-result-text"></p><textarea readonly id="order-summary" rows="6" aria-label="Resumen de tu solicitud"></textarea><button type="button" class="btn btn-outline" id="copy-summary">Copiar solicitud</button><span id="copy-feedback" aria-live="polite"></span></div>
