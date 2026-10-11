@@ -163,3 +163,5 @@ section{padding:72px 22px;max-width:1040px;margin:0 auto;text-align:center}
   .dos-columnas{grid-template-columns:1fr 1fr}
   .portada-tarjeta{padding:56px 60px 52px}
 }
+
+@media (max-width:400px){.cuenta-cajas span{letter-spacing:.06em;font-size:9px}}

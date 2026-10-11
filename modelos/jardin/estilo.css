@@ -257,3 +257,5 @@ section{position:relative;padding:64px 20px;max-width:1040px;margin:0 auto;text-
   .botones{justify-content:flex-start}
   .linea-tiempo{max-width:640px}
 }
+
+.cuenta.llego .antetitulo,.cuenta.llego h2{display:none}

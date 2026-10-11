@@ -165,3 +165,5 @@ section{padding:64px var(--margen);border-top:1px solid var(--linea)}
   .regalos-grilla{grid-template-columns:1fr 1fr;gap:80px;align-items:start}
   .confirmar-grilla{grid-template-columns:1fr 1.4fr;gap:80px;align-items:start}
 }
+
+.cuenta.llego .numero span{display:none}

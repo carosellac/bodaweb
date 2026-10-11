@@ -49,7 +49,9 @@ CÓMO ARMAR LA INVITACIÓN DE UNA PAREJA (sin programar)
 4. Textos largos (la historia, el itinerario, la aclaración de vestimenta): están en index.html,
    marcados con comentarios "Texto de ejemplo: cambialo…". Se editan ahí mismo.
 5. Música de fondo (opcional): dejar un archivo musica.mp3 en la carpeta. El botón aparece solo.
-6. Hacer push: en un minuto queda publicada. Probar en el celular antes de mandarla.
+6. En index.html, la etiqueta og:image (imagen al compartir por WhatsApp) lleva la dirección completa
+   de la carpeta: cambiar "modelos/<modelo>" por la carpeta nueva (está marcada con un comentario).
+7. Hacer push: en un minuto queda publicada. Probar en el celular antes de mandarla.
 Para que la invitación de una pareja no aparezca en Google, index.html ya lleva <meta name="robots" content="noindex">.
 
 LO QUE HAY QUE COMPLETAR ANTES DE VENDER

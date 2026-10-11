@@ -232,3 +232,7 @@ section{padding:76px 20px;text-align:center;position:relative}
   .galeria-grilla{gap:20px}
   .linea-tiempo{max-width:720px}
 }
+
+.cuenta.llego .antetitulo{display:none}
+
+@media (max-width:400px){.cuenta-cajas span{letter-spacing:.06em;font-size:9px}}
