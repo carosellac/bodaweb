@@ -267,12 +267,12 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
    medida, así los textos guardan exactamente las proporciones del celular, sólo que más grandes.
    Los anchos se atan al ALTO de la pantalla para que todo entre sin bajar en una notebook. */
 @media (min-width:1000px){
-  .portada{background:#fff;padding:4vh 4vw;position:relative}
-  .portada::before{content:"";position:absolute;inset:18px;border:1px solid var(--ocre-claro);pointer-events:none}
-  .portada::after{content:"";position:absolute;inset:24px;border:1px solid var(--linea);pointer-events:none}
-  .lamina{container-type:normal;width:min(1640px,100%);border:0;border-radius:0;box-shadow:none;background:transparent}
-  .lamina-adentro{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);align-items:center;gap:3vw;padding:0}
-  .hexagono{width:min(100%,92vh);justify-self:center}
-  .portada-textos{container-type:inline-size;width:min(100%,62vh,660px);justify-self:center}
+  /* Mismo ancho que el resto de las secciones (1100px), centrada, con el marco dorado alrededor del contenido */
+  .portada{background:var(--arena);padding:5vh 32px}
+  .lamina{container-type:normal;width:min(1100px,100%);background:#fff;border:1px solid var(--ocre-claro);border-radius:0;box-shadow:0 18px 60px rgba(35,65,59,.08);padding:3.2vh 3vw}
+  .lamina::before{content:"";position:absolute;inset:8px;border:1px solid var(--linea);pointer-events:none}
+  .lamina-adentro{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:2.5vw;padding:0}
+  .hexagono{width:min(100%,74vh);justify-self:center}
+  .portada-textos{container-type:inline-size;width:min(100%,56vh,460px);justify-self:center}
   .portada-textos .portada-intro{margin-top:5cqw}
 }
