@@ -1,11 +1,11 @@
-BODA WEB — LANDING DE INVITACIONES DE CASAMIENTO + 7 MODELOS DE INVITACIÓN
+BODA WEB — LANDING DE INVITACIONES DE CASAMIENTO + 8 MODELOS DE INVITACIÓN
 
 Archivos:
 - index.html       La página de venta (portada, diseños, cómo funciona, precio, preguntas)
 - styles.css       Estilos de la página de venta (celular, tablet y computadora)
 - script.js        Comportamiento de la página de venta (menú, pedido) y DATOS DE CONTACTO
 - assets/          Fotos, flores decorativas, capturas de los modelos (modelo-*.webp) e imagen para compartir
-- modelos/         LOS 7 MODELOS DE INVITACIÓN (ver abajo)
+- modelos/         LOS 8 MODELOS DE INVITACIÓN (ver abajo)
 - favicon.*        Ícono de la pestaña y del acceso directo en el celular
 - robots.txt       Permiso para los buscadores
 
@@ -14,7 +14,7 @@ PUBLICACIÓN
 - Dirección actual: https://bodaweb-rose.vercel.app
 - Si se conecta un dominio propio, cambiar la dirección en index.html (canonical, og:url y og:image).
 
-LOS 7 MODELOS (carpeta modelos/)
+LOS 8 MODELOS (carpeta modelos/)
   modelos/clasico/       Clásico & Romántico   crema, dorado viejo, serif, tarjeta con marco
   modelos/minimalista/   Moderno & Minimalista blanco y negro, tipografía enorme, fotos en blanco y negro
   modelos/bohemio/       Bohemio & Natural     portada con la foto en un hexágono dorado y ramas; verde y dorado
@@ -22,6 +22,7 @@ LOS 7 MODELOS (carpeta modelos/)
   modelos/jardin/        Jardín en Acuarela    manchas de color pastel, flores, fotos tipo polaroid
   modelos/playa/         Playa & Verano        azul mar y coral, olas entre secciones
   modelos/eucalipto/     Eucalipto & Acuarela  hojas de acuarela verde agua, foto con filete dorado, letra manuscrita
+  modelos/botanico/      Círculo Botánico      foto en círculo con aro dorado, ramitos verdes, "Nos vamos a casar"
 Se ven en la web en /modelos/<nombre>/ (ej. https://bodaweb-rose.vercel.app/modelos/playa/).
 Las tarjetas de "Diseños" de la página de venta llevan a cada uno.
 

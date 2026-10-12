@@ -80,7 +80,9 @@ main:focus{outline:none}
 
 /* DISEÑOS */
 .designs{padding-block:80px 84px}
-.design-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.design-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:28px}
+/* 3 tarjetas por fila sobre 6 columnas: así la última fila (1 o 2 tarjetas) queda centrada */
+.design-grid>.design-card{grid-column:span 2}
 .design-card{padding:10px 10px 0;background:var(--paper);border:1px solid var(--line-soft);text-align:left;min-width:0;display:block;color:inherit;border-radius:18px;box-shadow:0 4px 18px #89756e0c;transition:transform .25s,box-shadow .25s}
 .design-card:hover{transform:translateY(-4px);box-shadow:0 16px 34px #89756e1c}
 .design-image{display:block;overflow:hidden;border-radius:12px;background:#efe7df;aspect-ratio:302/173}
@@ -94,7 +96,8 @@ main:focus{outline:none}
 .design-card:hover .design-card-link .icon{transform:translateX(4px)}
 .design-image{aspect-ratio:16/9}
 .design-image img{width:100%;height:100%;object-fit:cover;object-position:top}
-.design-grid>.design-card:last-child:nth-child(3n+1){grid-column:2}
+.design-grid>.design-card:last-child:nth-child(3n+1){grid-column:3/span 2}
+.design-grid>.design-card:nth-last-child(2):nth-child(3n+1){grid-column:2/span 2}
 .design-card-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}
 .design-card-actions .design-card-link{margin-top:0;min-height:44px}
 .design-card-choose{font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.3px;color:var(--rose-dark);background:transparent;border:1px solid var(--rose-light);border-radius:999px;padding:10px 18px;min-height:44px;cursor:pointer;transition:background .2s,color .2s}
@@ -252,7 +255,7 @@ main:focus{outline:none}
   .designs,.how,.pricing,.faq{padding-block:56px}
   .design-grid{gap:22px}
   .design-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .design-grid>.design-card:last-child:nth-child(3n+1){grid-column:auto}
+  .design-grid>.design-card,.design-grid>.design-card:last-child:nth-child(3n+1),.design-grid>.design-card:nth-last-child(2):nth-child(3n+1){grid-column:auto}
   .design-grid>.design-card:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 11px)}
   .design-card-title{font-size:23px}
   .features{padding:52px 0 56px}
