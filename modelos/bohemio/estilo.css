@@ -267,13 +267,16 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
    medida, así los textos guardan exactamente las proporciones del celular, sólo que más grandes.
    Los anchos se atan al ALTO de la pantalla para que todo entre sin bajar en una notebook. */
 @media (min-width:1000px){
-  /* Como la versión a pantalla completa (fondo blanco, marco dorado doble de todo el alto),
-     pero dentro de un contenedor centrado de 1360px que no llega de lado a lado */
-  .portada{background:#fff;padding:20px 32px}
-  .lamina{container-type:normal;width:min(1360px,100%);min-height:calc(100vh - 40px);min-height:calc(100svh - 40px);display:grid;align-items:center;background:transparent;border:1px solid var(--ocre-claro);border-radius:0;box-shadow:none;padding:4vh 3.5vw}
-  .lamina::before{content:"";position:absolute;inset:7px;border:1px solid var(--linea);pointer-events:none}
+  /* Sin marco: fondo en degradé suave (blanco cálido al centro, dorado y salvia en los bordes)
+     y el contenido en un contenedor centrado de 1360px que no llega de lado a lado */
+  .portada{padding:4vh 32px;background:
+    radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),
+    radial-gradient(ellipse 55% 60% at 100% 0%,rgba(198,172,117,.22) 0%,rgba(198,172,117,0) 70%),
+    radial-gradient(ellipse 60% 65% at 0% 100%,rgba(125,159,147,.24) 0%,rgba(125,159,147,0) 70%),
+    linear-gradient(135deg,#fbf9f3 0%,#f3f0e6 50%,#e9f0ec 100%)}
+  .lamina{container-type:normal;width:min(1360px,100%);background:transparent;border:0;border-radius:0;box-shadow:none;padding:0}
   .lamina-adentro{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);align-items:center;gap:3vw;padding:0}
-  .hexagono{width:min(100%,82vh);justify-self:center}
-  .portada-textos{container-type:inline-size;width:min(100%,60vh,560px);justify-self:center}
+  .hexagono{width:min(100%,86vh);justify-self:center}
+  .portada-textos{container-type:inline-size;width:min(100%,62vh,560px);justify-self:center}
   .portada-textos .portada-intro{margin-top:5cqw}
 }
