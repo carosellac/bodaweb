@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fbf9f6" />
+  <title>Florencia &amp; Joaquín · Nuestra boda</title>
+  <meta name="description" content="Invitación a nuestra boda: fecha, lugar, itinerario y confirmación de asistencia." />
+  <meta name="robots" content="noindex" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Florencia &amp; Joaquín · Nuestra boda" />
+  <meta property="og:description" content="Con mucha alegría te invitamos a nuestra boda. Toda la información y la confirmación de asistencia, acá." />
+  <!-- Imagen al compartir por WhatsApp: tiene que ser la dirección COMPLETA. Al copiar la carpeta para una pareja, cambiá "modelos/eucalipto" por su carpeta. -->
+  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/eucalipto/fotos/portada.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+  <!-- Textura de papel: fija, detrás de todo, no tapa ni toca nada -->
+  <svg class="papel" aria-hidden="true" focusable="false">
+    <filter id="grano" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix values="0 0 0 0 .32  0 0 0 0 .22  0 0 0 0 .14  0 0 0 .55 0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grano)" />
+  </svg>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <!-- Íconos a línea -->
+    <symbol id="i-anillos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="9" cy="14" r="6"/><circle cx="15" cy="14" r="6"/><path d="m12 4 2-2h-4z"/></symbol>
+    <symbol id="i-copas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M7 3h4l-1 8a3 3 0 0 1-6 0zM13 3h4l1 8a3 3 0 0 1-6 0zM7 14v6M17 14v6M5 20h4M15 20h4"/></symbol>
+    <symbol id="i-cubiertos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3M17 3c-2 0-3 3-3 6s1 4 3 4v8"/></symbol>
+    <symbol id="i-nota" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></symbol>
+    <symbol id="i-fogata" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3 0-6 1-9zM4 21l16-4M4 17l16 4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-calendario" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-regalo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13M12 8c-2-4-7-4-6-1s6 1 6 1zm0 0c2-4 7-4 6-1s-6 1-6 1z"/></symbol>
+    <symbol id="i-camisa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 6l2 5 2-1v11h8V10l2 1 2-5-4-3-2 2h-4z"/></symbol>
+    <symbol id="i-corazon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.4-7 10-7 10z"/></symbol>
+    <symbol id="i-musica" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></symbol>
+    <symbol id="i-cerrar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-izq" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-der" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-abajo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m6 10 6 6 6-6"/></symbol>
+    <!-- Adornos botánicos a línea -->
+    <symbol id="ad-sol" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="40" cy="40" r="14"/><path d="M60 40h10M57.3 50l8.7 5M50 57.3l5 8.7M40 60v10M30 57.3l-5 8.7M22.7 50l-8.7 5M20 40H10M22.7 30l-8.7-5M30 22.7l-5-8.7M40 20V10M50 22.7l5-8.7M57.3 30l8.7-5"/></symbol>
+    <symbol id="ad-luna" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M48 10a30 30 0 1 0 22 50A24 24 0 1 1 48 10z"/><path d="M18 20v8M14 24h8M64 12v6M61 15h6M24 64v5M21.5 66.5h5"/></symbol>
+    <symbol id="ad-euca" viewBox="0 0 120 220" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M62 216C56 172 60 110 76 6"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(61 196)"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(59 176) scale(-1 1)"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(60 152)"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(61 130) scale(-1 1)"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(64 106)"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(66 84) scale(-1 1)"/>
+      <path d="M0 0c-14-5-24-18-22-34 14 5 22 20 22 34z" transform="translate(69 60)"/>
+      <path d="M0 0c-12-4-20-15-18-28 12 4 18 16 18 28z" transform="translate(72 40) scale(-1 1)"/>
+      <path d="M0 0c-10-3-16-12-14-22 10 3 14 13 14 22z" transform="translate(75 22)"/>
+    </symbol>
+    <symbol id="ad-pampa" viewBox="0 0 80 240" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+      <path d="M40 238V108"/>
+      <path d="M40 110c-10-20-14-46-6-72M40 110c-2-26 2-56 10-82M40 112c6-20 18-38 30-50M40 112c-10-12-24-22-32-28M41 112c-4-32-2-62 4-98M40 112c8-24 16-42 22-70M40 114c-14-14-22-34-24-58M44 100c6-26 4-54-4-82M36 104c-8-22-6-48 2-70M48 106c10-16 16-32 14-50M32 108c-12-10-18-28-14-48"/>
+      <path d="M34 42l2 4M52 36l1 4M24 70l3 3M62 66l2 2M46 24l1 4M30 90l-3 2M58 90l3 1M20 48l-3 1"/>
+    </symbol>
+    <!-- Divisor ondulado -->
+    <symbol id="onda" viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0 22C160 42 320 2 480 18S800 42 960 20 1280 0 1440 22V40H0Z"/></symbol>
+  </svg>
+
+  <!-- ================= PORTADA =================
+       Tarjeta vertical en el celular (entra entera en la primera pantalla) y dos columnas en la compu.
+       La foto es fotos/portada.webp: se recorta sola en un rectángulo apaisado (conviene la pareja centrada).
+       Las hojas están dibujadas (no son imágenes). Los textos salen de datos.js
+       (titulo1, titulo2, invitacion, nombres, fechaTexto, lugarCorto, mensaje). -->
+  <header class="portada" id="inicio">
+    <div class="lamina">
+      <svg class="hojas hojas-arriba" viewBox="0 0 600 150" aria-hidden="true" preserveAspectRatio="xMidYMin meet">
+  <path d="M120 112 L600 104" stroke="#d9cba4" stroke-width="1.2"/>
+  <path d="M-10,6 C40,30 70,70 118,96" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(-1.2 10.5) rotate(-24.1)"><path d="M0,0 C9.2,-6.8 23.1,-4.7 30.7,0 C23.1,4.7 9.2,6.8 0,0Z" fill="#a9d29a" fill-opacity=".7"/><path d="M1,0 L24.6,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(14.3 19.7) rotate(74.6)"><path d="M0,0 C8.8,-6.5 22.1,-4.5 29.5,0 C22.1,4.5 8.8,6.5 0,0Z" fill="#b7dba6" fill-opacity=".7"/><path d="M1,0 L23.6,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(28.8 29.7) rotate(-6.9)"><path d="M0,0 C10.4,-7.7 26.1,-5.4 34.8,0 C26.1,5.4 10.4,7.7 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L27.9,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(42.5 40.3) rotate(86.5)"><path d="M0,0 C11.8,-8.7 29.6,-6.1 39.5,0 C29.6,6.1 11.8,8.7 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L31.6,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(55.9 51.2) rotate(-6.8)"><path d="M0,0 C14.9,-11 37.4,-7.7 49.8,0 C37.4,7.7 14.9,11 0,0Z" fill="#a9d29a" fill-opacity=".7"/><path d="M1,0 L39.9,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(69.3 62.2) rotate(84.2)"><path d="M0,0 C11.7,-8.6 29.2,-6 39,0 C29.2,6 11.7,8.6 0,0Z" fill="#7fb685" fill-opacity=".7"/><path d="M1,0 L31.2,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(82.9 72.9) rotate(-13.7)"><path d="M0,0 C9.5,-7 23.8,-4.9 31.7,0 C23.8,4.9 9.5,7 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L25.4,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(97.2 83.2) rotate(72.9)"><path d="M0,0 C9.7,-7.1 24.3,-5 32.4,0 C24.3,5 9.7,7.1 0,0Z" fill="#a9d29a" fill-opacity=".7"/><path d="M1,0 L25.9,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(112.3 92.8) rotate(-16.5)"><path d="M0,0 C7.5,-5.5 18.7,-3.8 24.9,0 C18.7,3.8 7.5,5.5 0,0Z" fill="#7fb685" fill-opacity=".7"/><path d="M1,0 L19.9,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(118 96) rotate(28.4)"><path d="M0,0 C8.4,-6.2 21,-4.3 28,0 C21,4.3 8.4,6.2 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L22.4,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g>
+  <path d="M-6,40 C30,46 60,70 74,110" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(0.4 41.3) rotate(-65.4)"><path d="M0,0 C1.6,-11.1 15.1,-9.3 15.9,0 C15.1,9.3 1.6,11.1 0,0Z" fill="#9fd0bf" fill-opacity=".62"/><path d="M0,0 C1.6,-11.1 15.1,-9.3 15.9,0 C15.1,9.3 1.6,11.1 0,0Z" fill="#9fd0bf" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(18.7 47.4) rotate(85)"><path d="M0,0 C2.2,-15.5 21,-12.9 22.1,0 C21,12.9 2.2,15.5 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C2.2,-15.5 21,-12.9 22.1,0 C21,12.9 2.2,15.5 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(35.4 56.9) rotate(-46.2)"><path d="M0,0 C2.1,-14.9 20.1,-12.4 21.2,0 C20.1,12.4 2.1,14.9 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C2.1,-14.9 20.1,-12.4 21.2,0 C20.1,12.4 2.1,14.9 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(50.2 69.8) rotate(122.8)"><path d="M0,0 C2.3,-16.2 21.9,-13.5 23,0 C21.9,13.5 2.3,16.2 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C2.3,-16.2 21.9,-13.5 23,0 C21.9,13.5 2.3,16.2 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(62.5 85.9) rotate(-21.2)"><path d="M0,0 C1.6,-11.4 15.4,-9.5 16.2,0 C15.4,9.5 1.6,11.4 0,0Z" fill="#a9d8c8" fill-opacity=".62"/><path d="M0,0 C1.6,-11.4 15.4,-9.5 16.2,0 C15.4,9.5 1.6,11.4 0,0Z" fill="#a9d8c8" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(72.2 105.3) rotate(145.3)"><path d="M0,0 C1.4,-9.6 13,-8 13.7,0 C13,8 1.4,9.6 0,0Z" fill="#9fd0bf" fill-opacity=".62"/><path d="M0,0 C1.4,-9.6 13,-8 13.7,0 C13,8 1.4,9.6 0,0Z" fill="#9fd0bf" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(74 110) rotate(70.7)"><path d="M0,0 C1.4,-10.1 13.7,-8.4 14.4,0 C13.7,8.4 1.4,10.1 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C1.4,-10.1 13.7,-8.4 14.4,0 C13.7,8.4 1.4,10.1 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g>
+  <path d="M150,-6 C176,22 214,40 262,46" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(154.8 -1.1) rotate(-34.9)"><path d="M0,0 C2,-13.8 18.7,-11.5 19.7,0 C18.7,11.5 2,13.8 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C2,-13.8 18.7,-11.5 19.7,0 C18.7,11.5 2,13.8 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(167.9 10.3) rotate(109.3)"><path d="M0,0 C2.3,-16 21.7,-13.4 22.8,0 C21.7,13.4 2.3,16 0,0Z" fill="#a9d8c8" fill-opacity=".62"/><path d="M0,0 C2.3,-16 21.7,-13.4 22.8,0 C21.7,13.4 2.3,16 0,0Z" fill="#a9d8c8" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(182.7 20.3) rotate(-34.3)"><path d="M0,0 C2.2,-15.7 21.2,-13 22.3,0 C21.2,13 2.2,15.7 0,0Z" fill="#74b39d" fill-opacity=".62"/><path d="M0,0 C2.2,-15.7 21.2,-13 22.3,0 C21.2,13 2.2,15.7 0,0Z" fill="#74b39d" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(198.9 28.8) rotate(94.1)"><path d="M0,0 C2.2,-15.5 20.9,-12.9 22,0 C20.9,12.9 2.2,15.5 0,0Z" fill="#74b39d" fill-opacity=".62"/><path d="M0,0 C2.2,-15.5 20.9,-12.9 22,0 C20.9,12.9 2.2,15.5 0,0Z" fill="#74b39d" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(216.6 35.8) rotate(-51.5)"><path d="M0,0 C2.6,-18.3 24.7,-15.2 26,0 C24.7,15.2 2.6,18.3 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C2.6,-18.3 24.7,-15.2 26,0 C24.7,15.2 2.6,18.3 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(235.7 41.3) rotate(91.3)"><path d="M0,0 C2,-13.8 18.7,-11.5 19.7,0 C18.7,11.5 2,13.8 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C2,-13.8 18.7,-11.5 19.7,0 C18.7,11.5 2,13.8 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(256.3 45.2) rotate(-69.6)"><path d="M0,0 C1.2,-8.6 11.6,-7.1 12.2,0 C11.6,7.1 1.2,8.6 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C1.2,-8.6 11.6,-7.1 12.2,0 C11.6,7.1 1.2,8.6 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(262 46) rotate(7.1)"><path d="M0,0 C1.6,-11.2 15.2,-9.4 16,0 C15.2,9.4 1.6,11.2 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C1.6,-11.2 15.2,-9.4 16,0 C15.2,9.4 1.6,11.2 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g>
+  <path d="M300,-4 C330,26 360,38 410,40" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(305.4 1.2) rotate(-8.4)"><path d="M0,0 C7.3,-5.3 18.1,-3.7 24.2,0 C18.1,3.7 7.3,5.3 0,0Z" fill="#a9d29a" fill-opacity=".7"/><path d="M1,0 L19.4,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(317.1 11.1) rotate(82.8)"><path d="M0,0 C8,-5.8 19.9,-4.1 26.5,0 C19.9,4.1 8,5.8 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L21.2,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(329.2 19.4) rotate(-7.4)"><path d="M0,0 C11,-8.1 27.6,-5.7 36.8,0 C27.6,5.7 11,8.1 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L29.4,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(341.9 26.1) rotate(78.1)"><path d="M0,0 C10.4,-7.7 26.1,-5.4 34.8,0 C26.1,5.4 10.4,7.7 0,0Z" fill="#7fb685" fill-opacity=".7"/><path d="M1,0 L27.8,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(355.5 31.4) rotate(-30.8)"><path d="M0,0 C11.5,-8.5 28.9,-5.9 38.5,0 C28.9,5.9 11.5,8.5 0,0Z" fill="#7fb685" fill-opacity=".7"/><path d="M1,0 L30.8,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(370.2 35.4) rotate(59.6)"><path d="M0,0 C8.3,-6.1 20.7,-4.2 27.5,0 C20.7,4.2 8.3,6.1 0,0Z" fill="#7fb685" fill-opacity=".7"/><path d="M1,0 L22,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(386.3 38.1) rotate(-32.2)"><path d="M0,0 C9.3,-6.8 23.3,-4.8 31.1,0 C23.3,4.8 9.3,6.8 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L24.9,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(404.1 39.7) rotate(51.4)"><path d="M0,0 C7.4,-5.4 18.5,-3.8 24.6,0 C18.5,3.8 7.4,5.4 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L19.7,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(410 40) rotate(2.3)"><path d="M0,0 C7.6,-5.5 18.9,-3.9 25.2,0 C18.9,3.9 7.6,5.5 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L20.2,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g>
+  <path d="M612,20 C560,28 520,52 484,92" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(602.8 21.6) rotate(93.6)"><path d="M0,0 C1.9,-13.7 18.5,-11.4 19.5,0 C18.5,11.4 1.9,13.7 0,0Z" fill="#74b39d" fill-opacity=".62"/><path d="M0,0 C1.9,-13.7 18.5,-11.4 19.5,0 C18.5,11.4 1.9,13.7 0,0Z" fill="#74b39d" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(583.8 26.2) rotate(234.8)"><path d="M0,0 C2.2,-15.7 21.2,-13.1 22.4,0 C21.2,13.1 2.2,15.7 0,0Z" fill="#a9d8c8" fill-opacity=".62"/><path d="M0,0 C2.2,-15.7 21.2,-13.1 22.4,0 C21.2,13.1 2.2,15.7 0,0Z" fill="#a9d8c8" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(565.9 32.4) rotate(84.1)"><path d="M0,0 C2.5,-17.4 23.5,-14.5 24.8,0 C23.5,14.5 2.5,17.4 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C2.5,-17.4 23.5,-14.5 24.8,0 C23.5,14.5 2.5,17.4 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(548.9 40.2) rotate(221.7)"><path d="M0,0 C2.1,-14.6 19.8,-12.2 20.8,0 C19.8,12.2 2.1,14.6 0,0Z" fill="#a9d8c8" fill-opacity=".62"/><path d="M0,0 C2.1,-14.6 19.8,-12.2 20.8,0 C19.8,12.2 2.1,14.6 0,0Z" fill="#a9d8c8" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(532.8 49.6) rotate(80.1)"><path d="M0,0 C2.5,-17.3 23.3,-14.4 24.6,0 C23.3,14.4 2.5,17.3 0,0Z" fill="#9fd0bf" fill-opacity=".62"/><path d="M0,0 C2.5,-17.3 23.3,-14.4 24.6,0 C23.3,14.4 2.5,17.3 0,0Z" fill="#9fd0bf" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(517.4 60.6) rotate(220.1)"><path d="M0,0 C2.1,-14.5 19.6,-12.1 20.6,0 C19.6,12.1 2.1,14.5 0,0Z" fill="#9fd0bf" fill-opacity=".62"/><path d="M0,0 C2.1,-14.5 19.6,-12.1 20.6,0 C19.6,12.1 2.1,14.5 0,0Z" fill="#9fd0bf" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(502.6 73.1) rotate(74.8)"><path d="M0,0 C1.4,-10.1 13.7,-8.4 14.4,0 C13.7,8.4 1.4,10.1 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C1.4,-10.1 13.7,-8.4 14.4,0 C13.7,8.4 1.4,10.1 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(488.3 87.3) rotate(214.2)"><path d="M0,0 C1.7,-12.3 16.6,-10.2 17.5,0 C16.6,10.2 1.7,12.3 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C1.7,-12.3 16.6,-10.2 17.5,0 C16.6,10.2 1.7,12.3 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(484 92) rotate(132)"><path d="M0,0 C1.6,-11.2 15.2,-9.4 16,0 C15.2,9.4 1.6,11.2 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C1.6,-11.2 15.2,-9.4 16,0 C15.2,9.4 1.6,11.2 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g>
+  <path d="M606,70 C578,60 552,70 530,104" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(601 68.4) rotate(-208.4)"><path d="M0,0 C6.7,-4.9 16.8,-3.5 22.5,0 C16.8,3.5 6.7,4.9 0,0Z" fill="#a9d29a" fill-opacity=".7"/><path d="M1,0 L18,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(586.2 66.3) rotate(-140.6)"><path d="M0,0 C10.9,-8 27.2,-5.6 36.3,0 C27.2,5.6 10.9,8 0,0Z" fill="#b7dba6" fill-opacity=".7"/><path d="M1,0 L29,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(571.9 68.3) rotate(119.7)"><path d="M0,0 C8.2,-6 20.5,-4.2 27.3,0 C20.5,4.2 8.2,6 0,0Z" fill="#b7dba6" fill-opacity=".7"/><path d="M1,0 L21.8,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(558.2 74.5) rotate(197.8)"><path d="M0,0 C11.4,-8.3 28.4,-5.8 37.9,0 C28.4,5.8 11.4,8.3 0,0Z" fill="#a9d29a" fill-opacity=".7"/><path d="M1,0 L30.3,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(545.1 85) rotate(88.9)"><path d="M0,0 C6.8,-5 16.9,-3.5 22.6,0 C16.9,3.5 6.8,5 0,0Z" fill="#a9d29a" fill-opacity=".7"/><path d="M1,0 L18.1,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(532.7 100) rotate(165.3)"><path d="M0,0 C5.1,-3.8 12.8,-2.6 17,0 C12.8,2.6 5.1,3.8 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L13.6,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(530 104) rotate(122.9)"><path d="M0,0 C6.7,-4.9 16.8,-3.4 22.4,0 C16.8,3.4 6.7,4.9 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L17.9,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g>
+</svg>
+      <div class="lamina-adentro">
+        <figure class="portada-foto"><img src="fotos/portada.webp" alt="Los novios" fetchpriority="high" /></figure>
+        <div class="portada-textos">
+          <p class="titulo"><span class="titulo-guion" data-dato="titulo1">Nuestra</span> <span class="titulo-chico" data-dato="titulo2">boda</span></p>
+          <p class="portada-intro" data-dato="invitacion">Querida familia y amigos: con mucha alegría los invitamos a la boda de</p>
+          <h1 class="portada-nombres"><span data-dato="nombre1">Florencia</span> <em>&amp;</em> <span data-dato="nombre2">Joaquín</span></h1>
+          <p class="portada-fecha" data-dato="fechaTexto">Sábado 20 de marzo de 2027</p>
+          <p class="portada-lugar" data-dato="lugarCorto">Tigre, Buenos Aires</p>
+          <p class="portada-mensaje" data-dato="mensaje">Los esperamos para celebrar juntos</p>
+          <div class="botones">
+            <a class="boton" href="#confirmar">Confirmar asistencia</a>
+            <a class="boton boton-linea" data-calendario href="#"><svg><use href="#i-calendario"/></svg>Agendar</a>
+          </div>
+        </div>
+      </div>
+      <svg class="hojas hojas-abajo-der" viewBox="0 0 220 300" aria-hidden="true">
+  <path d="M220,300 C200,230 176,150 196,40" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(216.4 287.3) rotate(-145.1)"><path d="M0,0 C7.5,-5.5 18.8,-3.9 25.1,0 C18.8,3.9 7.5,5.5 0,0Z" fill="#7fb685" fill-opacity=".7"/><path d="M1,0 L20.1,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(212.7 274.3) rotate(-56.7)"><path d="M0,0 C10.9,-8 27.1,-5.6 36.2,0 C27.1,5.6 10.9,8 0,0Z" fill="#b7dba6" fill-opacity=".7"/><path d="M1,0 L28.9,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(209.1 261.1) rotate(-149.4)"><path d="M0,0 C10.2,-7.5 25.5,-5.2 33.9,0 C25.5,5.2 10.2,7.5 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L27.1,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(205.6 247.6) rotate(-55.8)"><path d="M0,0 C10.9,-8 27.2,-5.6 36.3,0 C27.2,5.6 10.9,8 0,0Z" fill="#a9d29a" fill-opacity=".7"/><path d="M1,0 L29,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(202.2 233.8) rotate(-154.4)"><path d="M0,0 C10.5,-7.7 26.2,-5.4 34.9,0 C26.2,5.4 10.5,7.7 0,0Z" fill="#7fb685" fill-opacity=".7"/><path d="M1,0 L27.9,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(199.1 219.6) rotate(-57.7)"><path d="M0,0 C10.9,-8 27.2,-5.6 36.3,0 C27.2,5.6 10.9,8 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L29.1,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(196.2 205) rotate(-149.5)"><path d="M0,0 C14.4,-10.5 36,-7.4 48,0 C36,7.4 14.4,10.5 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L38.4,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(193.7 190.1) rotate(-57.2)"><path d="M0,0 C12.9,-9.4 32.2,-6.6 42.9,0 C32.2,6.6 12.9,9.4 0,0Z" fill="#b7dba6" fill-opacity=".7"/><path d="M1,0 L34.3,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(191.7 174.7) rotate(-140.2)"><path d="M0,0 C13.5,-9.9 33.8,-6.9 45.1,0 C33.8,6.9 13.5,9.9 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L36.1,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(190 158.9) rotate(-49)"><path d="M0,0 C13.3,-9.8 33.4,-6.9 44.5,0 C33.4,6.9 13.3,9.8 0,0Z" fill="#a9d29a" fill-opacity=".7"/><path d="M1,0 L35.6,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(189 142.6) rotate(-131.9)"><path d="M0,0 C9.7,-7.1 24.3,-5 32.5,0 C24.3,5 9.7,7.1 0,0Z" fill="#b7dba6" fill-opacity=".7"/><path d="M1,0 L26,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(188.5 125.8) rotate(-44.1)"><path d="M0,0 C9.4,-6.9 23.6,-4.8 31.4,0 C23.6,4.8 9.4,6.9 0,0Z" fill="#b7dba6" fill-opacity=".7"/><path d="M1,0 L25.1,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(188.7 108.5) rotate(-130.2)"><path d="M0,0 C9.5,-7 23.7,-4.9 31.6,0 C23.7,4.9 9.5,7 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L25.3,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(189.6 90.6) rotate(-37.3)"><path d="M0,0 C7.7,-5.7 19.3,-4 25.7,0 C19.3,4 7.7,5.7 0,0Z" fill="#7fb685" fill-opacity=".7"/><path d="M1,0 L20.6,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(191.3 72.1) rotate(-124.7)"><path d="M0,0 C9.1,-6.7 22.8,-4.7 30.4,0 C22.8,4.7 9.1,6.7 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L24.3,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(193.8 53.1) rotate(-39.4)"><path d="M0,0 C6.2,-4.6 15.6,-3.2 20.8,0 C15.6,3.2 6.2,4.6 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L16.7,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(196 40) rotate(-79.7)"><path d="M0,0 C8.4,-6.2 21,-4.3 28,0 C21,4.3 8.4,6.2 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L22.4,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g>
+  <path d="M214,300 C160,260 120,210 104,150" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(204.4 292.7) rotate(-207.6)"><path d="M0,0 C2,-14.2 19.3,-11.9 20.3,0 C19.3,11.9 2,14.2 0,0Z" fill="#a9d8c8" fill-opacity=".62"/><path d="M0,0 C2,-14.2 19.3,-11.9 20.3,0 C19.3,11.9 2,14.2 0,0Z" fill="#a9d8c8" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(189.2 280) rotate(-64.1)"><path d="M0,0 C1.7,-12 16.3,-10 17.2,0 C16.3,10 1.7,12 0,0Z" fill="#74b39d" fill-opacity=".62"/><path d="M0,0 C1.7,-12 16.3,-10 17.2,0 C16.3,10 1.7,12 0,0Z" fill="#74b39d" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(174.9 266.8) rotate(-213.3)"><path d="M0,0 C2.7,-18.6 25.2,-15.5 26.5,0 C25.2,15.5 2.7,18.6 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C2.7,-18.6 25.2,-15.5 26.5,0 C25.2,15.5 2.7,18.6 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(161.6 252.9) rotate(-71.3)"><path d="M0,0 C2.7,-18.8 25.5,-15.7 26.8,0 C25.5,15.7 2.7,18.8 0,0Z" fill="#9fd0bf" fill-opacity=".62"/><path d="M0,0 C2.7,-18.8 25.5,-15.7 26.8,0 C25.5,15.7 2.7,18.8 0,0Z" fill="#9fd0bf" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(149.3 238.5) rotate(-212.4)"><path d="M0,0 C2.1,-14.4 19.5,-12 20.5,0 C19.5,12 2.1,14.4 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C2.1,-14.4 19.5,-12 20.5,0 C19.5,12 2.1,14.4 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(138.2 223.4) rotate(-41.7)"><path d="M0,0 C2.2,-15.4 20.8,-12.8 21.9,0 C20.8,12.8 2.2,15.4 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C2.2,-15.4 20.8,-12.8 21.9,0 C20.8,12.8 2.2,15.4 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(128.3 207.7) rotate(-188.1)"><path d="M0,0 C2.5,-17.4 23.5,-14.5 24.8,0 C23.5,14.5 2.5,17.4 0,0Z" fill="#a9d8c8" fill-opacity=".62"/><path d="M0,0 C2.5,-17.4 23.5,-14.5 24.8,0 C23.5,14.5 2.5,17.4 0,0Z" fill="#a9d8c8" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(119.5 191.5) rotate(-41.9)"><path d="M0,0 C2.4,-16.6 22.4,-13.8 23.6,0 C22.4,13.8 2.4,16.6 0,0Z" fill="#9fd0bf" fill-opacity=".62"/><path d="M0,0 C2.4,-16.6 22.4,-13.8 23.6,0 C22.4,13.8 2.4,16.6 0,0Z" fill="#9fd0bf" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(112.1 174.6) rotate(-173.8)"><path d="M0,0 C1.5,-10.9 14.7,-9 15.5,0 C14.7,9 1.5,10.9 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C1.5,-10.9 14.7,-9 15.5,0 C14.7,9 1.5,10.9 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(106 157.2) rotate(-39)"><path d="M0,0 C1.3,-9.4 12.7,-7.8 13.3,0 C12.7,7.8 1.3,9.4 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C1.3,-9.4 12.7,-7.8 13.3,0 C12.7,7.8 1.3,9.4 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(104 150) rotate(-104.9)"><path d="M0,0 C1.6,-11.2 15.2,-9.4 16,0 C15.2,9.4 1.6,11.2 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C1.6,-11.2 15.2,-9.4 16,0 C15.2,9.4 1.6,11.2 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g>
+  <path d="M220,250 C190,236 166,200 160,160" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(214.7 247.2) rotate(-226.6)"><path d="M0,0 C1.1,-8 10.8,-6.6 11.3,0 C10.8,6.6 1.1,8 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C1.1,-8 10.8,-6.6 11.3,0 C10.8,6.6 1.1,8 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(202 238.4) rotate(-67.7)"><path d="M0,0 C1.6,-11.1 15,-9.2 15.8,0 C15,9.2 1.6,11.1 0,0Z" fill="#74b39d" fill-opacity=".62"/><path d="M0,0 C1.6,-11.1 15,-9.2 15.8,0 C15,9.2 1.6,11.1 0,0Z" fill="#74b39d" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(190.5 227.2) rotate(-198.7)"><path d="M0,0 C1.8,-12.8 17.3,-10.7 18.2,0 C17.3,10.7 1.8,12.8 0,0Z" fill="#a9d8c8" fill-opacity=".62"/><path d="M0,0 C1.8,-12.8 17.3,-10.7 18.2,0 C17.3,10.7 1.8,12.8 0,0Z" fill="#a9d8c8" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(180.4 213.8) rotate(-51.7)"><path d="M0,0 C2,-14.2 19.2,-11.8 20.2,0 C19.2,11.8 2,14.2 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C2,-14.2 19.2,-11.8 20.2,0 C19.2,11.8 2,14.2 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(171.9 198.7) rotate(-185.3)"><path d="M0,0 C1.8,-12.6 17.1,-10.5 18,0 C17.1,10.5 1.8,12.6 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C1.8,-12.6 17.1,-10.5 18,0 C17.1,10.5 1.8,12.6 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(165.3 182.2) rotate(-35.3)"><path d="M0,0 C1.4,-10.2 13.8,-8.5 14.5,0 C13.8,8.5 1.4,10.2 0,0Z" fill="#a9d8c8" fill-opacity=".62"/><path d="M0,0 C1.4,-10.2 13.8,-8.5 14.5,0 C13.8,8.5 1.4,10.2 0,0Z" fill="#a9d8c8" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(160.8 164.8) rotate(-166.8)"><path d="M0,0 C1,-6.9 9.4,-5.8 9.9,0 C9.4,5.8 1,6.9 0,0Z" fill="#6aa892" fill-opacity=".62"/><path d="M0,0 C1,-6.9 9.4,-5.8 9.9,0 C9.4,5.8 1,6.9 0,0Z" fill="#6aa892" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(160 160) rotate(-98.5)"><path d="M0,0 C1.3,-9 12.2,-7.5 12.8,0 C12.2,7.5 1.3,9 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C1.3,-9 12.2,-7.5 12.8,0 C12.2,7.5 1.3,9 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g>
+</svg>
+      <svg class="hojas hojas-abajo-centro" viewBox="0 0 200 110" aria-hidden="true">
+  <path d="M96,112 C84,80 60,56 24,44" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(93.7 106.3) rotate(-173.6)"><path d="M0,0 C1.3,-9.2 12.5,-7.7 13.1,0 C12.5,7.7 1.3,9.2 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C1.3,-9.2 12.5,-7.7 13.1,0 C12.5,7.7 1.3,9.2 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(85.3 90.4) rotate(-57.3)"><path d="M0,0 C1.5,-10.3 13.9,-8.5 14.6,0 C13.9,8.5 1.5,10.3 0,0Z" fill="#74b39d" fill-opacity=".62"/><path d="M0,0 C1.5,-10.3 13.9,-8.5 14.6,0 C13.9,8.5 1.5,10.3 0,0Z" fill="#74b39d" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(74.5 76.2) rotate(-198.6)"><path d="M0,0 C1.9,-13.4 18.2,-11.2 19.1,0 C18.2,11.2 1.9,13.4 0,0Z" fill="#74b39d" fill-opacity=".62"/><path d="M0,0 C1.9,-13.4 18.2,-11.2 19.1,0 C18.2,11.2 1.9,13.4 0,0Z" fill="#74b39d" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(61.4 63.9) rotate(-66.5)"><path d="M0,0 C2.2,-15.4 20.9,-12.9 22,0 C20.9,12.9 2.2,15.4 0,0Z" fill="#a9d8c8" fill-opacity=".62"/><path d="M0,0 C2.2,-15.4 20.9,-12.9 22,0 C20.9,12.9 2.2,15.4 0,0Z" fill="#a9d8c8" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(46 53.6) rotate(-226.7)"><path d="M0,0 C1.8,-12.7 17.3,-10.6 18.2,0 C17.3,10.6 1.8,12.7 0,0Z" fill="#9fd0bf" fill-opacity=".62"/><path d="M0,0 C1.8,-12.7 17.3,-10.6 18.2,0 C17.3,10.6 1.8,12.7 0,0Z" fill="#9fd0bf" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(28.3 45.5) rotate(-80.5)"><path d="M0,0 C1.4,-10 13.5,-8.3 14.2,0 C13.5,8.3 1.4,10 0,0Z" fill="#a9d8c8" fill-opacity=".62"/><path d="M0,0 C1.4,-10 13.5,-8.3 14.2,0 C13.5,8.3 1.4,10 0,0Z" fill="#a9d8c8" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g><g transform="translate(24 44) rotate(-161.6)"><path d="M0,0 C1.3,-9 12.2,-7.5 12.8,0 C12.2,7.5 1.3,9 0,0Z" fill="#86c3ae" fill-opacity=".62"/><path d="M0,0 C1.3,-9 12.2,-7.5 12.8,0 C12.2,7.5 1.3,9 0,0Z" fill="#86c3ae" fill-opacity=".38" transform="scale(.62) translate(4 0)"/></g>
+  <path d="M104,112 C118,78 140,56 178,40" stroke="#9bbfae" stroke-width="1.6" fill="none" stroke-linecap="round"/><g transform="translate(106.6 106) rotate(-110.2)"><path d="M0,0 C5.6,-4.1 14.1,-2.9 18.7,0 C14.1,2.9 5.6,4.1 0,0Z" fill="#7fb685" fill-opacity=".7"/><path d="M1,0 L15,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(112.8 94) rotate(-21.2)"><path d="M0,0 C7.5,-5.5 18.7,-3.8 24.9,0 C18.7,3.8 7.5,5.5 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L19.9,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(120 83.1) rotate(-107.5)"><path d="M0,0 C9.7,-7.1 24.3,-5 32.4,0 C24.3,5 9.7,7.1 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L25.9,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(128.2 73.2) rotate(2.6)"><path d="M0,0 C7.3,-5.4 18.3,-3.7 24.3,0 C18.3,3.7 7.3,5.4 0,0Z" fill="#a9d29a" fill-opacity=".7"/><path d="M1,0 L19.5,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(137.6 64.2) rotate(-89.3)"><path d="M0,0 C7.4,-5.4 18.5,-3.8 24.7,0 C18.5,3.8 7.4,5.4 0,0Z" fill="#b7dba6" fill-opacity=".7"/><path d="M1,0 L19.7,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(148.2 56) rotate(6.7)"><path d="M0,0 C8.1,-6 20.4,-4.2 27.2,0 C20.4,4.2 8.1,6 0,0Z" fill="#7fb685" fill-opacity=".7"/><path d="M1,0 L21.7,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(160.1 48.6) rotate(-79.3)"><path d="M0,0 C5.5,-4.1 13.8,-2.8 18.5,0 C13.8,2.8 5.5,4.1 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L14.8,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(173.5 41.9) rotate(26.2)"><path d="M0,0 C4.3,-3.1 10.7,-2.2 14.3,0 C10.7,2.2 4.3,3.1 0,0Z" fill="#8cbf8a" fill-opacity=".7"/><path d="M1,0 L11.4,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g><g transform="translate(178 40) rotate(-22.8)"><path d="M0,0 C5.9,-4.3 14.7,-3 19.6,0 C14.7,3 5.9,4.3 0,0Z" fill="#93c591" fill-opacity=".7"/><path d="M1,0 L15.7,0" stroke="#ffffff" stroke-opacity=".45" stroke-width="1"/></g>
+</svg>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= CUENTA REGRESIVA ================= -->
+    <section class="cuenta" id="cuenta" data-cuenta-regresiva data-reveal>
+      <p class="etiqueta">Faltan</p>
+      <div class="circulos">
+        <div><strong data-cuenta="dias">—</strong><span>días</span></div>
+        <div><strong data-cuenta="horas">—</strong><span>horas</span></div>
+        <div><strong data-cuenta="minutos">—</strong><span>minutos</span></div>
+        <div><strong data-cuenta="segundos">—</strong><span>segundos</span></div>
+      </div>
+      <p class="cuenta-llego">¡Llegó el día!</p>
+    </section>
+
+    <!-- ================= INVITACIÓN ================= -->
+    <section class="frase banda-crema" data-reveal>
+      <p class="frase-texto" data-dato="frase">Un día junto al río, rodeados de verde y de la gente que más queremos. Nos encantaría que estés.</p>
+      <p class="frase-firma"><span data-dato="nombre1">Florencia</span> <em>&amp;</em> <span data-dato="nombre2">Joaquín</span></p>
+    </section>
+
+    <!-- ================= HISTORIA ================= -->
+    <section class="historia" id="historia" data-reveal>
+      <div class="historia-fotos">
+        <img src="fotos/historia-1.webp" alt="Los novios" loading="lazy" />
+        <img src="fotos/historia-2.webp" alt="Detalle de la pareja" loading="lazy" />
+      </div>
+      <div class="historia-texto">
+        <p class="etiqueta">Nuestra historia</p>
+        <h2>Una tarde de lluvia <em>y un paraguas</em></h2>
+        <!-- Texto de ejemplo: cambialo por la historia de la pareja -->
+        <p>Nos conocimos esperando el tren en la estación de Tigre, un día de lluvia. Joaquín tenía paraguas y Florencia no. Compartirlo hasta Retiro fue la mejor decisión que tomaron ese año.</p>
+        <p>Desde entonces sumamos domingos en el río, una casa con jardín y muchos planes. El otoño pasado, en un paseo en lancha por el Delta, Joaquín sacó el anillo. Florencia dijo que sí antes de que terminara la pregunta.</p>
+        <p>Ahora queremos festejarlo cerca del agua, con la gente que más queremos.</p>
+      </div>
+    </section>
+
+    <!-- ================= CEREMONIA Y FIESTA ================= -->
+    <section class="evento banda-crema" id="evento" data-reveal>
+      <div class="centrado">
+        <p class="etiqueta">El gran día</p>
+        <h2>Ceremonia <em>y</em> fiesta</h2>
+      </div>
+      <div class="evento-tarjetas">
+        <article class="tarjeta">
+          <span class="icono-redondo"><svg><use href="#i-anillos"/></svg></span>
+          <h3>Ceremonia</h3>
+          <p class="tarjeta-hora"><span data-dato="ceremonia.hora">17:30</span> <small>hs</small></p>
+          <p class="tarjeta-lugar" data-dato="ceremonia.nombre">Capilla Santa María del Delta</p>
+          <p class="tarjeta-direccion" data-dato="ceremonia.direccion">Paseo Victorica 600, Tigre</p>
+          <a class="boton boton-linea" data-mapa="ceremonia" href="#"><svg><use href="#i-pin"/></svg>Cómo llegar</a>
+        </article>
+        <article class="tarjeta">
+          <span class="icono-redondo"><svg><use href="#i-copas"/></svg></span>
+          <h3>Fiesta</h3>
+          <p class="tarjeta-hora"><span data-dato="fiesta.hora">19:30</span> <small>hs</small></p>
+          <p class="tarjeta-lugar" data-dato="fiesta.nombre">Casona del Río</p>
+          <p class="tarjeta-direccion" data-dato="fiesta.direccion">Lavalle 1200, Tigre</p>
+          <a class="boton boton-linea" data-mapa="fiesta" href="#"><svg><use href="#i-pin"/></svg>Cómo llegar</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= ITINERARIO ================= -->
+    <section class="itinerario" id="itinerario" data-reveal>
+      <div class="centrado">
+        <p class="etiqueta">Itinerario</p>
+        <h2>Así va a ser <em>el día</em></h2>
+      </div>
+      <!-- Texto de ejemplo: cambiá horas y momentos a gusto; podés agregar o sacar tarjetas -->
+      <ol class="momentos">
+        <li><span class="icono-redondo"><svg><use href="#i-anillos"/></svg></span><time>17:30</time><h3>Ceremonia</h3><p>En la capilla, frente al río. Les pedimos llegar unos minutos antes.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-copas"/></svg></span><time>19:30</time><h3>Recepción</h3><p>Brindis de bienvenida en el jardín de la casona.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-cubiertos"/></svg></span><time>21:00</time><h3>Cena</h3><p>Avisanos si tenés alguna restricción con la comida.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-nota"/></svg></span><time>23:00</time><h3>Vals y baile</h3><p>Primero el vals, después la pista es de todos.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-corazon"/></svg></span><time>03:00</time><h3>Despedida</h3><p>Mesa dulce y el último brindis de la noche.</p></li>
+      </ol>
+    </section>
+
+    <!-- ================= VESTIMENTA ================= -->
+    <section class="vestimenta banda-salvia" data-reveal>
+      <span class="icono-redondo"><svg><use href="#i-camisa"/></svg></span>
+      <p class="etiqueta">Código de vestimenta</p>
+      <h2 data-dato="codigoVestimenta">Elegante de día · Tonos claros y verdes</h2>
+      <ul class="paleta" aria-label="Paleta sugerida">
+        <li style="--c:#86c3ae" title="Verde agua"></li>
+        <li style="--c:#93c591" title="Verde hoja"></li>
+        <li style="--c:#e3dbc3" title="Champagne"></li>
+        <li style="--c:#f3efe6" title="Marfil"></li>
+        <li style="--c:#9aa7b5" title="Gris azulado"></li>
+      </ul>
+      <!-- Texto de ejemplo: cambialo por las aclaraciones de la pareja -->
+      <p class="vestimenta-nota">Colores claros, verdes y pasteles. La recepción es en el jardín: mejor un taco ancho que uno fino. El blanco queda reservado para la novia.</p>
+    </section>
+
+    <!-- ================= GALERÍA ================= -->
+    <section class="galeria" id="galeria" data-reveal>
+      <div class="centrado">
+        <p class="etiqueta">Momentos</p>
+        <h2>Algunas fotos <em>nuestras</em></h2>
+      </div>
+      <div class="galeria-grilla" data-galeria>
+        <img src="fotos/galeria-1.webp" alt="Foto 1" loading="lazy" />
+        <img src="fotos/galeria-2.webp" alt="Foto 2" loading="lazy" />
+        <img src="fotos/galeria-3.webp" alt="Foto 3" loading="lazy" />
+        <img src="fotos/galeria-4.webp" alt="Foto 4" loading="lazy" />
+        <img src="fotos/galeria-5.webp" alt="Foto 5" loading="lazy" />
+        <img src="fotos/galeria-6.webp" alt="Foto 6" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- ================= REGALOS ================= -->
+    <section class="regalos banda-crema" id="regalos" data-reveal>
+      <span class="icono-redondo"><svg><use href="#i-regalo"/></svg></span>
+      <p class="etiqueta">Regalos</p>
+      <h2>Que vengas <em>ya es un regalo</em></h2>
+      <p class="regalos-texto" data-dato="regalo.texto">Tu presencia es nuestro mejor regalo. Si además querés ayudarnos con nuestro viaje de bodas, te dejamos los datos.</p>
+      <div class="datos-regalo">
+        <p data-si="regalo.alias"><span>Alias</span><strong data-dato="regalo.alias">FLOR.JOACO.BODA</strong><button type="button" class="boton boton-linea boton-chico" data-copiar="regalo.alias">Copiar</button></p>
+        <p data-si="regalo.cbu"><span>CBU</span><strong data-dato="regalo.cbu"></strong><button type="button" class="boton boton-linea boton-chico" data-copiar="regalo.cbu">Copiar</button></p>
+        <p data-si="regalo.titular"><span>Titular</span><strong data-dato="regalo.titular">Florencia Gómez</strong></p>
+      </div>
+    </section>
+
+    <!-- ================= CONFIRMACIÓN ================= -->
+    <section class="confirmar" id="confirmar" data-reveal>
+      <div class="centrado">
+        <p class="etiqueta">Confirmación de asistencia</p>
+        <h2>¿Venís <em>a celebrar?</em></h2>
+        <p class="confirmar-plazo">Confirmá antes del <strong data-dato="confirmarHasta">20 de febrero de 2027</strong>, así armamos las mesas.</p>
+      </div>
+      <form id="confirmacion" novalidate>
+        <label>Nombre y apellido<input name="nombre" required maxlength="80" autocomplete="name" placeholder="Tu nombre" /></label>
+        <fieldset>
+          <legend>¿Vas a venir?</legend>
+          <label class="opcion"><input type="radio" name="asistencia" value="si" /><span>¡Sí, ahí voy a estar!</span></label>
+          <label class="opcion"><input type="radio" name="asistencia" value="no" /><span>No voy a poder ir</span></label>
+        </fieldset>
+        <div class="dos-columnas">
+          <label>¿Cuántos vienen?<input name="personas" type="number" min="1" max="12" inputmode="numeric" placeholder="1" /></label>
+          <label>Comida especial o alergias<input name="comida" maxlength="120" placeholder="Vegetariano, celíaco…" /></label>
+        </div>
+        <label>Un mensaje para los novios<textarea name="mensaje" rows="3" maxlength="300" placeholder="Opcional"></textarea></label>
+        <p class="error" data-error role="alert" hidden></p>
+        <button type="submit" class="boton" data-boton-confirmar>Confirmar por WhatsApp</button>
+        <div class="listo" data-listo hidden>
+          <p data-resultado></p>
+          <textarea data-resumen readonly rows="5" aria-label="Texto de tu confirmación"></textarea>
+          <button type="button" class="boton boton-linea" data-copiar-resumen>Copiar el texto</button>
+          <span data-copiado aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p class="pie-nombres"><span data-dato="nombre1">Florencia</span> <em>&amp;</em> <span data-dato="nombre2">Joaquín</span></p>
+    <p class="pie-hashtag" data-dato="hashtag">#FlorYJoaco</p>
+    <p class="pie-gracias">Gracias por acompañarnos. ¡Nos vemos en el río!</p>
+    <p class="credito" data-credito>Invitación hecha con <a href="../../">Boda Web</a></p>
+  </footer>
+
+  <!-- Galería ampliada -->
+  <dialog class="visor" id="visor" aria-label="Foto ampliada">
+    <button type="button" class="visor-boton visor-cerrar" data-visor-cerrar aria-label="Cerrar"><svg><use href="#i-cerrar"/></svg></button>
+    <button type="button" class="visor-boton visor-izq" data-visor-anterior aria-label="Anterior"><svg><use href="#i-izq"/></svg></button>
+    <img src="" alt="" />
+    <button type="button" class="visor-boton visor-der" data-visor-siguiente aria-label="Siguiente"><svg><use href="#i-der"/></svg></button>
+  </dialog>
+
+  <!-- Música de fondo: aparece sólo si existe musica.mp3 en esta carpeta -->
+  <audio id="musica" src="musica.mp3" loop preload="none"></audio>
+  <button type="button" class="musica" data-musica hidden aria-label="Reproducir música"><svg><use href="#i-musica"/></svg></button>
+
+  <script src="datos.js"></script>
+  <script src="comun.js"></script>
+</body>
+</html>
