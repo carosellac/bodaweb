@@ -1,11 +1,11 @@
-BODA WEB — LANDING DE INVITACIONES DE CASAMIENTO + 11 MODELOS DE INVITACIÓN
+BODA WEB — LANDING DE INVITACIONES DE CASAMIENTO + 12 MODELOS DE INVITACIÓN
 
 Archivos:
 - index.html       La página de venta (portada, diseños, cómo funciona, precio, preguntas)
 - styles.css       Estilos de la página de venta (celular, tablet y computadora)
 - script.js        Comportamiento de la página de venta (menú, pedido) y DATOS DE CONTACTO
 - assets/          Fotos, flores decorativas, capturas de los modelos (modelo-*.webp) e imagen para compartir
-- modelos/         LOS 11 MODELOS DE INVITACIÓN (ver abajo)
+- modelos/         LOS 12 MODELOS DE INVITACIÓN (ver abajo)
 - favicon.*        Ícono de la pestaña y del acceso directo en el celular
 - robots.txt       Permiso para los buscadores
 
@@ -14,7 +14,7 @@ PUBLICACIÓN
 - Dirección actual: https://bodaweb-rose.vercel.app
 - Si se conecta un dominio propio, cambiar la dirección en index.html (canonical, og:url y og:image).
 
-LOS 11 MODELOS (carpeta modelos/)
+LOS 12 MODELOS (carpeta modelos/)
   modelos/clasico/       Clásico & Romántico   crema, dorado viejo, serif, tarjeta con marco
   modelos/minimalista/   Moderno & Minimalista blanco y negro, tipografía enorme, fotos en blanco y negro
   modelos/bohemio/       Bohemio & Natural     portada con la foto en un hexágono dorado y ramas; verde y dorado
@@ -26,6 +26,7 @@ LOS 11 MODELOS (carpeta modelos/)
   modelos/coral/         Coral Moderno         caligrafía grande, coral y negro, fecha con el día en un círculo
   modelos/pincel/        Pincelada Rosa        papel con esquinas recortadas, fotos con borde de pincel, rosa y celeste
   modelos/azul/          Flores Azules         flores de acuarela, foto dentro de una corona de hojas, azul y dorado
+  modelos/rosa/          Rosas en Acuarela     guirnalda de rosas, foto en aro dorado, filigranas, caligrafía
 Se ven en la web en /modelos/<nombre>/ (ej. https://bodaweb-rose.vercel.app/modelos/playa/).
 Las tarjetas de "Diseños" de la página de venta llevan a cada uno.
 
