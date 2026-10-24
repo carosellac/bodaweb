@@ -48,7 +48,7 @@ section{padding:76px 20px;text-align:center;position:relative}
 .boton-linea{background:transparent;color:var(--oro);border-color:var(--oro)}
 .boton-linea:hover{background:var(--oro-sutil);color:var(--oro-claro);filter:none}
 .boton svg{width:16px;height:16px;flex:none}
-.boton-chico{padding:10px 14px;min-height:44px;font-size:11px;letter-spacing:.16em}
+.boton-chico{padding:10px 14px;min-height:44px;font-size:12px;letter-spacing:.16em}
 
 /* Portada: foto a pantalla completa, degradé de abajo hacia arriba */
 .portada{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:60px 20px 96px;overflow:hidden;isolation:isolate;background:var(--negro);text-align:center}
@@ -88,7 +88,7 @@ section{padding:76px 20px;text-align:center;position:relative}
 .cuenta-cajas div{position:relative;border:1px solid var(--oro-tenue);padding:20px 4px 14px;background:linear-gradient(180deg,rgba(212,175,55,.06),rgba(212,175,55,0))}
 .cuenta-cajas div::before{content:"";position:absolute;inset:4px;border:1px solid var(--oro-sutil);pointer-events:none}
 .cuenta-cajas strong{display:block;font-family:var(--cinzel);font-weight:500;font-size:clamp(28px,7.4vw,50px);line-height:1;color:var(--oro-claro);font-variant-numeric:tabular-nums}
-.cuenta-cajas span{display:block;font-family:var(--cinzel);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gris);margin-top:8px}
+.cuenta-cajas span{display:block;font-family:var(--cinzel);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-top:8px}
 .cuenta-llego{display:none;font-size:30px;font-style:italic;color:var(--oro-claro);margin-top:12px}
 .cuenta.llego .cuenta-cajas{display:none}.cuenta.llego .cuenta-llego{display:block}
 
@@ -148,7 +148,7 @@ section{padding:76px 20px;text-align:center;position:relative}
 .datos-regalo p{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 14px;padding:14px 0;border-bottom:1px solid var(--oro-sutil);margin:0}
 .datos-regalo span{grid-column:1/-1}
 .datos-regalo p:first-child{border-top:1px solid var(--oro-sutil)}
-.datos-regalo span{font-family:var(--cinzel);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gris)}
+.datos-regalo span{font-family:var(--cinzel);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gris)}
 .datos-regalo strong{font-weight:500;color:var(--marfil);font-size:19px;letter-spacing:.02em;overflow-wrap:anywhere;min-width:0}
 
 /* Confirmación: campos transparentes con borde dorado tenue */
@@ -178,7 +178,7 @@ section{padding:76px 20px;text-align:center;position:relative}
 .pie-nombres em{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--oro);line-height:1;margin:-4px 0}
 .pie-hashtag{font-family:var(--cinzel);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--oro);margin:14px 0 16px}
 .pie-gracias{font-style:italic;color:var(--gris)}
-.credito{font-family:var(--cinzel);font-size:11px;letter-spacing:.12em;color:#5f6a7c;margin-top:34px}
+.credito{font-family:var(--cinzel);font-size:12px;letter-spacing:.12em;color:#5f6a7c;margin-top:34px}
 .credito a{color:inherit}
 
 /* Visor de fotos */
@@ -198,9 +198,10 @@ section{padding:76px 20px;text-align:center;position:relative}
 @keyframes girar{to{transform:rotate(360deg)}}
 
 /* Aparición suave */
-[data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+/* Con la clase .js (hay JavaScript) las secciones aparecen al bajar; sin ella se ven siempre */
+.js [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
 [data-reveal].visto{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}.bajar,.musica.sonando,.destellos svg{animation:none}}
+@media (prefers-reduced-motion:reduce){.js [data-reveal]{opacity:1;transform:none;transition:none}.bajar,.musica.sonando,.destellos svg{animation:none}}
 
 /* Tablet */
 @media (min-width:720px){
@@ -235,4 +236,4 @@ section{padding:76px 20px;text-align:center;position:relative}
 
 .cuenta.llego .antetitulo{display:none}
 
-@media (max-width:400px){.cuenta-cajas span{letter-spacing:.06em;font-size:9px}}
+@media (max-width:400px){.cuenta-cajas span{letter-spacing:.02em;font-size:12px}}

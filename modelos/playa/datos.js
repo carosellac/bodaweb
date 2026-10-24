@@ -46,5 +46,7 @@ const DATOS = {
   },
 
   hashtag: '#LuYMateo',
+  // Música de fondo (opcional): el nombre del archivo que dejaste en esta carpeta, por ejemplo 'musica.mp3'. Vacío = sin música.
+  musica: '',
   credito: true        // false para sacar el "Hecho con Boda Web" del pie
 };

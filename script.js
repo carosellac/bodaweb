@@ -13,6 +13,14 @@ const CONTACTO = {
   email: ''
 };
 
+/* =====================================================================
+   MEDICIÓN DE VISITAS (opcional). Pegá acá el ID de Google Analytics
+   (empieza con G-) y el contador se activa solo. Vacío = no se mide nada.
+   ===================================================================== */
+const ANALITICA = {
+  google: ''
+};
+
 (() => {
   'use strict';
   const $ = (selector, root = document) => root.querySelector(selector);
@@ -43,6 +51,12 @@ const CONTACTO = {
   const submitButton = $('#form-submit');
   if (submitButton) {
     submitButton.textContent = canal === 'whatsapp' ? 'Enviar por WhatsApp' : canal === 'email' ? 'Enviar por email' : 'Preparar mi pedido';
+  }
+  if (ANALITICA.google && /^G-[A-Z0-9]+$/i.test(ANALITICA.google.trim())) {
+    const id = ANALITICA.google.trim();
+    const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id; document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || []; window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date()); window.gtag('config', id, { anonymize_ip: true });
   }
   const faqMas = $('#faq-mas');
   if (faqMas && enlaces.whatsapp) { const a = $('a', faqMas); a.href = enlaces.whatsapp; a.target = '_blank'; a.rel = 'noopener'; faqMas.hidden = false; }
@@ -134,7 +148,9 @@ const CONTACTO = {
   }
 
   /* ---------- Formulario ---------- */
-  const fieldLabels = { pareja: 'los nombres de la pareja', email: 'tu email' };
+  const fieldLabels = { pareja: 'los nombres de la pareja', whatsapp: 'tu WhatsApp', email: 'tu email' };
+  // Un WhatsApp argentino sin el 0 ni el 15 tiene 10 dígitos; con el 549 adelante, 13. Se acepta ese rango.
+  const whatsappValido = v => { const d = String(v || '').replace(/\D/g, ''); return d.length >= 10 && d.length <= 13; };
   const fechaField = form?.elements?.fecha;
   if (fechaField) { const hoy = new Date(); hoy.setMinutes(hoy.getMinutes() - hoy.getTimezoneOffset()); fechaField.min = hoy.toISOString().slice(0, 10); }
   function fechaLegible(iso) {
@@ -143,9 +159,12 @@ const CONTACTO = {
   }
   function validar() {
     const faltan = [];
-    for (const name of ['pareja', 'email']) {
+    for (const name of ['pareja', 'whatsapp', 'email']) {
       const field = form.elements[name];
-      const ok = field.value.trim() && field.checkValidity();
+      // El email es opcional: sólo se revisa si lo escribieron
+      const ok = name === 'email' ? (!field.value.trim() || field.checkValidity())
+        : name === 'whatsapp' ? whatsappValido(field.value)
+        : (field.value.trim() && field.checkValidity());
       field.classList.toggle('invalid', !ok);
       field.setAttribute('aria-invalid', ok ? 'false' : 'true');
       if (!ok) faltan.push(field);
@@ -158,8 +177,10 @@ const CONTACTO = {
     const primero = faltan[0] || (fechaPasada ? fechaField : null);
     if (primero) {
       errorBox.textContent = faltan.length
-        ? (primero.value.trim() && primero.name === 'email' ? 'Revisa tu email: parece incompleto.' : 'Falta completar ' + faltan.map(f => fieldLabels[f.name]).join(' y ') + '.')
-        : 'La fecha de la boda ya pasó: revísala.';
+        ? (primero.value.trim() && primero.name === 'email' ? 'Revisá tu email: parece incompleto.'
+          : primero.value.trim() && primero.name === 'whatsapp' ? 'Revisá tu WhatsApp: tiene que tener el código de área y el número, sin el 0 ni el 15.'
+          : 'Falta completar ' + faltan.map(f => fieldLabels[f.name]).join(' y ') + '.')
+        : 'La fecha de la boda ya pasó: revisala.';
       errorBox.hidden = false;
       primero.setAttribute('aria-describedby', 'form-error');
       primero.focus();
@@ -170,7 +191,8 @@ const CONTACTO = {
   }
   form?.addEventListener('input', event => {
     const field = event.target;
-    if (field.classList?.contains('invalid') && field.checkValidity() && (field.value.trim() || field.name === 'fecha')) {
+    const otraVezBien = field.name === 'whatsapp' ? whatsappValido(field.value) : field.name === 'email' ? (!field.value.trim() || field.checkValidity()) : (field.checkValidity() && (field.value.trim() || field.name === 'fecha'));
+    if (field.classList?.contains('invalid') && otraVezBien) {
       field.classList.remove('invalid');
       field.setAttribute('aria-invalid', 'false');
       field.removeAttribute('aria-describedby');
@@ -184,12 +206,15 @@ const CONTACTO = {
     event.preventDefault();
     if (!validar()) return;
     const data = new FormData(form);
+    // El precio sale de la pantalla de Precio: así está escrito en UN solo lugar
+    const precio = ($('.price')?.textContent || '').replace(/\s+/g, '');
     const summary = [
       'Hola, quiero pedir mi invitación web para boda.',
       'Pareja: ' + String(data.get('pareja')).trim(),
-      'Email: ' + String(data.get('email')).trim(),
+      'WhatsApp: ' + String(data.get('whatsapp')).trim(),
+      ...(String(data.get('email') || '').trim() ? ['Email: ' + String(data.get('email')).trim()] : []),
       'Fecha: ' + (String(data.get('fecha') || '').trim() ? fechaLegible(String(data.get('fecha'))) : 'todavía no definida'),
-      'Precio: $ 55.000 (todo incluido)',
+      ...(precio ? ['Precio: ' + precio + ' (todo incluido)'] : []),
       ...(selectedDesign ? ['Diseño: ' + selectedDesign] : []),
       ...(String(data.get('mensaje') || '').trim() ? ['Mensaje: ' + String(data.get('mensaje')).trim()] : [])
     ].join('\n');
@@ -198,12 +223,12 @@ const CONTACTO = {
     const resultText = $('#order-result-text');
     if (canal === 'whatsapp') {
       window.open(enlaces.whatsapp + '?text=' + encodeURIComponent(summary), '_blank', 'noopener');
-      resultText.innerHTML = '<strong>Te abrimos WhatsApp con tu solicitud.</strong> Si no se abrió, cópiala y envíanosla al mismo número.';
+      resultText.innerHTML = '<strong>Te abrimos WhatsApp con tu pedido.</strong> Si no se abrió, copialo y mandánoslo al mismo número.';
     } else if (canal === 'email') {
-      window.location.href = enlaces.email + '?subject=' + encodeURIComponent('Solicitud de invitación web para boda') + '&body=' + encodeURIComponent(summary);
-      resultText.innerHTML = '<strong>Te abrimos tu correo con la solicitud lista.</strong> Si no se abrió, cópiala y envíanosla a ' + email + '.';
+      window.location.href = enlaces.email + '?subject=' + encodeURIComponent('Pedido de invitación web para boda') + '&body=' + encodeURIComponent(summary);
+      resultText.innerHTML = '<strong>Te abrimos tu correo con el pedido listo.</strong> Si no se abrió, copialo y mandánoslo a ' + email + '.';
     } else {
-      resultText.innerHTML = '<strong>Tu solicitud está lista.</strong> Cópiala y envíanosla por el medio que prefieras.';
+      resultText.innerHTML = '<strong>Tu pedido está listo.</strong> Copialo y mandánoslo por el medio que prefieras.';
     }
     $('#order-result').hidden = false;
     resultText.focus({ preventScroll: true });
@@ -216,7 +241,7 @@ const CONTACTO = {
       $('#copy-feedback').textContent = '¡Copiado!';
     } catch {
       input.select();
-      $('#copy-feedback').textContent = 'Selecciona y copia el texto.';
+      $('#copy-feedback').textContent = 'Seleccioná y copiá el texto.';
     }
   });
 })();

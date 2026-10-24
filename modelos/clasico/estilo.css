@@ -18,7 +18,7 @@ h3{font-size:26px}
 p{margin:0 0 14px}
 a{color:inherit}
 section{padding:72px 22px;max-width:1040px;margin:0 auto;text-align:center}
-.antetitulo{font-family:var(--sans);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--oro-texto);margin-bottom:14px;font-weight:600}
+.antetitulo{font-family:var(--sans);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--oro-texto);margin-bottom:14px;font-weight:600}
 .floron{display:block;width:200px;height:24px;margin:16px auto;color:var(--oro)}
 
 /* Botones */
@@ -51,8 +51,8 @@ section{padding:72px 22px;max-width:1040px;margin:0 auto;text-align:center}
 .cuenta-cajas strong{display:block;font-weight:400;font-size:clamp(34px,7vw,52px);line-height:1;color:var(--tinta)}
 /* La etiqueta más larga (SEGUNDOS) tiene que entrar en una caja de ~80px en un celular de 360px:
    el espaciado se achica con la pantalla y abajo de 400px baja también la letra. */
-.cuenta-cajas span{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--suave);white-space:nowrap}
-@media (max-width:399px){.cuenta-cajas{gap:8px}.cuenta-cajas div{padding:18px 2px 14px}.cuenta-cajas span{font-size:9px;letter-spacing:.1em}}
+.cuenta-cajas span{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--suave);white-space:nowrap}
+@media (max-width:399px){.cuenta-cajas{gap:8px}.cuenta-cajas div{padding:18px 2px 14px}.cuenta-cajas span{font-size:12px;letter-spacing:.04em}}
 .cuenta-llego{display:none;font-size:28px;font-style:italic;color:var(--oro-texto);margin-top:20px}
 /* Cuando llega el día se van las cajas Y el "Faltan" de arriba: si no se leía "Faltan ¡Llegó el gran día!" */
 .cuenta.llego .cuenta-cajas,.cuenta.llego .antetitulo{display:none}.cuenta.llego .cuenta-llego{display:block}
@@ -104,9 +104,9 @@ section{padding:72px 22px;max-width:1040px;margin:0 auto;text-align:center}
 .regalos>p{max-width:600px;margin:0 auto 26px}
 .datos-regalo{max-width:460px;margin:0 auto;text-align:left}
 .datos-regalo p{display:grid;grid-template-columns:70px 1fr auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--linea);margin:0}
-.datos-regalo span{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave)}
+.datos-regalo span{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave)}
 .datos-regalo strong{font-weight:500;color:var(--tinta);font-size:18px;overflow-wrap:anywhere}
-.datos-regalo .boton{padding:11px 16px;min-height:44px;font-size:10px}
+.datos-regalo .boton{padding:11px 16px;min-height:44px;font-size:12px}
 
 /* Confirmación */
 .confirmar-plazo{color:var(--suave);margin-bottom:30px}
@@ -131,7 +131,7 @@ section{padding:72px 22px;max-width:1040px;margin:0 auto;text-align:center}
    es como lo van a escribir en Instagram y las mayúsculas internas son lo que lo hace legible. */
 .pie-hashtag{font-family:var(--sans);font-size:13px;letter-spacing:.08em;color:var(--oro-texto);margin:6px 0 16px;font-weight:500}
 .pie-gracias{font-style:italic;color:var(--suave)}
-.credito{font-family:var(--sans);font-size:11px;letter-spacing:.1em;color:#a39a91;margin-top:30px}
+.credito{font-family:var(--sans);font-size:12px;letter-spacing:.1em;color:#a39a91;margin-top:30px}
 .credito a{color:inherit}
 
 /* Visor de fotos */
@@ -151,9 +151,10 @@ section{padding:72px 22px;max-width:1040px;margin:0 auto;text-align:center}
 @keyframes girar{to{transform:rotate(360deg)}}
 
 /* Aparición suave */
-[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+/* Con la clase .js (hay JavaScript) las secciones aparecen al bajar; sin ella se ven siempre */
+.js [data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
 [data-reveal].visto{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}.bajar,.musica.sonando{animation:none}}
+@media (prefers-reduced-motion:reduce){.js [data-reveal]{opacity:1;transform:none;transition:none}.bajar,.musica.sonando{animation:none}}
 
 /* Tablet y computadora */
 @media (min-width:720px){
@@ -164,4 +165,4 @@ section{padding:72px 22px;max-width:1040px;margin:0 auto;text-align:center}
   .portada-tarjeta{padding:56px 60px 52px}
 }
 
-@media (max-width:400px){.cuenta-cajas span{letter-spacing:.06em;font-size:9px}}
+@media (max-width:400px){.cuenta-cajas span{letter-spacing:.02em;font-size:12px}}

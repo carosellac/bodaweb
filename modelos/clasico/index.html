@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#faf6f0" />
+  <script>document.documentElement.classList.add('js')</script>
   <title>Valentina & Nicolás · Nos casamos</title>
   <meta name="description" content="Invitación a nuestro casamiento: fecha, lugar, itinerario y confirmación de asistencia." />
   <meta name="robots" content="noindex" />
@@ -208,12 +209,12 @@
   <dialog class="visor" id="visor" aria-label="Foto ampliada">
     <button type="button" class="visor-boton visor-cerrar" data-visor-cerrar aria-label="Cerrar"><svg><use href="#i-cerrar"/></svg></button>
     <button type="button" class="visor-boton visor-izq" data-visor-anterior aria-label="Anterior"><svg><use href="#i-izq"/></svg></button>
-    <img src="" alt="" />
+    <img alt="" />
     <button type="button" class="visor-boton visor-der" data-visor-siguiente aria-label="Siguiente"><svg><use href="#i-der"/></svg></button>
   </dialog>
 
-  <!-- Música de fondo: aparece sólo si existe musica.mp3 en esta carpeta -->
-  <audio id="musica" src="musica.mp3" loop preload="none"></audio>
+  <!-- Música de fondo: el botón aparece sólo si en datos.js se completa "musica" con el nombre del archivo -->
+  <audio id="musica" loop preload="none"></audio>
   <button type="button" class="musica" data-musica hidden aria-label="Reproducir música"><svg><use href="#i-musica"/></svg></button>
 
   <script src="datos.js"></script>

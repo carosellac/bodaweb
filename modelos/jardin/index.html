@@ -4,13 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#fff8f6" />
+  <script>document.documentElement.classList.add('js')</script>
   <title>Martina & Lucas · Nos casamos</title>
   <meta name="description" content="Invitación a nuestro casamiento: fecha, lugar, itinerario y confirmación de asistencia." />
   <meta name="robots" content="noindex" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Martina & Lucas · Nos casamos" />
   <meta property="og:description" content="Un día de primavera, un jardín lleno de flores y la gente que más queremos. Toda la información y la confirmación de asistencia, acá." />
-  <!-- Imagen al compartir por WhatsApp: tiene que ser la dirección COMPLETA. Al copiar la carpeta para una pareja, cambiá "modelos/jardin" por su carpeta. -->
+  <!-- Imagen al compartir por WhatsApp: tiene que ser la dirección COMPLETA. Al copiar la carpeta para una pareja, cambiá "modelos/jardin" por su carpeta en las dos líneas. -->
+  <meta property="og:url" content="https://bodaweb-rose.vercel.app/modelos/jardin/" />
   <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/jardin/fotos/portada.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -118,7 +120,7 @@
         <p class="portada-lugar"><svg aria-hidden="true"><use href="#i-pin"/></svg><span data-dato="lugarCorto">Pilar, Buenos Aires</span></p>
         <div class="botones">
           <a class="boton" href="#confirmar">Confirmar asistencia</a>
-          <a class="boton boton-lila" data-calendario href="#"><svg aria-hidden="true"><use href="#i-calendario"/></svg>Agregar al calendario</a>
+          <a class="boton boton-lila" data-calendario href="#"><svg aria-hidden="true"><use href="#i-calendario"/></svg>Agendar</a>
         </div>
       </div>
     </div>
@@ -302,12 +304,12 @@
   <dialog class="visor" id="visor" aria-label="Foto ampliada">
     <button type="button" class="visor-boton visor-cerrar" data-visor-cerrar aria-label="Cerrar"><svg><use href="#i-cerrar"/></svg></button>
     <button type="button" class="visor-boton visor-izq" data-visor-anterior aria-label="Anterior"><svg><use href="#i-izq"/></svg></button>
-    <img src="" alt="" />
+    <img alt="" />
     <button type="button" class="visor-boton visor-der" data-visor-siguiente aria-label="Siguiente"><svg><use href="#i-der"/></svg></button>
   </dialog>
 
-  <!-- Música de fondo: aparece sólo si existe musica.mp3 en esta carpeta -->
-  <audio id="musica" src="musica.mp3" loop preload="none"></audio>
+  <!-- Música de fondo: el botón aparece sólo si en datos.js se completa "musica" con el nombre del archivo -->
+  <audio id="musica" loop preload="none"></audio>
   <button type="button" class="musica" data-musica hidden aria-label="Reproducir música"><svg><use href="#i-musica"/></svg></button>
 
   <script src="datos.js"></script>

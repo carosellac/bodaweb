@@ -1,7 +1,7 @@
 /* ============ EUCALIPTO & ACUARELA — hojas de acuarela verde agua, carbón y filetes dorados ============ */
 :root{
   /* Los nombres vienen del modelo del que nació: "terracota" es el VERDE de los botones y "ocre" el DORADO */
-  --arena:#f4f6f1;--crema:#fbf9f6;--terracota:#4d8775;--terracota-oscura:#3b6d5e;
+  --arena:#f4f6f1;--crema:#fbf9f6;--terracota:#3d705f;--terracota-oscura:#2f584a;
   --salvia:#8db4a2;--salvia-clara:#eaf3ee;--ocre:#c9b78a;--ocre-claro:#e7ddc5;
   --marron:#3e3c3b;--texto:#4b4a48;--suave:#76726c;--linea:#e7e1d3;
   --sombra:0 18px 40px rgba(62,60,59,.08);
@@ -55,7 +55,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .boton-linea{background:transparent;color:var(--terracota)}
 .boton-linea:hover{background:var(--terracota);color:#fff}
 .boton svg{width:17px;height:17px;flex:none}
-.boton-chico{padding:11px 18px;min-height:44px;font-size:11px}
+.boton-chico{padding:11px 18px;min-height:44px;font-size:12px}
 
 /* Arcos: la forma que atraviesa todo el modelo */
 .historia-fotos img,.galeria-grilla img{border-radius:0;object-fit:cover;width:100%;outline:1px solid var(--ocre);outline-offset:6px}
@@ -95,7 +95,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .circulos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:560px;margin:0 auto}
 .circulos div{aspect-ratio:1;border-radius:50%;border:1.5px solid var(--terracota);display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--crema);box-shadow:inset 0 0 0 5px var(--crema),inset 0 0 0 6px var(--ocre-claro)}
 .circulos strong{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(26px,7vw,46px);line-height:1;color:var(--marron)}
-.circulos span{font-family:var(--sans);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave);margin-top:4px;font-weight:700}
+.circulos span{font-family:var(--sans);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--suave);margin-top:4px;font-weight:700}
 .cuenta-llego{display:none;font-family:var(--serif);font-size:34px;font-style:italic;color:var(--terracota);margin:10px 0 0}
 .cuenta.llego .circulos{display:none}.cuenta.llego .cuenta-llego{display:block}
 
@@ -160,7 +160,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .datos-regalo span{grid-area:etiqueta}.datos-regalo strong{grid-area:valor}.datos-regalo .boton{grid-area:boton}
 .datos-regalo p:not(:has(.boton)){grid-template-areas:"etiqueta etiqueta" "valor valor"}
 .datos-regalo p:last-child{border-bottom:0}
-.datos-regalo span{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave);font-weight:700}
+.datos-regalo span{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave);font-weight:700}
 .datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:anywhere;min-width:0}
 
 /* ================= CONFIRMACIÓN ================= */
@@ -191,7 +191,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .pie-nombres em{color:var(--ocre)}
 .pie-hashtag{font-family:var(--sans);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--ocre);margin:10px 0 16px;font-weight:700;position:relative;z-index:1}
 .pie-gracias{font-family:var(--serif);font-style:italic;font-size:19px;color:rgba(246,244,238,.8);max-width:420px;margin:0 auto;position:relative;z-index:1}
-.credito{font-family:var(--sans);font-size:11px;letter-spacing:.1em;color:rgba(246,244,238,.55);margin:34px 0 0;position:relative;z-index:1}
+.credito{font-family:var(--sans);font-size:12px;letter-spacing:.1em;color:rgba(246,244,238,.55);margin:34px 0 0;position:relative;z-index:1}
 .credito a{color:inherit}
 
 /* ================= VISOR DE FOTOS ================= */
@@ -211,16 +211,17 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 @keyframes latir{0%,100%{box-shadow:0 0 0 0 rgba(77,135,117,.45)}70%{box-shadow:0 0 0 14px rgba(77,135,117,0)}}
 
 /* ================= APARICIÓN SUAVE ================= */
-[data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+/* Con la clase .js (hay JavaScript) las secciones aparecen al bajar; sin ella se ven siempre */
+.js [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
 [data-reveal].visto{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}.bajar,.musica.sonando{animation:none}.galeria-grilla img,.boton{transition:none}}
+@media (prefers-reduced-motion:reduce){.js [data-reveal]{opacity:1;transform:none;transition:none}.bajar,.musica.sonando{animation:none}.galeria-grilla img,.boton{transition:none}}
 
 /* ================= TABLET ================= */
 @media (min-width:720px){
   section{padding:84px 32px}
   .cuenta{padding:56px 32px 48px}
   .circulos{gap:18px;max-width:600px}
-  .circulos span{font-size:10px;margin-top:6px}
+  .circulos span{font-size:12px;letter-spacing:.16em;margin-top:6px}
   .historia{grid-template-columns:1fr 1fr;gap:56px}
   .historia-fotos{padding:0}
   .evento-tarjetas{grid-template-columns:1fr 1fr;gap:22px;max-width:900px;margin-left:auto;margin-right:auto}

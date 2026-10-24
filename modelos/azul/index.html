@@ -4,13 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#fbf9f3" />
+  <script>document.documentElement.classList.add('js')</script>
   <title>Valeria &amp; Santiago · Nuestra boda</title>
   <meta name="description" content="Invitación a nuestra boda: fecha, lugar, itinerario y confirmación de asistencia." />
   <meta name="robots" content="noindex" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Valeria &amp; Santiago · Nuestra boda" />
   <meta property="og:description" content="Con mucha alegría te invitamos a nuestra boda. Toda la información y la confirmación de asistencia, acá." />
-  <!-- Imagen al compartir por WhatsApp: tiene que ser la dirección COMPLETA. Al copiar la carpeta para una pareja, cambiá "modelos/azul" por su carpeta. -->
+  <!-- Imagen al compartir por WhatsApp: tiene que ser la dirección COMPLETA. Al copiar la carpeta para una pareja, cambiá "modelos/azul" por su carpeta en las dos líneas. -->
+  <meta property="og:url" content="https://bodaweb-rose.vercel.app/modelos/azul/" />
   <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/azul/fotos/portada.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -271,12 +273,12 @@
   <dialog class="visor" id="visor" aria-label="Foto ampliada">
     <button type="button" class="visor-boton visor-cerrar" data-visor-cerrar aria-label="Cerrar"><svg><use href="#i-cerrar"/></svg></button>
     <button type="button" class="visor-boton visor-izq" data-visor-anterior aria-label="Anterior"><svg><use href="#i-izq"/></svg></button>
-    <img src="" alt="" />
+    <img alt="" />
     <button type="button" class="visor-boton visor-der" data-visor-siguiente aria-label="Siguiente"><svg><use href="#i-der"/></svg></button>
   </dialog>
 
-  <!-- Música de fondo: aparece sólo si existe musica.mp3 en esta carpeta -->
-  <audio id="musica" src="musica.mp3" loop preload="none"></audio>
+  <!-- Música de fondo: el botón aparece sólo si en datos.js se completa "musica" con el nombre del archivo -->
+  <audio id="musica" loop preload="none"></audio>
   <button type="button" class="musica" data-musica hidden aria-label="Reproducir música"><svg><use href="#i-musica"/></svg></button>
 
   <script src="datos.js"></script>

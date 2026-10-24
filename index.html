@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#fbf8f5" />
+  <script>document.documentElement.classList.add('js')</script>
   <title>Boda Web | Tu invitación de boda en forma de página web</title>
-  <meta name="description" content="Crea una invitación de boda en forma de página web. Diseños románticos, confirmación de asistencia, galería, música y toda la información de tu gran día." />
+  <meta name="description" content="Tu invitación de boda en forma de página web: diseños románticos, confirmación de asistencia, galería, música y toda la información de tu gran día. Un solo precio, todo incluido." />
   <link rel="canonical" href="https://bodaweb-rose.vercel.app/" />
 
   <!-- Vista previa al compartir por WhatsApp, Instagram o Facebook -->
@@ -17,7 +18,7 @@
   <meta property="og:image" content="https://bodaweb-rose.vercel.app/assets/compartir.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:locale" content="es_ES" />
+  <meta property="og:locale" content="es_AR" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Ícono de la pestaña y del acceso directo en el celular -->
@@ -88,7 +89,7 @@
         <div class="hero-copy">
           <p class="eyebrow">INVITACIONES DE BODA DIGITALES</p>
           <h1 id="hero-title">Tu invitación de boda<br />en forma de <em>página web</em></h1>
-          <p class="hero-description">Una página con todo lo de tu boda: fecha, lugar con mapa, confirmación de asistencia, fotos y cuenta regresiva. La compartes por WhatsApp con un solo link.</p>
+          <p class="hero-description">Una página con todo lo de tu boda: fecha, lugar con mapa, confirmación de asistencia, fotos y cuenta regresiva. La compartís por WhatsApp con un solo link.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#disenos">Ver diseños <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a>
             <button class="btn btn-outline js-start" type="button">Quiero mi invitación</button>
@@ -96,11 +97,11 @@
           <ul class="hero-perks">
             <li><svg class="icon"><use href="#i-heart"/></svg><a href="#precios">Un solo precio: <strong>$55.000</strong>, todo incluido</a></li>
             <li><svg class="icon"><use href="#i-users"/></svg>Tus invitados confirman desde el celular</li>
-            <li><svg class="icon"><use href="#i-device"/></svg>Se comparte con un solo link</li>
+            <li><svg class="icon"><use href="#i-pencil"/></svg>Cambios incluidos después de publicar</li>
           </ul>
         </div>
         <div class="hero-visual">
-          <div class="hero-arch"><img src="assets/hero-ramo.webp" srcset="assets/hero-ramo-movil.webp 600w, assets/hero-ramo.webp 900w" sizes="(max-width: 780px) 78vw, 420px" width="900" height="1200" alt="Ramo de novia con rosas durazno y flores blancas" fetchpriority="high" /></div>
+          <div class="hero-arch"><img src="assets/hero-ramo.webp" srcset="assets/hero-ramo-movil.webp 600w, assets/hero-ramo.webp 900w" sizes="(max-width: 780px) 78vw, 420px" width="900" height="1200" alt="Ramo de novia con rosas durazno y flores blancas" fetchpriority="high" /><!-- Un celular con una invitación real: lo que se vende tiene que verse en la primera pantalla --><div class="hero-phone"><img src="assets/modelo-clasico-movil.webp" width="780" height="975" alt="Así se ve una invitación de Boda Web en el celular" /></div></div>
         </div>
       </div>
     </section>
@@ -111,109 +112,110 @@
         <p class="lead">Trece diseños bien distintos. Tocá "Ver diseño" para recorrer cada uno completo —cuenta regresiva, mapa, galería y confirmación de asistencia— y elegí el que más se parezca a ustedes. Después le ponemos sus nombres, sus fotos y sus datos.</p>
       </div>
       <div class="design-grid">
-        <!-- Cada tarjeta abre el modelo real en una pestaña nueva; "Quiero este" abre el pedido con el diseño ya elegido -->
+        <!-- Cada tarjeta abre el modelo real (adentro hay una barra para volver o pedirlo); "Quiero este" abre el pedido con el diseño ya elegido.
+             En el celular se muestra la captura del CELULAR (assets/modelo-*-movil.webp) y en la compu la de la compu -->
         <article class="design-card">
-          <a class="design-image" href="modelos/clasico/" target="_blank" rel="noopener" aria-label="Ver el diseño Clásico y Romántico"><img src="assets/modelo-clasico.webp" alt="Invitación Clásico y Romántico: tarjeta crema con letras doradas sobre la foto de la pareja" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/clasico/" aria-label="Ver el diseño Clásico y Romántico"><picture><source media="(max-width: 780px)" srcset="assets/modelo-clasico-movil.webp" width="780" height="975" /><img src="assets/modelo-clasico.webp" alt="Invitación Clásico y Romántico: tarjeta crema con letras doradas sobre la foto de la pareja" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Clásico <em>&amp;</em> Romántico</span>
             <span class="design-card-text">Crema, dorado y letras serif. Elegancia de siempre.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/clasico/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Clásico & Romántico">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/clasico/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Clásico & Romántico">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/minimalista/" target="_blank" rel="noopener" aria-label="Ver el diseño Moderno y Minimalista"><img src="assets/modelo-minimalista.webp" alt="Invitación Moderno y Minimalista: blanco y negro con los nombres en letras enormes" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/minimalista/" aria-label="Ver el diseño Moderno y Minimalista"><picture><source media="(max-width: 780px)" srcset="assets/modelo-minimalista-movil.webp" width="780" height="975" /><img src="assets/modelo-minimalista.webp" alt="Invitación Moderno y Minimalista: blanco y negro con los nombres en letras enormes" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Moderno <em>&amp;</em> Minimalista</span>
             <span class="design-card-text">Blanco, negro y tipografía enorme. Limpio y actual.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/minimalista/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Moderno & Minimalista">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/minimalista/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Moderno & Minimalista">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/bohemio/" target="_blank" rel="noopener" aria-label="Ver el diseño Bohemio y Natural"><img src="assets/modelo-bohemio.webp" alt="Invitación Bohemio y Natural: foto de la pareja en un hexágono dorado rodeado de hojas, con letras verdes y doradas" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/bohemio/" aria-label="Ver el diseño Bohemio y Natural"><picture><source media="(max-width: 780px)" srcset="assets/modelo-bohemio-movil.webp" width="780" height="975" /><img src="assets/modelo-bohemio.webp" alt="Invitación Bohemio y Natural: foto de la pareja en un hexágono dorado rodeado de hojas, con letras verdes y doradas" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Bohemio <em>&amp;</em> Natural</span>
             <span class="design-card-text">Hexágono dorado, hojas y bayas. Verde y dorado, para bodas al aire libre.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/bohemio/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Bohemio & Natural">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/bohemio/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Bohemio & Natural">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/nocturno/" target="_blank" rel="noopener" aria-label="Ver el diseño Elegante Nocturno"><img src="assets/modelo-nocturno.webp" alt="Invitación Elegante Nocturno: fondo azul noche con los nombres en dorado" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/nocturno/" aria-label="Ver el diseño Elegante Nocturno"><picture><source media="(max-width: 780px)" srcset="assets/modelo-nocturno-movil.webp" width="780" height="975" /><img src="assets/modelo-nocturno.webp" alt="Invitación Elegante Nocturno: fondo azul noche con los nombres en dorado" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Elegante <em>Nocturno</em></span>
             <span class="design-card-text">Azul noche y dorado, estilo gala. Para una fiesta de etiqueta.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/nocturno/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Elegante Nocturno">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/nocturno/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Elegante Nocturno">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/jardin/" target="_blank" rel="noopener" aria-label="Ver el diseño Jardín en Acuarela"><img src="assets/modelo-jardin.webp" alt="Invitación Jardín en Acuarela: manchas de color pastel y flores dibujadas" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/jardin/" aria-label="Ver el diseño Jardín en Acuarela"><picture><source media="(max-width: 780px)" srcset="assets/modelo-jardin-movil.webp" width="780" height="975" /><img src="assets/modelo-jardin.webp" alt="Invitación Jardín en Acuarela: manchas de color pastel y flores dibujadas" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Jardín <em>en Acuarela</em></span>
             <span class="design-card-text">Flores, colores suaves y fotos tipo polaroid. Fresco y alegre.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/jardin/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Jardín en Acuarela">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/jardin/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Jardín en Acuarela">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/playa/" target="_blank" rel="noopener" aria-label="Ver el diseño Playa y Verano"><img src="assets/modelo-playa.webp" alt="Invitación Playa y Verano: foto del mar con olas, azul y coral" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/playa/" aria-label="Ver el diseño Playa y Verano"><picture><source media="(max-width: 780px)" srcset="assets/modelo-playa-movil.webp" width="780" height="975" /><img src="assets/modelo-playa.webp" alt="Invitación Playa y Verano: foto del mar con olas, azul y coral" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Playa <em>&amp;</em> Verano</span>
             <span class="design-card-text">Olas, azul mar y coral. Para casarse frente al mar.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/playa/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Playa & Verano">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/playa/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Playa & Verano">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/eucalipto/" target="_blank" rel="noopener" aria-label="Ver el diseño Eucalipto y Acuarela"><img src="assets/modelo-eucalipto.webp" alt="Invitación Eucalipto y Acuarela: hojas de acuarela verde agua, foto de la pareja con filete dorado y nombres en letra manuscrita" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/eucalipto/" aria-label="Ver el diseño Eucalipto y Acuarela"><picture><source media="(max-width: 780px)" srcset="assets/modelo-eucalipto-movil.webp" width="780" height="975" /><img src="assets/modelo-eucalipto.webp" alt="Invitación Eucalipto y Acuarela: hojas de acuarela verde agua, foto de la pareja con filete dorado y nombres en letra manuscrita" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Eucalipto <em>&amp;</em> Acuarela</span>
             <span class="design-card-text">Hojas de acuarela, verde agua y letra manuscrita. Delicado y luminoso.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/eucalipto/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Eucalipto & Acuarela">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/eucalipto/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Eucalipto & Acuarela">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/botanico/" target="_blank" rel="noopener" aria-label="Ver el diseño Círculo Botánico"><img src="assets/modelo-botanico.webp" alt="Invitación Círculo Botánico: foto de la pareja en un círculo con aro dorado entre ramitos de hojas verdes" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/botanico/" aria-label="Ver el diseño Círculo Botánico"><picture><source media="(max-width: 780px)" srcset="assets/modelo-botanico-movil.webp" width="780" height="975" /><img src="assets/modelo-botanico.webp" alt="Invitación Círculo Botánico: foto de la pareja en un círculo con aro dorado entre ramitos de hojas verdes" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Círculo <em>Botánico</em></span>
             <span class="design-card-text">Foto en círculo, ramitos verdes y "Nos vamos a casar". Fresco y simple.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/botanico/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Círculo Botánico">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/botanico/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Círculo Botánico">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/coral/" target="_blank" rel="noopener" aria-label="Ver el diseño Coral Moderno"><img src="assets/modelo-coral.webp" alt="Invitación Coral Moderno: título en caligrafía, foto en círculo con aro coral y la fecha con el día en un círculo" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/coral/" aria-label="Ver el diseño Coral Moderno"><picture><source media="(max-width: 780px)" srcset="assets/modelo-coral-movil.webp" width="780" height="975" /><img src="assets/modelo-coral.webp" alt="Invitación Coral Moderno: título en caligrafía, foto en círculo con aro coral y la fecha con el día en un círculo" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Coral <em>Moderno</em></span>
             <span class="design-card-text">Caligrafía grande, coral y negro, y la fecha bien a la vista. Moderno y alegre.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/coral/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Coral Moderno">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/coral/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Coral Moderno">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/pincel/" target="_blank" rel="noopener" aria-label="Ver el diseño Pincelada Rosa"><img src="assets/modelo-pincel.webp" alt="Invitación Pincelada Rosa: papel blanco con esquinas recortadas sobre fondo rosa y la foto de la pareja con borde de pincel celeste" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/pincel/" aria-label="Ver el diseño Pincelada Rosa"><picture><source media="(max-width: 780px)" srcset="assets/modelo-pincel-movil.webp" width="780" height="975" /><img src="assets/modelo-pincel.webp" alt="Invitación Pincelada Rosa: papel blanco con esquinas recortadas sobre fondo rosa y la foto de la pareja con borde de pincel celeste" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Pincelada <em>Rosa</em></span>
             <span class="design-card-text">Rosa y celeste, fotos con borde de pincel y un título enorme. Tierno y alegre.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/pincel/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Pincelada Rosa">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/pincel/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Pincelada Rosa">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/azul/" target="_blank" rel="noopener" aria-label="Ver el diseño Flores Azules"><img src="assets/modelo-azul.webp" alt="Invitación Flores Azules: flores de acuarela azules, la foto de la pareja dentro de una corona de hojas y los nombres en letra manuscrita" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/azul/" aria-label="Ver el diseño Flores Azules"><picture><source media="(max-width: 780px)" srcset="assets/modelo-azul-movil.webp" width="780" height="975" /><img src="assets/modelo-azul.webp" alt="Invitación Flores Azules: flores de acuarela azules, la foto de la pareja dentro de una corona de hojas y los nombres en letra manuscrita" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Flores <em>Azules</em></span>
             <span class="design-card-text">Flores de acuarela, corona de hojas y detalles dorados. Romántico y delicado.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/azul/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Flores Azules">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/azul/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Flores Azules">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/rosa/" target="_blank" rel="noopener" aria-label="Ver el diseño Rosas en Acuarela"><img src="assets/modelo-rosa.webp" alt="Invitación Rosas en Acuarela: guirnalda de rosas en acuarela, la foto de la pareja en un aro dorado y los nombres en caligrafía" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/rosa/" aria-label="Ver el diseño Rosas en Acuarela"><picture><source media="(max-width: 780px)" srcset="assets/modelo-rosa-movil.webp" width="780" height="975" /><img src="assets/modelo-rosa.webp" alt="Invitación Rosas en Acuarela: guirnalda de rosas en acuarela, la foto de la pareja en un aro dorado y los nombres en caligrafía" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Rosas <em>en Acuarela</em></span>
             <span class="design-card-text">Guirnalda de rosas, aro dorado y filigranas. Clásico y romántico.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/rosa/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Rosas en Acuarela">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/rosa/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Rosas en Acuarela">Quiero este</button></div>
           </div>
         </article>
         <article class="design-card">
-          <a class="design-image" href="modelos/roja/" target="_blank" rel="noopener" aria-label="Ver el diseño Rosas Bordó y Dorado"><img src="assets/modelo-roja.webp" alt="Invitación Rosas Bordó y Dorado: marco geométrico dorado con la foto de la pareja en hexágono y rosas bordó en acuarela" loading="lazy" width="1200" height="675" /></a>
+          <a class="design-image" href="modelos/roja/" aria-label="Ver el diseño Rosas Bordó y Dorado"><picture><source media="(max-width: 780px)" srcset="assets/modelo-roja-movil.webp" width="780" height="975" /><img src="assets/modelo-roja.webp" alt="Invitación Rosas Bordó y Dorado: marco geométrico dorado con la foto de la pareja en hexágono y rosas bordó en acuarela" loading="lazy" width="1200" height="675" /></picture></a>
           <div class="design-card-body">
             <span class="design-card-title">Rosas <em>Bordó y Dorado</em></span>
             <span class="design-card-text">Marco dorado, foto en hexágono y rosas bordó. Elegante y cálido.</span>
-            <div class="design-card-actions"><a class="design-card-link" href="modelos/roja/" target="_blank" rel="noopener">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Rosas Bordó y Dorado">Quiero este</button></div>
+            <div class="design-card-actions"><a class="design-card-link" href="modelos/roja/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="Rosas Bordó y Dorado">Quiero este</button></div>
           </div>
         </article>
       </div>
@@ -223,9 +225,9 @@
       <svg class="features-flower flower-left" aria-hidden="true"><use href="#f-rama"/></svg>
       <svg class="features-flower flower-right" aria-hidden="true"><use href="#f-flores"/></svg>
       <div class="container features-inner">
-        <p class="eyebrow eyebrow-center">QUÉ INCLUYE</p><h2 id="features-title">Todo lo que necesitas, en un solo lugar</h2>
+        <p class="eyebrow eyebrow-center">QUÉ INCLUYE</p><h2 id="features-title">Todo lo que necesitás, en un solo lugar</h2>
         <div class="features-grid">
-          <div class="feature"><svg class="icon"><use href="#i-link"/></svg><span>Dirección<br />propia</span></div>
+          <div class="feature"><svg class="icon"><use href="#i-link"/></svg><span>Link<br />propio</span></div>
           <div class="feature"><svg class="icon"><use href="#i-mail"/></svg><span>Confirmación<br />de asistencia</span></div>
           <div class="feature"><svg class="icon"><use href="#i-pin"/></svg><span>Mapa<br />del evento</span></div>
           <div class="feature"><svg class="icon"><use href="#i-calendar"/></svg><span>Cuenta<br />regresiva</span></div>
@@ -241,9 +243,9 @@
       <div class="container">
         <div class="section-intro"><p class="eyebrow">PASO A PASO</p><h2 id="how-title">Cómo funciona</h2><p class="lead">Tu invitación lista en tres pasos, sin complicaciones.</p></div>
         <ol class="steps">
-          <li class="how-step"><span class="step-number" aria-hidden="true">01</span><h3>Elige tu diseño</h3><p>Explora nuestros diseños y encuentra el que más se adapte a tu estilo.</p></li>
-          <li class="how-step"><span class="step-number" aria-hidden="true">02</span><h3>Envíanos tus datos</h3><p>Nombres, fecha, lugar, horarios, fotos y lo que quieras contar. Nosotros armamos la página.</p></li>
-          <li class="how-step"><span class="step-number" aria-hidden="true">03</span><h3>Comparte tu invitación</h3><p>Recibe tu página web y compártela con tus invitados por WhatsApp, email o redes sociales.</p></li>
+          <li class="how-step"><span class="step-number" aria-hidden="true">01</span><h3>Elegí tu diseño</h3><p>Recorré los diseños y elegí el que más va con ustedes.</p></li>
+          <li class="how-step"><span class="step-number" aria-hidden="true">02</span><h3>Mandanos tus datos</h3><p>Nombres, fecha, lugar, horarios, fotos y lo que quieran contar. Nosotros armamos la página.</p></li>
+          <li class="how-step"><span class="step-number" aria-hidden="true">03</span><h3>Compartí tu invitación</h3><p>Recibís tu página y la compartís con tus invitados por WhatsApp, mail o redes.</p></li>
         </ol>
       </div>
     </section>
@@ -251,7 +253,7 @@
     <section data-reveal class="pricing" id="precios" aria-labelledby="pricing-title">
       <svg class="pricing-flower" aria-hidden="true"><use href="#f-flores"/></svg>
       <div class="container">
-        <div class="section-intro"><p class="eyebrow">PRECIO</p><h2 id="pricing-title">Un solo precio, <em>todo incluido</em></h2><p class="lead">Sin planes ni extras: tu invitación completa, con todo lo que necesitas.</p></div>
+        <div class="section-intro"><p class="eyebrow">PRECIO</p><h2 id="pricing-title">Un solo precio, <em>todo incluido</em></h2><p class="lead">Sin planes ni extras: tu invitación completa, con todo lo que necesitás.</p></div>
         <article class="price-card">
           <div class="price-card-inner">
             <p class="price-label">Invitación web completa</p>
@@ -298,17 +300,17 @@
         <div class="section-intro"><p class="eyebrow">DUDAS</p><h2 id="faq-title">Preguntas frecuentes</h2><p class="lead">Lo que suelen preguntarnos antes de pedir la invitación.</p></div>
         <div class="faq-grid">
         <div class="faq-column">
-          <details><summary>¿Cuánto tiempo tarda en estar lista mi invitación?</summary><p>Depende del diseño elegido y de cuándo nos envíes los datos y las fotos. Al hacer tu pedido te confirmamos la fecha de entrega antes de empezar.</p></details>
-          <details><summary>¿Puedo hacer cambios después de publicarla?</summary><p>Sí. Los datos de la boda (lugar, horarios, itinerario) se pueden corregir después de publicada.</p></details>
-          <details><summary>¿Necesito conocimientos técnicos?</summary><p>No. Eliges el diseño, nos envías tus datos y fotos, y nosotros armamos la página. Tú solo la compartes.</p></details>
+          <details><summary>¿Cuánto tarda en estar lista mi invitación?</summary><p>Normalmente entre 3 y 5 días hábiles desde que recibimos los datos y las fotos. Al hacer el pedido te confirmamos la fecha exacta antes de empezar.</p></details>
+          <details><summary>¿Puedo hacer cambios después de publicarla?</summary><p>Sí. Lugar, horarios, itinerario, fotos: lo que cambie, nos escribís y lo corregimos. Está incluido en el precio.</p></details>
+          <details><summary>¿Necesito saber algo de computación?</summary><p>No. Elegís el diseño, nos mandás los datos y las fotos, y nosotros armamos la página. Vos solo la compartís.</p></details>
         </div>
         <div class="faq-column">
-          <details><summary>¿Por cuánto tiempo estará disponible mi página?</summary><p>Queda publicada hasta después de la boda, para que tus invitados la consulten hasta el último día. El plazo exacto se acuerda al contratar y se puede extender.</p></details>
-          <details><summary>¿Puedo tener la invitación en inglés también?</summary><p>Sí, se puede preparar en español y en inglés. Dínoslo al hacer el pedido y te confirmamos cómo queda.</p></details>
-          <details><summary>¿Qué formas de pago aceptan?</summary><p>Te las informamos al confirmar el pedido, según el país desde el que contrates.</p></details>
+          <details><summary>¿Por cuánto tiempo queda publicada?</summary><p>Hasta un mes después de la boda, así tus invitados la consultan hasta el último día. Si la querés más tiempo, se extiende.</p></details>
+          <details><summary>¿Puede estar en inglés también?</summary><p>Sí, se puede preparar en castellano y en inglés. Avisanos al hacer el pedido y te contamos cómo queda.</p></details>
+          <details><summary>¿Cómo se paga?</summary><p>Por transferencia bancaria o Mercado Pago, en pesos. Te pasamos los datos al confirmar el pedido.</p></details>
         </div>
         </div>
-        <p class="faq-mas" id="faq-mas" hidden>¿Tienes otra duda? <a data-contacto-whatsapp href="#contacto">Escríbenos por WhatsApp</a></p>
+        <p class="faq-mas" id="faq-mas" hidden>¿Tenés otra duda? <a data-contacto-whatsapp href="#contacto">Escribinos por WhatsApp</a></p>
       </div>
     </section>
   </main>
@@ -317,7 +319,7 @@
     <svg class="footer-branch footer-branch-left" aria-hidden="true"><use href="#f-flores"/></svg>
     <svg class="footer-branch footer-branch-right" aria-hidden="true"><use href="#f-rama"/></svg>
     <div class="container">
-      <div class="footer-cta"><p class="eyebrow">¿EMPEZAMOS?</p><h2>¿Empezamos con <em>tu invitación</em>?</h2><p class="lead">Dinos la fecha y te decimos cuándo la tienes.</p><button class="btn btn-primary js-start" type="button">Quiero mi invitación <svg class="icon icon-btn"><use href="#i-arrow"/></svg></button></div>
+      <div class="footer-cta"><p class="eyebrow">¿EMPEZAMOS?</p><h2>¿Empezamos con <em>tu invitación</em>?</h2><p class="lead">Decinos la fecha y te decimos cuándo la tenés.</p><button class="btn btn-primary js-start" type="button">Quiero mi invitación <svg class="icon icon-btn"><use href="#i-arrow"/></svg></button></div>
       <div class="footer-bottom">
         <a href="#inicio" class="brand footer-brand"><svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M23.8 40.3 8.2 24.8C-2.9 13.8 12.8-2.8 23.8 9.4 34.8-2.8 50.5 13.8 39.4 24.8Z" stroke="currentColor" stroke-width="2.1"/><path d="m13 12 22 27M36 11 14 35" stroke="currentColor" stroke-width="1.5"/></svg><span class="brand-name">Boda Web<small aria-hidden="true">MÁS QUE UNA INVITACIÓN</small></span></a>
         <nav class="footer-links" aria-label="Enlaces del pie"><a href="#inicio">Inicio</a><a href="#disenos">Diseños</a><a href="#precios">Precio</a><a href="#faq">Preguntas</a></nav>
@@ -330,17 +332,18 @@
 
   <dialog class="dialog order-dialog" id="order-dialog" aria-labelledby="order-title">
     <button class="dialog-close" type="button" data-close aria-label="Cerrar"><svg class="icon"><use href="#i-close"/></svg></button>
-    <h2 id="order-title">Pide tu invitación</h2>
-    <p>Déjanos tus datos y te respondemos con la fecha de entrega y cómo seguimos.</p>
+    <h2 id="order-title">Pedí tu invitación</h2>
+    <p>Dejanos tus datos y te respondemos con la fecha de entrega y cómo seguimos.</p>
     <p class="order-design" id="order-design" hidden>Diseño elegido: <strong></strong> · <a href="#disenos" data-close>cambiar</a></p>
     <form id="order-form" novalidate>
       <label>Nombres de la pareja <input required name="pareja" placeholder="Ej. Valentina y Matías" maxlength="100" autocomplete="off" /></label>
-      <label>Tu email <input required type="email" name="email" placeholder="nombre@correo.com" autocomplete="email" inputmode="email" /></label>
+      <label>Tu WhatsApp <input required type="tel" name="whatsapp" placeholder="Ej. 11 2345 6789" autocomplete="tel" inputmode="tel" maxlength="25" /></label>
+      <label>Tu email <span class="opcional">(opcional)</span> <input type="email" name="email" placeholder="nombre@correo.com" autocomplete="email" inputmode="email" /></label>
       <label>Fecha de la boda <span class="opcional">(si ya la tienen)</span> <input type="date" name="fecha" /></label>
       <label>¿Algo más que quieras contarnos? <span class="opcional">(opcional)</span> <textarea name="mensaje" rows="3" maxlength="600" placeholder="Por ejemplo: la boda es en otro país, queremos la invitación en inglés…"></textarea></label>
       <p class="form-error" id="form-error" role="alert" hidden></p>
       <button type="submit" class="btn btn-primary form-submit" id="form-submit">Enviar pedido</button>
-      <div id="order-result" class="order-result" aria-live="polite" hidden><p id="order-result-text" tabindex="-1"></p><textarea readonly id="order-summary" rows="6" aria-label="Resumen de tu solicitud"></textarea><button type="button" class="btn btn-outline" id="copy-summary">Copiar solicitud</button><span id="copy-feedback" aria-live="polite"></span></div>
+      <div id="order-result" class="order-result" aria-live="polite" hidden><p id="order-result-text" tabindex="-1"></p><textarea readonly id="order-summary" rows="6" aria-label="Resumen de tu pedido"></textarea><button type="button" class="btn btn-outline" id="copy-summary">Copiar el pedido</button><span id="copy-feedback" aria-live="polite"></span></div>
     </form>
   </dialog>
 </body>

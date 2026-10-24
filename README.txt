@@ -8,11 +8,16 @@ Archivos:
 - modelos/         LOS 13 MODELOS DE INVITACIÓN (ver abajo)
 - favicon.*        Ícono de la pestaña y del acceso directo en el celular
 - robots.txt       Permiso para los buscadores
+- 404.html         La página que se muestra cuando alguien entra a una dirección que no existe
+- vercel.json      Le dice al navegador que guarde las fotos un día (abre más rápido la segunda vez)
 
 PUBLICACIÓN
 - Repositorio: github.com/carosellac/bodaweb (rama master). Cada push se publica solo en Vercel.
 - Dirección actual: https://bodaweb-rose.vercel.app
 - Si se conecta un dominio propio, cambiar la dirección en index.html (canonical, og:url y og:image).
+- Los modelos de muestra (carpeta modelos/) tienen una barra abajo, que aparece al bajar, con "Ver otros
+  diseños" y "Quiero este diseño". Sale sola porque la dirección contiene /modelos/: en la carpeta de una
+  pareja (parejas/…) NO aparece.
 
 LOS 13 MODELOS (carpeta modelos/)
   modelos/clasico/       Clásico & Romántico   crema, dorado viejo, serif, tarjeta con marco
@@ -39,7 +44,7 @@ Cada modelo es una carpeta completa e independiente:
   comun.js     el comportamiento (cuenta regresiva, mapas, calendario, galería, confirmación, música).
                Es IDÉNTICO en todos los modelos: no hace falta tocarlo. Si se corrige algo, copiarlo a todos.
   fotos/       portada.webp · historia-1.webp · historia-2.webp · galeria-1.webp … galeria-6.webp
-               (las de muestra son de Unsplash, de uso libre)
+               (las de muestra son de dominio público: Unsplash y Wikimedia Commons, licencia CC0)
 
 CÓMO ARMAR LA INVITACIÓN DE UNA PAREJA (sin programar)
 1. Copiar la carpeta del modelo elegido a una carpeta nueva, por ejemplo:
@@ -55,21 +60,32 @@ CÓMO ARMAR LA INVITACIÓN DE UNA PAREJA (sin programar)
    400 KB cada una (en webp o jpg; si son .jpg, cambiar la terminación en index.html).
 4. Textos largos (la historia, el itinerario, la aclaración de vestimenta): están en index.html,
    marcados con comentarios "Texto de ejemplo: cambialo…". Se editan ahí mismo.
-5. Música de fondo (opcional): dejar un archivo musica.mp3 en la carpeta. El botón aparece solo.
-6. En index.html, la etiqueta og:image (imagen al compartir por WhatsApp) lleva la dirección completa
-   de la carpeta: cambiar "modelos/<modelo>" por la carpeta nueva (está marcada con un comentario).
+5. Música de fondo (opcional): dejar el archivo (por ejemplo musica.mp3) en la carpeta y escribir su nombre
+   en datos.js, en el renglón musica: 'musica.mp3'. Si queda vacío, no hay botón de música.
+6. En index.html, las etiquetas og:url y og:image (dirección e imagen al compartir por WhatsApp) llevan
+   la dirección completa de la carpeta: cambiar "modelos/<modelo>" por la carpeta nueva en las dos
+   (están marcadas con un comentario).
 7. Hacer push: en un minuto queda publicada. Probar en el celular antes de mandarla.
 Para que la invitación de una pareja no aparezca en Google, index.html ya lleva <meta name="robots" content="noindex">.
 
 LO QUE HAY QUE COMPLETAR ANTES DE VENDER
 1. script.js, al principio, el bloque CONTACTO: WhatsApp, Instagram y email.
    Con el WhatsApp cargado, el formulario de pedido abre WhatsApp con el pedido ya escrito
-   (incluye el diseño que la persona eligió con "Quiero este").
+   (incluye el diseño que la persona eligió con "Quiero este"). El formulario pide el WhatsApp de la
+   pareja (obligatorio) y el email (opcional).
 2. Opiniones: la sección está apagada (hidden) hasta tener reseñas reales. Instrucciones en index.html.
-3. Precio único: $ 55.000 (pesos argentinos, pago único). Está en index.html (sección Precios) y en
-   script.js (renglón "Precio:" del pedido): si cambia, tocar los dos lugares.
+3. Precio único: $ 55.000 (pesos argentinos, pago único). Está en index.html (sección Precios) y de ahí
+   lo lee el pedido: se cambia en UN solo lugar.
+4. Preguntas frecuentes (index.html): dicen "entre 3 y 5 días hábiles", "hasta un mes después de la boda"
+   y "transferencia o Mercado Pago". Son valores razonables puestos como ejemplo: CONFIRMARLOS o cambiarlos
+   antes de vender.
+5. Medición de visitas (opcional): en script.js, bloque ANALITICA, pegar el ID de Google Analytics (G-…).
 
 NOTAS
-- Las capturas de los modelos (assets/modelo-*.webp) se sacaron de los modelos reales a 1200×675.
-  Si se cambia el diseño de un modelo, volver a sacarla para que la tarjeta no mienta.
+- Las capturas de los modelos son dos por modelo: assets/modelo-*.webp (computadora, 1200×675) y
+  assets/modelo-*-movil.webp (primera pantalla del celular, 780×975). En el celular la tarjeta muestra la
+  del celular. Si se cambia el diseño de un modelo, volver a sacar las dos para que la tarjeta no mienta.
+- La portada del sitio muestra un celular con assets/modelo-clasico-movil.webp adentro.
+- "Agregar al calendario": en iPhone, iPad y Mac entrega un archivo de calendario (abre el calendario del
+  teléfono); en el resto abre Google Calendar.
 - Tipografías de Google Fonts; sin conexión se usan tipografías alternativas.
