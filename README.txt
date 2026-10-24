@@ -19,6 +19,14 @@ PUBLICACIÓN
   diseños" y "Quiero este diseño". Sale sola porque la dirección contiene /modelos/: en la carpeta de una
   pareja (parejas/…) NO aparece.
 
+EN LA COMPUTADORA LAS INVITACIONES SE VEN COMO EN EL CELULAR
+- En una pantalla de computadora (900 px o más, con mouse) la invitación aparece adentro de un celular
+  dibujado, con la versión de celular tal cual. Lo hace comun.js; no hay que configurar nada.
+- En los modelos de muestra, al costado del celular están "Quiero este diseño" y "Ver otros diseños".
+  En la invitación de una pareja (parejas/…) sólo se ve el celular.
+- Para ver el diseño de computadora que tiene cada modelo, agregar ?vista=compu a la dirección
+  (ej. https://bodaweb-rose.vercel.app/modelos/playa/?vista=compu).
+
 LOS 13 MODELOS (carpeta modelos/)
   modelos/clasico/       Clásico & Romántico   crema, dorado viejo, serif, tarjeta con marco
   modelos/minimalista/   Moderno & Minimalista blanco y negro, tipografía enorme, fotos en blanco y negro
@@ -82,9 +90,9 @@ LO QUE HAY QUE COMPLETAR ANTES DE VENDER
 5. Medición de visitas (opcional): en script.js, bloque ANALITICA, pegar el ID de Google Analytics (G-…).
 
 NOTAS
-- Las capturas de los modelos son dos por modelo: assets/modelo-*.webp (computadora, 1200×675) y
-  assets/modelo-*-movil.webp (primera pantalla del celular, 780×975). En el celular la tarjeta muestra la
-  del celular. Si se cambia el diseño de un modelo, volver a sacar las dos para que la tarjeta no mienta.
+- Las tarjetas de "Diseños" usan una captura por modelo: assets/modelo-*-movil.webp (la primera pantalla
+  del celular, 780×975), en el celular y en la compu. Si se cambia el diseño de un modelo, volver a sacarla
+  para que la tarjeta no mienta.
 - La portada del sitio muestra un celular con assets/modelo-clasico-movil.webp adentro.
 - "Agregar al calendario": en iPhone, iPad y Mac entrega un archivo de calendario (abre el calendario del
   teléfono); en el resto abre Google Calendar.

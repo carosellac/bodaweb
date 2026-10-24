@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#fcfcfa" />
-  <script>document.documentElement.classList.add('js')</script>
+  <!-- En la computadora la invitación se muestra dentro de un celular (comun.js arma el marco). Con ?vista=compu se ve el diseño de computadora. -->
+  <script>(function(){var d=document.documentElement;d.classList.add('js');try{if(window.self!==window.top){d.classList.add('bw-en-marco')}else if(window.matchMedia&&matchMedia('(min-width:900px) and (hover:hover)').matches&&!/[?&]vista=compu(&|$)/.test(location.search)){d.classList.add('bw-escritorio')}}catch(e){}})()</script>
+  <style>html.bw-escritorio body>*:not(.bw-marco){display:none!important}html.bw-escritorio,html.bw-escritorio body{overflow:hidden;height:100%}html.bw-en-marco{scrollbar-width:none}html.bw-en-marco::-webkit-scrollbar{display:none}</style>
   <title>Carla &amp; Martín · Nos vamos a casar</title>
   <meta name="description" content="Invitación a nuestra boda: fecha, lugar, itinerario y confirmación de asistencia." />
   <meta name="robots" content="noindex" />

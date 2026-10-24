@@ -7,6 +7,7 @@
    · enlaces a Google Maps · copiar alias / CBU · galería ampliada · confirmación por WhatsApp
    · música (si en datos.js se completa "musica")
    · en los modelos de MUESTRA (carpeta modelos/) agrega una barra para volver a Boda Web o pedir ese diseño
+   · en la COMPUTADORA muestra la invitación dentro de un celular (la versión de celular, tal cual)
    ===================================================================== */
 (() => {
   'use strict';
@@ -24,6 +25,73 @@
   $$('[data-si]').forEach(el => { if (vacio(leer(el.dataset.si))) el.hidden = true; });
   if (!vacio(D.nombre1) && !vacio(D.nombre2)) {
     document.title = D.nombre1 + ' & ' + D.nombre2 + (vacio(D.fechaTexto) ? '' : ' · ' + D.fechaTexto);
+  }
+
+  /* ---------- Computadora: la invitación se muestra DENTRO DE UN CELULAR ----------
+     La invitación es para el celular (ahí la abren los invitados), así que en la compu se ve la misma
+     versión, sin adaptaciones: un iframe del ancho de un teléfono carga esta misma página, que adentro
+     se dibuja exactamente como en un celular. La marca "bw-escritorio" la pone el <head> (pantalla de
+     900px o más, con mouse, y sin ?vista=compu); adentro del iframe la marca es "bw-en-marco".
+     En los modelos de MUESTRA, al costado del celular van "Quiero este diseño" y "Ver otros diseños". */
+  const raiz = document.documentElement;
+  const enMarco = raiz.classList.contains('bw-en-marco');
+  if (raiz.classList.contains('bw-escritorio')) {
+    const color = (document.querySelector('meta[name="theme-color"]')?.content || '#f6f1ec').trim();
+    const hex = /^#([0-9a-f]{6})$/i.test(color) ? color : '#f6f1ec';
+    const lum = (() => { const c = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; })();
+    const oscuro = lum < 0.25;
+    const css = document.createElement('style');
+    css.textContent = [
+      '.bw-marco{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;gap:clamp(32px,6vw,96px);padding:24px;box-sizing:border-box;background:radial-gradient(120% 90% at 50% 0%,' + hex + ' 0%,' + hex + ' 35%,' + (oscuro ? '#05070c' : '#e9e2db') + ' 100%);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:' + (oscuro ? '#f3efe8' : '#2a2320') + ';z-index:2147483000}',
+      '.bw-marco *{box-sizing:border-box}',
+      '.bw-lado{max-width:340px;display:grid;gap:16px}',
+      // Los estilos de cada invitación (h1, p, a…) no pueden colarse en el panel: todo va explícito
+      '.bw-marco .bw-lado,.bw-marco .bw-lado *{color:' + (oscuro ? '#f3efe8' : '#2a2320') + '!important;text-shadow:none!important;text-transform:none!important;font-style:normal!important;letter-spacing:normal!important;background-image:none!important}',
+      '.bw-marco .bw-lado p{margin:0!important;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif!important}',
+      '.bw-marco .bw-lado p.bw-eyebrow{letter-spacing:.22em!important;text-transform:uppercase!important;font-size:12px!important;font-weight:700!important}',
+      '.bw-marco h1.bw-titulo{margin:0!important;padding:0!important;font:500 clamp(34px,3.2vw,46px)/1.05 "Cormorant Garamond",Georgia,"Times New Roman",serif!important}',
+      '.bw-marco .bw-acciones a.bw-principal{color:' + (oscuro ? '#0b0f18' : '#fff') + '!important;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif!important}',
+      '.bw-marco .bw-acciones a{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif!important}',
+      '.bw-eyebrow{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;opacity:.75}',
+      '.bw-titulo{margin:0;font:500 clamp(34px,3.2vw,46px)/1.05 "Cormorant Garamond",Georgia,"Times New Roman",serif}',
+      '.bw-texto{font-size:16px;line-height:1.55;opacity:.85}',
+      '.bw-acciones{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}',
+      '.bw-acciones a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;border:1.5px solid currentColor;color:inherit;transition:transform .2s}',
+      '.bw-acciones a:hover{transform:translateY(-2px)}',
+      '.bw-acciones a.bw-principal{background:' + (oscuro ? '#f3efe8' : '#2a2320') + ';border-color:transparent;color:' + (oscuro ? '#0b0f18' : '#fff') + '}',
+      '.bw-acciones a:focus-visible{outline:2px solid currentColor;outline-offset:3px}',
+      // El celular mide SIEMPRE 390×844 (un iPhone real: así la invitación se arma igual que en un teléfono)
+      // y se achica entero con --bw-escala cuando la pantalla es más baja
+      '.bw-caja{flex:none;width:calc(414px * var(--bw-escala,1));height:calc(868px * var(--bw-escala,1));position:relative}',
+      '.bw-telefono{position:absolute;top:0;left:0;width:414px;height:868px;padding:12px;border-radius:56px;background:#16161a;box-shadow:0 40px 90px rgba(0,0,0,.35),0 0 0 2px #2c2c33,inset 0 0 0 2px #000;transform:scale(var(--bw-escala,1));transform-origin:0 0}',
+      '.bw-telefono iframe{display:block;width:390px;height:844px;border:0;border-radius:44px;background:#fff}',
+      '.bw-ayuda{font-size:13px;opacity:.65}',
+      '@media (max-width:1100px){.bw-lado{max-width:260px}}'
+    ].join('\n');
+    document.head.appendChild(css);
+    const marco = document.createElement('div');
+    marco.className = 'bw-marco';
+    const nombreModelo = vacio(D.modelo) ? '' : String(D.modelo);
+    const inicio = location.pathname.replace(/\/modelos\/[^/]+\/?.*$/, '/');
+    const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const lado = esMuestra
+      ? '<div class="bw-lado"><p class="bw-eyebrow">Diseño de muestra · Boda Web</p>'
+        + '<h1 class="bw-titulo">' + esc(nombreModelo || 'Invitación') + '</h1>'
+        + '<p class="bw-texto">Así la ven tus invitados en el celular. Recorrela completa con la ruedita del mouse: cuenta regresiva, mapa, galería y confirmación.</p>'
+        + '<div class="bw-acciones"><a class="bw-principal" href="' + inicio + (nombreModelo ? '?diseno=' + encodeURIComponent(nombreModelo) : '') + '">Quiero este diseño</a>'
+        + '<a href="' + inicio + '#disenos">Ver otros diseños</a></div></div>'
+      : '';
+    marco.innerHTML = lado + '<div class="bw-caja"><div class="bw-telefono"><iframe title="' + esc(document.title) + '" src="' + esc(location.href) + '"></iframe></div></div>';
+    document.body.appendChild(marco);
+    const escalar = () => marco.style.setProperty('--bw-escala', String(Math.min(1, (window.innerHeight - 40) / 868)));
+    escalar();
+    window.addEventListener('resize', escalar);
+    // La ruedita del mouse fuera del celular también lo hace bajar
+    const frame = marco.querySelector('iframe');
+    marco.addEventListener('wheel', e => { if (e.target === frame) return; try { frame.contentWindow.scrollBy(0, e.deltaY); e.preventDefault(); } catch (_) {} }, { passive: false });
+    // Si la ventana se achica a tamaño celular (o se agranda), se recarga para mostrar la versión que corresponde
+    try { matchMedia('(min-width:900px) and (hover:hover)').addEventListener('change', () => location.reload()); } catch (_) {}
+    return;
   }
 
   /* ---------- Mapas: <a data-mapa="ceremonia">Cómo llegar</a> ---------- */
@@ -224,7 +292,8 @@
 
   /* ---------- Modelo de muestra: barra para volver a Boda Web o pedir este diseño ----------
      Aparece recién al bajar (la portada tiene que verse entera) y lleva el nombre del modelo al pedido. */
-  if (esMuestra) {
+  if (enMarco) $$('a[href]').forEach(a => { const h = a.getAttribute('href') || ''; if (!h.startsWith('#') && !a.target) a.target = '_top'; });
+  if (esMuestra && !enMarco) {
     const inicio = location.pathname.replace(/\/modelos\/[^/]+\/?.*$/, '/');
     const barra = document.createElement('div');
     barra.className = 'bw-muestra';
