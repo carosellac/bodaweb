@@ -66,6 +66,19 @@
       '.bw-telefono{position:absolute;top:0;left:0;width:414px;height:868px;padding:12px;border-radius:56px;background:#16161a;box-shadow:0 40px 90px rgba(0,0,0,.35),0 0 0 2px #2c2c33,inset 0 0 0 2px #000;transform:scale(var(--bw-escala,1));transform-origin:0 0}',
       '.bw-telefono iframe{display:block;width:390px;height:844px;border:0;border-radius:44px;background:#fff}',
       '.bw-ayuda{font-size:13px;opacity:.65}',
+      // Flechitas al costado del celular: avisan que la invitación sigue para abajo
+      '.bw-flechas{position:absolute;left:100%;bottom:20%;margin-left:32px;display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px;border:0;background:none;color:inherit;font:700 14px/1.25 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;text-align:center;cursor:pointer;transition:opacity .4s;width:120px}',
+      '.bw-flechas .bw-circulo{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;border:2px solid currentColor}',
+      '.bw-flechas .bw-circulo>span{display:block;animation:bw-bajar 1.6s ease-in-out infinite}',
+      '.bw-flechas svg{width:30px;height:30px;display:block}',
+      '.bw-flechas svg+svg{margin-top:-18px;opacity:.5}',
+      '.bw-flechas:hover .bw-circulo{background:' + (oscuro ? 'rgba(255,255,255,.12)' : 'rgba(0,0,0,.06)') + '}',
+      '.bw-flechas.bw-oculta{opacity:0;pointer-events:none}',
+      '.bw-flechas:focus-visible{outline:2px solid currentColor;outline-offset:4px;border-radius:16px}',
+      '@keyframes bw-bajar{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}',
+      // Si no hay lugar al costado, van sobre la parte de abajo del celular, en una pastilla oscura
+      '@media (max-width:1150px){.bw-flechas{left:50%;bottom:calc(36px * var(--bw-escala,1));margin-left:0;width:auto;transform:translateX(-50%);flex-direction:row;gap:8px;padding:10px 18px 10px 12px;border-radius:999px;background:rgba(20,18,16,.78);color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);white-space:nowrap}.bw-flechas .bw-circulo{width:auto;height:auto;border:0}.bw-flechas svg{width:22px;height:22px}.bw-flechas svg+svg{margin-top:-14px}}',
+      '@media (prefers-reduced-motion:reduce){.bw-flechas .bw-circulo>span{animation:none!important}}',
       '@media (max-width:1100px){.bw-lado{max-width:260px}}'
     ].join('\n');
     document.head.appendChild(css);
@@ -81,13 +94,25 @@
         + '<div class="bw-acciones"><a class="bw-principal" href="' + inicio + (nombreModelo ? '?diseno=' + encodeURIComponent(nombreModelo) : '') + '">Quiero este diseño</a>'
         + '<a href="' + inicio + '#disenos">Ver otros diseños</a></div></div>'
       : '';
-    marco.innerHTML = lado + '<div class="bw-caja"><div class="bw-telefono"><iframe title="' + esc(document.title) + '" src="' + esc(location.href) + '"></iframe></div></div>';
+    const flecha = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+    marco.innerHTML = lado + '<div class="bw-caja"><div class="bw-telefono"><iframe title="' + esc(document.title) + '" src="' + esc(location.href) + '"></iframe></div>'
+      + '<button type="button" class="bw-flechas" aria-label="Bajar para ver más de la invitación"><span class="bw-circulo"><span>' + flecha + flecha + '</span></span><span>Bajá para ver más</span></button></div>';
     document.body.appendChild(marco);
     const escalar = () => marco.style.setProperty('--bw-escala', String(Math.min(1, (window.innerHeight - 40) / 868)));
     escalar();
     window.addEventListener('resize', escalar);
     // La ruedita del mouse fuera del celular también lo hace bajar
     const frame = marco.querySelector('iframe');
+    // Las flechitas: al tocarlas baja una pantalla; se esconden cuando la persona ya empezó a bajar
+    const flechas = marco.querySelector('.bw-flechas');
+    flechas.addEventListener('click', () => { try { const w = frame.contentWindow; w.scrollBy({ top: w.innerHeight * 0.8, behavior: 'smooth' }); } catch (_) {} });
+    frame.addEventListener('load', () => {
+      try {
+        const w = frame.contentWindow;
+        const revisar = () => { const fin = w.scrollY + w.innerHeight >= w.document.documentElement.scrollHeight - 40; flechas.classList.toggle('bw-oculta', w.scrollY > 120 || fin); };
+        w.addEventListener('scroll', revisar, { passive: true }); revisar();
+      } catch (_) {}
+    });
     marco.addEventListener('wheel', e => { if (e.target === frame) return; try { frame.contentWindow.scrollBy(0, e.deltaY); e.preventDefault(); } catch (_) {} }, { passive: false });
     // Si la ventana se achica a tamaño celular (o se agranda), se recarga para mostrar la versión que corresponde
     try { matchMedia('(min-width:900px) and (hover:hover)').addEventListener('change', () => location.reload()); } catch (_) {}
