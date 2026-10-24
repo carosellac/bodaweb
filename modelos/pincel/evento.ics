@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20271204T223000Z-0b9c30b621a9@bodaweb
+DTSTAMP:20261024T204158Z
+DTSTART:20271204T223000Z
+DTEND:20271205T090000Z
+SUMMARY:Casamiento de Agustina y Ignacio
+DESCRIPTION:Una noche de primavera\, mucha música y un piano que no puede 
+ faltar. Te esperamos para cantar con nosotros.
+LOCATION:Catedral de San Isidro\, Av. del Libertador 16200\, San Isidro
+END:VEVENT
+END:VCALENDAR

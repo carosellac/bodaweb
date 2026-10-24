@@ -75,8 +75,10 @@ CÓMO ARMAR LA INVITACIÓN DE UNA PAREJA (sin programar)
    Para la pareja: dejar SU archivo (por ejemplo musica.mp3) en la carpeta y escribir su nombre en datos.js,
    en el renglón musica: 'musica.mp3'. Si queda vacío, no hay botón de música.
 6. Correr  node actualizar-invitaciones.js  (en la raíz). Escribe el título y la vista previa de WhatsApp con
-   los nombres de la pareja, arma fotos/compartir.jpg y AVISA si quedó algo del ejemplo: nombres de la
-   pareja de muestra en la historia, WhatsApp vacío o la música de muestra. Sin este paso, el link se
+   los nombres de la pareja, arma fotos/compartir.jpg y evento.ics (el calendario que abren iPhone, iPad y
+   Mac) y AVISA si quedó algo del ejemplo: nombres, fecha, alias o titular de los regalos, hashtag, foto de
+   portada, nombres de la pareja de muestra en la historia, WhatsApp vacío o la música de muestra.
+   Si datos.js cambia (fecha, horarios, lugar), volver a correrla. Sin este paso, el link se
    compartiría con los nombres de la pareja de ejemplo. (Para la foto necesita la librería sharp:
    npm install sharp, una sola vez.)
 7. Hacer push: en un minuto queda publicada. Probar en el celular antes de mandarla.

@@ -143,16 +143,18 @@
     const base = $('section.vestimenta') || $('#regalos');
     if (base) {
       const sec = base.cloneNode(false);
-      sec.removeAttribute('id'); sec.removeAttribute('data-si'); sec.hidden = false; sec.classList.add('bw-info');
+      // La copia no puede repetir ids ni apuntar a los títulos de la original (confunde a los lectores de pantalla)
+      const limpiar = el => ['id', 'data-si', 'data-dato', 'aria-labelledby', 'aria-describedby'].forEach(a => el.removeAttribute(a));
+      limpiar(sec); sec.hidden = false; sec.classList.add('bw-info');
       const etiquetaBase = base.querySelector('.antetitulo, .etiqueta, .chico');
-      if (etiquetaBase) { const e = etiquetaBase.cloneNode(false); e.removeAttribute('data-dato'); e.removeAttribute('data-si'); e.textContent = 'Información útil'; sec.appendChild(e); }
+      if (etiquetaBase) { const e = etiquetaBase.cloneNode(false); limpiar(e); e.textContent = 'Información útil'; sec.appendChild(e); }
       const tituloBase = base.querySelector('h2');
       const h = tituloBase ? tituloBase.cloneNode(false) : document.createElement('h2');
-      h.removeAttribute('data-dato'); h.removeAttribute('data-si'); h.textContent = 'Para que no te falte nada'; sec.appendChild(h);
+      limpiar(h); h.textContent = 'Para que no te falte nada'; sec.appendChild(h);
       const parrafoBase = [...base.querySelectorAll('p')].find(x => !x.matches('.antetitulo, .etiqueta, .chico') && !x.hasAttribute('data-dato'));
       infoItems.forEach(([titulo, texto]) => {
         const pp = parrafoBase ? parrafoBase.cloneNode(false) : document.createElement('p');
-        pp.removeAttribute('data-dato'); pp.removeAttribute('data-si');
+        limpiar(pp);
         pp.innerHTML = '<strong>' + titulo + ':</strong> ' + escapar(texto);
         pp.style.marginTop = '12px';
         sec.appendChild(pp);
@@ -169,7 +171,7 @@
   /* ---------- Mapas: <a data-mapa="ceremonia">Cómo llegar</a> ---------- */
   $$('[data-mapa]').forEach(a => {
     const lugar = leer(a.dataset.mapa) || {};
-    const url = !vacio(lugar.mapa) ? lugar.mapa
+    const url = !vacio(lugar.mapa) && /^https?:\/\//i.test(String(lugar.mapa).trim()) ? String(lugar.mapa).trim()
       : !vacio(lugar.direccion) ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent([lugar.nombre, lugar.direccion].filter(Boolean).join(', '))
       : '';
     if (!url) { a.hidden = true; return; }
@@ -194,29 +196,36 @@
         aviso.className = 'bw-cerrado';
         aviso.textContent = 'La confirmación ya cerró. ¡Gracias a todos los que nos acompañaron!';
         f.hidden = true; f.after(aviso);
+        // Lo que habla de confirmar ya no corresponde
+        $$('[data-si="confirmarHasta"], .confirmar-plazo, .bw-para').forEach(el => { el.hidden = true; });
       }
     }
+    // Pasada la boda la cuenta queda en cero: no hace falta seguir recalculándola cada segundo
+    if (tic.despues && tic.reloj) { clearInterval(tic.reloj); tic.reloj = 0; }
     const s = Math.floor(diff / 1000);
     const valores = { dias: Math.floor(s / 86400), horas: Math.floor((s % 86400) / 3600), minutos: Math.floor((s % 3600) / 60), segundos: s % 60 };
     partes.forEach(([k, els]) => els.forEach(el => { el.textContent = k === 'dias' ? String(valores[k]) : dos(valores[k]); }));
   }
+  tic.reloj = setInterval(tic, 1000);
   tic();
-  setInterval(tic, 1000);
 
   /* ---------- Agregar al calendario ----------
      En iPhone, iPad y Mac se entrega un archivo de calendario (.ics) que abre el calendario del
      teléfono; en el resto, Google Calendar. Antes se mandaba a todos a Google Calendar, que en un
      iPhone abre una página web y no el calendario. */
-  const esApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
-  const esIos = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  const esIpad = /Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 0;  // las Mac no tienen pantalla táctil
+  const esIos = /iPhone|iPad|iPod/.test(navigator.userAgent) || esIpad;
+  const esApple = (esIos || /Macintosh/.test(navigator.userAgent)) && !/Android/.test(navigator.userAgent);
+  // Diferencia horaria escrita en la fecha (ej. -03:00); si no hay, la de Argentina
+  const zona = (() => { const m = /([+-])(\d{2}):?(\d{2})$/.exec(String(D.fecha || '').trim()); return m ? (m[1] === '-' ? -1 : 1) * (+m[2] * 60 + +m[3]) : -180; })();
   $$('[data-calendario]').forEach(a => {
     if (isNaN(fecha.getTime())) { a.hidden = true; return; }
     const utc = d => d.toISOString().replace(/[-:]|\.\d{3}/g, '');
     // Termina una hora después del último momento del itinerario (ej. despedida a las 03:00 → 04:00);
     // si el itinerario no tiene horas, dura 6 horas
     const minutos = t => { const m = /^(\d{1,2}):(\d{2})/.exec(String(t).trim()); return m ? +m[1] * 60 + +m[2] : null; };
-    const inicioAR = new Date(fecha.getTime() - 3 * 3600 * 1000);
-    const minInicio = inicioAR.getUTCHours() * 60 + inicioAR.getUTCMinutes();
+    const inicioLocal = new Date(fecha.getTime() + zona * 60000);
+    const minInicio = inicioLocal.getUTCHours() * 60 + inicioLocal.getUTCMinutes();
     const saltos = $$('time').map(t => minutos(t.textContent)).filter(x => x !== null).map(x => (x - minInicio + 1440) % 1440);
     const ultimo = saltos.length ? Math.max(...saltos) : 0;
     const fin = new Date(fecha.getTime() + (ultimo >= 60 && ultimo <= 14 * 60 ? (ultimo + 60) * 60000 : 6 * 3600 * 1000));
@@ -226,13 +235,18 @@
     const detalle = vacio(D.frase) ? '' : String(D.frase);
     if (esApple) {
       const esc = s => String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+      // Los renglones de un archivo de calendario no pueden pasar de 75 bytes: se pliegan
+      const plegar = linea => { const enc = new TextEncoder(); const out = []; let cur = '', n = 0; for (const ch of linea) { const b = enc.encode(ch).length; if (n + b > 75) { out.push(cur); cur = ' ' + ch; n = 1 + b; } else { cur += ch; n += b; } } out.push(cur); return out.join('\r\n'); };
       const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Boda Web//Invitacion//ES', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
         'UID:' + utc(fecha) + '-' + encodeURIComponent((D.nombre1 || '') + (D.nombre2 || '')).replace(/%/g, '') + '@bodaweb',
         'DTSTAMP:' + utc(new Date()), 'DTSTART:' + utc(fecha), 'DTEND:' + utc(fin),
-        'SUMMARY:' + esc(titulo), 'DESCRIPTION:' + esc(detalle), 'LOCATION:' + esc(donde), 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+        'SUMMARY:' + esc(titulo), 'DESCRIPTION:' + esc(detalle), 'LOCATION:' + esc(donde), 'END:VEVENT', 'END:VCALENDAR'].map(plegar).join('\r\n');
       a.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
-      // En el iPhone el enlace abre el calendario directamente; en la Mac se baja el archivo y se abre con un toque
+      // En el iPhone/iPad el enlace abre el calendario directamente; en la Mac se baja el archivo y se abre con un toque
       if (!esIos) a.setAttribute('download', 'casamiento.ics');
+      // Si está publicado el archivo evento.ics (lo arma actualizar-invitaciones.js) se usa ése: un archivo real
+      // lo abren también los navegadores que no aceptan el calendario armado en el momento
+      fetch('evento.ics', { method: 'HEAD', cache: 'no-store' }).then(r => { if (r.ok && /calendar/i.test(r.headers.get('content-type') || '')) a.href = 'evento.ics'; }).catch(() => {});
       return;
     }
     const p = new URLSearchParams({ action: 'TEMPLATE', text: titulo, dates: utc(fecha) + '/' + utc(fin), details: detalle, location: donde });
@@ -291,7 +305,7 @@
     if (botonConfirmar && !whatsapp) botonConfirmar.textContent = 'Preparar mi confirmación';
     const campoPersonas = form.elements.personas;
     if (campoPersonas) campoPersonas.max = String(maxPersonas);
-    if (invitado || lugares) {
+    if ((invitado || lugares) && !tic.despues) {
       const saludo = document.createElement('p');
       saludo.className = 'bw-para';
       saludo.textContent = (invitado ? '¡Hola, ' + invitado + '! ' : '') + (lugares ? 'Esta invitación es para ' + lugares + (lugares === 1 ? ' persona.' : ' personas.') : '');
@@ -454,7 +468,7 @@
 
   /* ---------- Modelo de muestra: barra para volver a Boda Web o pedir este diseño ----------
      Aparece recién al bajar (la portada tiene que verse entera) y lleva el nombre del modelo al pedido. */
-  if (enMarco) $$('a[href]').forEach(a => { const h = a.getAttribute('href') || ''; if (!h.startsWith('#') && !a.target) a.target = '_top'; });
+  if (enMarco) $$('a[href]').forEach(a => { const h = a.getAttribute('href') || ''; if (!h.startsWith('#') && !a.target && !a.hasAttribute('download') && !a.hasAttribute('data-calendario')) a.target = '_top'; });
   if (esMuestra && !enMarco) {
     const inicio = location.pathname.replace(/\/modelos\/[^/]+\/?.*$/, '/');
     const barra = document.createElement('div');

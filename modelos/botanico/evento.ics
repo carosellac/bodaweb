@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20270508T210000Z-1b071e74b6dc@bodaweb
+DTSTAMP:20261024T204157Z
+DTSTART:20270508T210000Z
+DTEND:20270509T080000Z
+SUMMARY:Casamiento de Carla y Martín
+DESCRIPTION:Entre las sierras\, al aire libre y con el mate siempre a mano.
+  Queremos festejarlo con vos.
+LOCATION:Capilla del Valle\, Av. San Martín 10\, Villa General Belgrano
+END:VEVENT
+END:VCALENDAR

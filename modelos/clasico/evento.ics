@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20270417T200000Z-4fc35419462f@bodaweb
+DTSTAMP:20261024T204157Z
+DTSTART:20270417T200000Z
+DTEND:20270418T070000Z
+SUMMARY:Casamiento de Valentina y Nicolás
+DESCRIPTION:Con la bendición de nuestras familias\, tenemos el honor de in
+ vitarlos a celebrar nuestro casamiento.
+LOCATION:Basílica Nuestra Señora del Pilar\, Junín 1904\, Recoleta\, Ciu
+ dad de Buenos Aires
+END:VEVENT
+END:VCALENDAR

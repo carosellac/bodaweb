@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20271113T220000Z-e0e955f7e150@bodaweb
+DTSTAMP:20261024T204157Z
+DTSTART:20271113T220000Z
+DTEND:20271114T083000Z
+SUMMARY:Casamiento de Micaela y Federico
+DESCRIPTION:Entre viñedos\, con buen vino y la gente que más queremos. Br
+ indemos juntos por lo que viene.
+LOCATION:Capilla Nuestra Señora del Rosario\, Roque Sáenz Peña 3000\, Lu
+ ján de Cuyo
+END:VEVENT
+END:VCALENDAR

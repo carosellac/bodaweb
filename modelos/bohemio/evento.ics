@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20270213T210000Z-83c419216f8a@bodaweb
+DTSTAMP:20261024T204157Z
+DTSTART:20270213T210000Z
+DTEND:20270214T070000Z
+SUMMARY:Casamiento de Camila y Franco
+DESCRIPTION:Entre el bosque y el mar\, con los pies en la arena y el coraz
+ ón lleno. Vení a celebrar con nosotros.
+LOCATION:Ceremonia en el bosque\, Calle Los Robles y Mercedes Sosa\, Mar de
+  las Pampas
+END:VEVENT
+END:VCALENDAR

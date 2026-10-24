@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20280318T210000Z-1154e7e962de@bodaweb
+DTSTAMP:20261024T204157Z
+DTSTART:20280318T210000Z
+DTEND:20280319T080000Z
+SUMMARY:Casamiento de Valeria y Santiago
+DESCRIPTION:Entre sierras y flores\, con la gente que más queremos. Nos ha
+ ría muy felices que estés.
+LOCATION:Capilla del Cerro\, Av. Don Bosco 2800\, Tandil
+END:VEVENT
+END:VCALENDAR

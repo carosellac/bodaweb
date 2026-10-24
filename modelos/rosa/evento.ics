@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20280520T190000Z-fc22d1239f06@bodaweb
+DTSTAMP:20261024T204158Z
+DTSTART:20280520T190000Z
+DTEND:20280521T060000Z
+SUMMARY:Casamiento de Paula y Benjamín
+DESCRIPTION:Junto a la laguna\, entre flores y con la gente de siempre. Sos
+  parte de nuestra historia.
+LOCATION:Capilla de los Milagros\, Lavalle 120\, Chascomús
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20271127T220000Z-318fc920e6c6@bodaweb
+DTSTAMP:20261024T204158Z
+DTSTART:20271127T220000Z
+DTEND:20271128T083000Z
+SUMMARY:Casamiento de Rocío y Gonzalo
+DESCRIPTION:Entre viñedos y cerros de colores\, con una copa de tinto en l
+ a mano. Queremos brindar con vos.
+LOCATION:Catedral de Cafayate\, Rivadavia 55\, Cafayate
+END:VEVENT
+END:VCALENDAR

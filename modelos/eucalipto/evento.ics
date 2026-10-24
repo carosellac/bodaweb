@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20270320T203000Z-deccf296719f@bodaweb
+DTSTAMP:20261024T204158Z
+DTSTART:20270320T203000Z
+DTEND:20270321T070000Z
+SUMMARY:Casamiento de Florencia y Joaquín
+DESCRIPTION:Un día junto al río\, rodeados de verde y de la gente que má
+ s queremos. Nos encantaría que estés.
+LOCATION:Capilla Santa María del Delta\, Paseo Victorica 600\, Tigre
+END:VEVENT
+END:VCALENDAR

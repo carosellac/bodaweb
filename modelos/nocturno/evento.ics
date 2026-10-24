@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20270522T220000Z-8df1471d5ec2@bodaweb
+DTSTAMP:20261024T204158Z
+DTSTART:20270522T220000Z
+DTEND:20270523T080000Z
+SUMMARY:Casamiento de Sofía y Agustín
+DESCRIPTION:Una noche para brindar por el amor\, la familia y los amigos de
+  siempre. Los esperamos.
+LOCATION:Catedral de Rosario\, Buenos Aires 702\, Rosario\, Santa Fe
+END:VEVENT
+END:VCALENDAR

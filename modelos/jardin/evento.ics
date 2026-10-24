@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20271016T193000Z-ce62a64f46a2@bodaweb
+DTSTAMP:20261024T204158Z
+DTSTART:20271016T193000Z
+DTEND:20271017T060000Z
+SUMMARY:Casamiento de Martina y Lucas
+DESCRIPTION:Un día de primavera\, un jardín lleno de flores y la gente qu
+ e más queremos. ¡Nos casamos!
+LOCATION:Capilla de la Estancia Villa María\, Ruta 6 km 165\, Máximo Paz\
+ , Cañuelas
+END:VEVENT
+END:VCALENDAR
