@@ -119,7 +119,7 @@ const ANALITICA = {
     if (!dentro) closeDialog(dialog);
   }));
 
-  $('#year').textContent = String(new Date().getFullYear());
+  const anio = $('#year'); if (anio) anio.textContent = String(new Date().getFullYear());
   const disenoEnLaDireccion = new URLSearchParams(location.search).get('diseno');
   if (disenoEnLaDireccion) { elegirDiseno(disenoEnLaDireccion); setTimeout(() => showOrder(), 300); }
 
@@ -133,7 +133,8 @@ const ANALITICA = {
   /* ---------- Menú: marca la sección que se está leyendo ---------- */
   const navLinks = $$('.desktop-nav a');
   // 'Inicio' apunta a la cabecera (fija y chica): para marcarlo se observa la portada
-  const sections = navLinks.map(link => link.getAttribute('href') === '#inicio' ? $('.hero') : $(link.getAttribute('href'))).filter(Boolean);
+  // Sólo los enlaces a secciones de ESTA página (#…); en las otras páginas el menú apunta a /#… y no se marca
+  const sections = navLinks.filter(link => (link.getAttribute('href') || '').startsWith('#')).map(link => link.getAttribute('href') === '#inicio' ? $('.hero') : $(link.getAttribute('href'))).filter(Boolean);
   const idDe = s => s.classList.contains('hero') ? 'inicio' : s.id;
   if (sections.length && 'IntersectionObserver' in window) {
     const visible = new Map();
@@ -207,7 +208,7 @@ const ANALITICA = {
     if (!validar()) return;
     const data = new FormData(form);
     // El precio sale de la pantalla de Precio: así está escrito en UN solo lugar
-    const precio = ($('.price')?.textContent || '').replace(/\s+/g, '');
+    const precio = (($('[data-precio]') || $('.price'))?.textContent || '').replace(/\s+/g, '');
     const summary = [
       'Hola, quiero pedir mi invitación web para boda.',
       'Pareja: ' + String(data.get('pareja')).trim(),

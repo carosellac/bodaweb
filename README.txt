@@ -92,6 +92,25 @@ DESPUÉS DE LA BODA
 Pasado el día, la cuenta regresiva dice "¡Gracias por acompañarnos!" y la confirmación se cierra sola.
 Para que la invitación de una pareja no aparezca en Google, index.html ya lleva <meta name="robots" content="noindex">.
 
+PÁGINAS DE BÚSQUEDA (para aparecer en Google)
+Cinco direcciones, una por cada cosa que la gente busca (las búsquedas que piden lo mismo con otras
+palabras van en la misma página: hacer páginas casi iguales es lo que Google castiga como "páginas puerta"):
+  /                                              invitaciones de boda digitales, invitación digital para bodas,
+                                                 invitaciones casamiento, invitaciones digitales Argentina
+  /pagina-web-de-boda/                           crear una página web de boda, invitaciones en formato link web
+  /invitaciones-de-casamiento-por-whatsapp/      invitaciones para mandar/enviar por WhatsApp (3 búsquedas)
+  /tarjetas-de-casamiento-virtuales/             tarjetas de casamiento virtuales, creá tarjetas online
+  /invitaciones-con-confirmacion-de-asistencia/  invitaciones digitales para boda con confirmación
+- El texto de cada una está en seo/paginas.js. Después de cambiarlo, o de cambiar el encabezado, el pie o
+  las tarjetas de la portada, correr:  node seo/generar.js
+  Arma las carpetas, los datos para Google, sitemap.xml y robots.txt, y revisa en cada página la lista de
+  factores (título y descripción con la búsqueda y de largo correcto, un solo H1, búsqueda en el primer
+  párrafo y en un subtítulo, variantes cubiertas, contenido suficiente y propio, sin repetir de más la
+  búsqueda, imágenes con descripción, enlaces internos, preguntas a la vista). Si algo no se cumple, avisa.
+- Si se conecta un dominio propio: cambiar DOMINIO en seo/generar.js y en actualizar-invitaciones.js, y
+  las direcciones de index.html, y volver a correr los dos.
+- Después de publicar: dar de alta el sitio en Google Search Console y enviar /sitemap.xml.
+
 LO QUE HAY QUE COMPLETAR ANTES DE VENDER
 1. script.js, al principio, el bloque CONTACTO: WhatsApp, Instagram y email.
    Con el WhatsApp cargado, el formulario de pedido abre WhatsApp con el pedido ya escrito
@@ -109,7 +128,8 @@ NOTAS
 - Las tarjetas de "Diseños" usan una captura por modelo: assets/modelo-*-movil.webp (la primera pantalla
   del celular, 780×975), en el celular y en la compu. Si se cambia el diseño de un modelo, volver a sacarla
   para que la tarjeta no mienta.
-- La portada del sitio muestra un celular con assets/modelo-clasico-movil.webp adentro.
+- Los celulares dibujados (portada y páginas de búsqueda) usan assets/modelo-*-pantalla.webp: la pantalla
+  completa de un celular (585×1203). La de la portada es modelo-clasico-pantalla.webp.
 - "Agregar al calendario": en iPhone, iPad y Mac entrega un archivo de calendario (abre el calendario del
   teléfono); en el resto abre Google Calendar.
 - Tipografías de Google Fonts; sin conexión se usan tipografías alternativas.
