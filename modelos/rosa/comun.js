@@ -77,7 +77,7 @@
     const lado = esMuestra
       ? '<div class="bw-lado"><p class="bw-eyebrow">Diseño de muestra · Boda Web</p>'
         + '<h1 class="bw-titulo">' + esc(nombreModelo || 'Invitación') + '</h1>'
-        + '<p class="bw-texto">Así la ven tus invitados en el celular. Recorrela completa con la ruedita del mouse: cuenta regresiva, mapa, galería y confirmación.</p>'
+        + '<p class="bw-texto">Así la ven tus invitados en el celular. Arrastrala con el mouse o usá la ruedita para recorrerla completa: cuenta regresiva, mapa, galería y confirmación.</p>'
         + '<div class="bw-acciones"><a class="bw-principal" href="' + inicio + (nombreModelo ? '?diseno=' + encodeURIComponent(nombreModelo) : '') + '">Quiero este diseño</a>'
         + '<a href="' + inicio + '#disenos">Ver otros diseños</a></div></div>'
       : '';
@@ -272,10 +272,62 @@
   /* ---------- Crédito del pie ---------- */
   $$('[data-credito]').forEach(el => { if (D.credito === false) el.hidden = true; });
 
+  /* ---------- Adentro del celular de la compu: se arrastra con el mouse, como con el dedo ----------
+     Agarrar y arrastrar baja (o sube) la invitación, y al soltar sigue con envión, como en un teléfono.
+     No cuesta nada mientras nadie arrastra: sólo escucha el mouse. Un arrastre no cuenta como "toque"
+     en un botón, y sobre los campos del formulario el mouse funciona normal (para escribir y seleccionar). */
+  if (enMarco && window.matchMedia && matchMedia('(pointer:fine)').matches) {
+    let arrastre = null, movio = false, vel = 0, anim = 0, sinClickHasta = 0;
+    const bajar = dy => window.scrollBy({ top: dy, behavior: 'instant' });
+    const frenar = () => { cancelAnimationFrame(anim); anim = 0; };
+    document.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      movio = false;
+      if (e.target.closest('input,textarea,select,dialog[open]')) return;
+      frenar();
+      arrastre = { y: e.clientY, inicio: e.clientY, t: performance.now(), id: e.pointerId }; movio = false; vel = 0;
+    });
+    window.addEventListener('pointermove', e => {
+      if (!arrastre) return;
+      if (e.buttons === 0) { soltar(); return; }
+      if (!movio) {
+        if (Math.abs(e.clientY - arrastre.inicio) < 6) return;
+        movio = true; raiz.classList.add('bw-arrastrando');
+        try { raiz.setPointerCapture(arrastre.id); } catch (_) {}
+        window.getSelection()?.removeAllRanges();
+      }
+      const ahora = performance.now(), dt = Math.max(8, ahora - arrastre.t), dy = e.clientY - arrastre.y;
+      bajar(-dy);
+      vel = 0.7 * (-dy / dt) + 0.3 * vel;
+      arrastre.y = e.clientY; arrastre.t = ahora;
+      e.preventDefault();
+    });
+    function soltar() {
+      if (!arrastre) return;
+      const ultimo = arrastre; arrastre = null;
+      raiz.classList.remove('bw-arrastrando');
+      if (movio) sinClickHasta = performance.now() + 100;
+      try { raiz.releasePointerCapture(ultimo.id); } catch (_) {}
+      if (!movio || performance.now() - ultimo.t > 120) return;
+      let v = vel * 16;
+      const paso = () => { v *= 0.95; if (Math.abs(v) < 0.4) { anim = 0; return; } bajar(v); anim = requestAnimationFrame(paso); };
+      anim = requestAnimationFrame(paso);
+    }
+    window.addEventListener('pointerup', soltar);
+    window.addEventListener('pointercancel', soltar);
+    window.addEventListener('wheel', frenar, { passive: true });
+    // Sólo se anula el click que el navegador dispara justo al soltar un arrastre
+    document.addEventListener('click', e => { if (performance.now() < sinClickHasta) { e.preventDefault(); e.stopPropagation(); } }, true);
+    document.addEventListener('dragstart', e => { if (!e.target.closest('input,textarea')) e.preventDefault(); });
+  }
+
   /* ---------- Estilos que comparten todos los modelos (zona tocable del crédito, nota y barra de muestra) ---------- */
   const estilo = document.createElement('style');
   estilo.textContent = [
     '.credito a{display:inline-block;padding:12px 6px;margin:-12px -6px;text-decoration:underline;text-underline-offset:3px}',
+    'html.bw-en-marco{cursor:grab}',
+    'html.bw-en-marco input,html.bw-en-marco textarea,html.bw-en-marco select{cursor:auto}',
+    'html.bw-arrastrando,html.bw-arrastrando *{cursor:grabbing!important;user-select:none!important;-webkit-user-select:none!important}',
     '.bw-nota-muestra{font:500 14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:inherit;opacity:.8;margin:0 0 12px;padding:10px 14px;border-radius:12px;background:rgba(127,127,127,.12)}',
     '.bw-muestra{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;padding-bottom:calc(10px + env(safe-area-inset-bottom));background:rgba(26,22,20,.94);color:#fff;font:600 14px/1.3 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;transform:translateY(110%);transition:transform .3s ease;box-shadow:0 -8px 24px rgba(0,0,0,.18)}',
     '.bw-muestra.ver{transform:none}',

@@ -300,3 +300,6 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
   .portada-foto .circulo{width:62cqw}
   .portada-textos{container-type:inline-size;width:min(100%,62vh,540px);justify-self:center}
 }
+
+/* Celular: la portada mide lo mismo que la lámina. Antes ocupaba la pantalla entera y, en los celulares alargados de hoy, la lámina quedaba en el medio con una franja vacía arriba y otra abajo */
+@media (max-width:719px){.portada{min-height:0}}

@@ -315,3 +315,6 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
    renglones DENTRO del botón (antes se salían del recuadro de la invitación) */
 .portada .botones .boton{flex:0 1 auto;min-width:0;white-space:normal;text-align:center;line-height:1.15;padding-top:6px;padding-bottom:6px}
 .portada .botones .boton-linea{flex-shrink:0;white-space:nowrap}
+
+/* Celular: la portada mide lo mismo que la lámina. Antes ocupaba la pantalla entera y, en los celulares alargados de hoy, la lámina quedaba en el medio con una franja vacía arriba y otra abajo */
+@media (max-width:719px){.portada{min-height:0}}
