@@ -160,7 +160,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .datos-regalo p:not(:has(.boton)){grid-template-areas:"etiqueta etiqueta" "valor valor"}
 .datos-regalo p:last-child{border-bottom:0}
 .datos-regalo span{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave);font-weight:700}
-.datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:anywhere;min-width:0}
+.datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:break-word;min-width:0}
 
 /* ================= CONFIRMACIÓN ================= */
 .confirmar{padding-bottom:84px}
@@ -322,3 +322,30 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Celular: la portada mide lo mismo que la lámina. Antes ocupaba la pantalla entera y, en los celulares alargados de hoy, la lámina quedaba en el medio con una franja vacía arriba y otra abajo */
 @media (max-width:719px){.portada{min-height:0}}
+
+/* ===== IDENTIDAD PROPIA DE ESTE MODELO (lo que lo distingue de los demás de acuarela; va al final para mandar sobre lo de arriba) ===== */
+/* Cuenta regresiva: arcos con filete dorado */
+.circulos div{aspect-ratio:3/4;border-radius:999px 999px 10px 10px;border:1px solid var(--oro-linea);background:#fff;box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 5px var(--ocre-claro)}
+.circulos span{text-transform:none;letter-spacing:.02em;font-size:13px;font-weight:600}
+/* Tarjetas con doble marco dorado */
+.tarjeta{border:1px solid var(--oro-linea);border-radius:0;background:#fff;outline:1px solid var(--ocre-claro);outline-offset:-9px}
+.tarjeta .icono-redondo{border-color:var(--oro-linea);color:#7d5a30}
+/* Itinerario: centrado, con la hora en un óvalo dorado y una estrellita entre momentos */
+.momentos{padding-left:0;max-width:460px;text-align:center}
+.momentos::before{display:none}
+.momentos li{background:none;border:0;border-radius:0;padding:0;margin:0 0 22px}
+.momentos li::after{content:"✦";display:block;color:var(--oro-linea);margin-top:18px;font-size:14px}
+.momentos li:last-child::after{display:none}
+.momentos .icono-redondo{position:static;margin:0 auto 10px;border-color:var(--oro-linea);color:#7d5a30}
+.momentos time{display:inline-block;border:1px solid var(--oro-linea);color:#7d5a30;padding:3px 14px;border-radius:999px;margin-bottom:8px}
+/* Formulario y regalos: renglones con filete dorado */
+#confirmacion{background:#fff;border-color:var(--ocre-claro);border-radius:0}
+#confirmacion input,#confirmacion textarea{border:0;border-bottom:1.5px solid var(--oro-linea);border-radius:0;background:transparent;padding-left:2px}
+#confirmacion fieldset{border:0;border-radius:0;padding-left:0}
+.datos-regalo{border:1px solid var(--oro-linea);border-radius:0;outline:1px solid var(--ocre-claro);outline-offset:-8px;background:#fff}
+
+/* Celulares angostos: los rótulos de la cuenta regresiva entran con aire dentro de su forma */
+@media (max-width:400px){.circulos{gap:6px}.circulos span{font-size:11px;letter-spacing:0}}
+
+/* Computadora (diseño de compu): el itinerario va en cinco columnas; se devuelve el ancho completo */
+@media (min-width:1000px){.momentos{max-width:none}.momentos li{margin:0}.momentos li::after{display:none}.momentos .icono-redondo{transform:none}}

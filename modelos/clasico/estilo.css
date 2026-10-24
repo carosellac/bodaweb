@@ -105,7 +105,7 @@ section{padding:72px 22px;max-width:1040px;margin:0 auto;text-align:center}
 .datos-regalo{max-width:460px;margin:0 auto;text-align:left}
 .datos-regalo p{display:grid;grid-template-columns:70px 1fr auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--linea);margin:0}
 .datos-regalo span{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave)}
-.datos-regalo strong{font-weight:500;color:var(--tinta);font-size:18px;overflow-wrap:anywhere}
+.datos-regalo strong{font-weight:500;color:var(--tinta);font-size:18px;overflow-wrap:break-word}
 .datos-regalo .boton{padding:11px 16px;min-height:44px;font-size:12px}
 
 /* Confirmación */
@@ -166,3 +166,10 @@ section{padding:72px 22px;max-width:1040px;margin:0 auto;text-align:center}
 }
 
 @media (max-width:400px){.cuenta-cajas span{letter-spacing:.02em;font-size:12px}}
+
+/* Los números de los campos con forma normal: en esta letra el "1" parecía una "ı" */
+#confirmacion input,#confirmacion textarea{font-variant-numeric:lining-nums}
+
+/* Celulares angostos: "segundos" entra con aire en su caja */
+@media (max-width:380px){.cuenta-cajas span{font-size:11px;letter-spacing:0}}
+#confirmacion input[type=number]{font-family:var(--sans)}

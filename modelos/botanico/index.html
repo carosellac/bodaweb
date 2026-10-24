@@ -13,9 +13,11 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Carla &amp; Martín · Nos vamos a casar" />
   <meta property="og:description" content="Con mucha alegría te invitamos a nuestra boda. Toda la información y la confirmación de asistencia, acá." />
-  <!-- Imagen al compartir por WhatsApp: tiene que ser la dirección COMPLETA. Al copiar la carpeta para una pareja, cambiá "modelos/botanico" por su carpeta en las dos líneas. -->
+  <!-- Título y vista previa al compartir por WhatsApp: los completa solo "node actualizar-invitaciones.js" a partir de datos.js (no hace falta tocarlos a mano). -->
   <meta property="og:url" content="https://bodaweb-rose.vercel.app/modelos/botanico/" />
-  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/botanico/fotos/portada.webp" />
+  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/botanico/fotos/compartir.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -95,11 +97,11 @@
         </div>
         <div class="portada-textos">
           <p class="titulo"><svg class="ramito ramito-titulo-izq" aria-hidden="true"><use href="#ramito-chico"/></svg><svg class="ramito ramito-titulo-der" aria-hidden="true"><use href="#ramito-chico"/></svg><span class="titulo-guion" data-dato="titulo1">Nos</span><span class="titulo-chico" data-dato="titulo2">vamos a</span><span class="titulo-guion" data-dato="titulo3">Casar</span></p>
-          <p class="portada-intro" data-dato="invitacion">Querida familia y amigos: con mucha alegría los invitamos a la boda de</p>
+          <p class="portada-intro" data-dato="invitacion">Familia y amigos: nos llena de alegría invitarlos al casamiento de</p>
           <h1 class="portada-nombres"><span data-dato="nombre1">Carla</span> &amp; <span data-dato="nombre2">Martín</span></h1>
           <p class="portada-fecha" data-dato="fechaTexto">Sábado 8 de mayo de 2027</p>
           <p class="portada-lugar" data-dato="lugarCorto">Villa General Belgrano, Córdoba</p>
-          <p class="portada-mensaje" data-dato="mensaje">Te esperamos para celebrar juntos</p>
+          <p class="portada-mensaje" data-dato="mensaje">Te esperamos entre las sierras</p>
           <div class="botones">
             <a class="boton" href="#confirmar">Confirmar asistencia</a>
             <a class="boton boton-linea" data-calendario href="#"><svg><use href="#i-calendario"/></svg>Agendar</a>
@@ -124,7 +126,7 @@
 
     <!-- ================= INVITACIÓN ================= -->
     <section class="frase banda-crema" data-reveal>
-      <p class="frase-texto" data-dato="frase">Entre las sierras, al aire libre y con la gente que más queremos. Este día no sería lo mismo sin vos.</p>
+      <p class="frase-texto" data-dato="frase">Entre las sierras, al aire libre y con el mate siempre a mano. Queremos festejarlo con vos.</p>
       <p class="frase-firma"><span data-dato="nombre1">Carla</span> <em>&amp;</em> <span data-dato="nombre2">Martín</span></p>
     </section>
 
@@ -178,11 +180,11 @@
       </div>
       <!-- Texto de ejemplo: cambiá horas y momentos a gusto; podés agregar o sacar tarjetas -->
       <ol class="momentos">
-        <li><span class="icono-redondo"><svg><use href="#i-anillos"/></svg></span><time>18:00</time><h3>Ceremonia</h3><p>En la capilla del valle. Les pedimos llegar unos minutos antes.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-anillos"/></svg></span><time>18:00</time><h3>Ceremonia</h3><p>En la capilla del valle. Abrigate: a la tarde refresca en las sierras.</p></li>
         <li><span class="icono-redondo"><svg><use href="#i-copas"/></svg></span><time>20:00</time><h3>Recepción</h3><p>Brindis en la galería de la estancia, mirando las sierras.</p></li>
-        <li><span class="icono-redondo"><svg><use href="#i-cubiertos"/></svg></span><time>21:30</time><h3>Cena</h3><p>Avisanos si tenés alguna restricción con la comida.</p></li>
-        <li><span class="icono-redondo"><svg><use href="#i-nota"/></svg></span><time>23:30</time><h3>Vals y baile</h3><p>Primero el vals, después la pista es de todos.</p></li>
-        <li><span class="icono-redondo"><svg><use href="#i-corazon"/></svg></span><time>04:00</time><h3>Despedida</h3><p>Mesa dulce y el último brindis de la noche.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-cubiertos"/></svg></span><time>21:30</time><h3>Cena</h3><p>Asado criollo y opciones veggie: contanos al confirmar si necesitás algo especial.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-nota"/></svg></span><time>23:30</time><h3>Vals y baile</h3><p>Un vals, unas zambas y después, la pista para todos.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-corazon"/></svg></span><time>04:00</time><h3>Despedida</h3><p>Mesa dulce, chocolate caliente y despedida bajo las estrellas.</p></li>
       </ol>
     </section>
 

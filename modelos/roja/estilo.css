@@ -161,7 +161,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .datos-regalo p:not(:has(.boton)){grid-template-areas:"etiqueta etiqueta" "valor valor"}
 .datos-regalo p:last-child{border-bottom:0}
 .datos-regalo span{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave);font-weight:700}
-.datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:anywhere;min-width:0}
+.datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:break-word;min-width:0}
 
 /* ================= CONFIRMACIÓN ================= */
 .confirmar{padding-bottom:84px}
@@ -322,3 +322,30 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Celular: la portada mide lo mismo que la lámina. Antes ocupaba la pantalla entera y, en los celulares alargados de hoy, la lámina quedaba en el medio con una franja vacía arriba y otra abajo */
 @media (max-width:719px){.portada{min-height:0}}
+
+/* ===== IDENTIDAD PROPIA DE ESTE MODELO (lo que lo distingue de los demás de acuarela; va al final para mandar sobre lo de arriba) ===== */
+/* Cuenta regresiva: hexágonos bordó (el hexágono es el motivo de la portada) */
+.circulos div{border:0;border-radius:0;aspect-ratio:1/1.12;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--bordo);box-shadow:none}
+.circulos strong{color:#fff}
+.circulos span{color:#fff;text-transform:none;letter-spacing:.02em;font-size:13px;font-weight:600}
+/* Tarjetas bordó con filete dorado: el único modelo con las tarjetas oscuras */
+.tarjeta{background:var(--bordo-oscuro);border:1px solid var(--ocre-claro);border-radius:6px;box-shadow:var(--sombra)}
+.tarjeta h3,.tarjeta-lugar{color:#fff}
+.tarjeta-hora{color:#f0d29e}
+.tarjeta-hora small{color:#f0d29e}
+.tarjeta-direccion{color:#f1e3e6}
+.tarjeta .icono-redondo{background:transparent;border-color:#e3cfa6;color:#e3cfa6}
+.tarjeta .boton-linea{color:#fff;border-color:#e3cfa6;background:transparent}
+.tarjeta .boton-linea:hover{background:#fff;border-color:#fff;color:var(--bordo-oscuro)}
+/* Itinerario: íconos en hexágonos bordó y una línea dorada continua */
+.momentos::before{border-left:2px solid var(--ocre-claro)}
+.momentos .icono-redondo{clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);border:0;border-radius:0;background:var(--bordo);color:#fff}
+.momentos li{border-radius:6px;border-color:var(--ocre-claro);background:#fff}
+/* Formulario y regalos: recuadros finos con esquinas casi rectas */
+#confirmacion{border-radius:6px;border-color:var(--ocre-claro);background:#fff}
+#confirmacion input,#confirmacion textarea{border-radius:4px;border-color:var(--ocre-claro)}
+#confirmacion fieldset{border-radius:4px;border-color:var(--ocre-claro)}
+.datos-regalo{border:1px solid var(--oro);border-radius:6px;background:#fff}
+
+/* Celulares angostos: los rótulos de la cuenta regresiva entran con aire dentro de su forma */
+@media (max-width:400px){.circulos{gap:6px}.circulos span{font-size:11px;letter-spacing:0}}

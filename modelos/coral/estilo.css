@@ -171,7 +171,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .datos-regalo p:not(:has(.boton)){grid-template-areas:"etiqueta etiqueta" "valor valor"}
 .datos-regalo p:last-child{border-bottom:0}
 .datos-regalo span{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave);font-weight:700}
-.datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:anywhere;min-width:0}
+.datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:break-word;min-width:0}
 
 /* ================= CONFIRMACIÓN ================= */
 .confirmar{padding-bottom:84px}
@@ -319,3 +319,34 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Celular: la portada mide lo mismo que la lámina. Antes ocupaba la pantalla entera y, en los celulares alargados de hoy, la lámina quedaba en el medio con una franja vacía arriba y otra abajo */
 @media (max-width:719px){.portada{min-height:0}}
+
+/* ===== IDENTIDAD PROPIA DE ESTE MODELO (lo que lo distingue de los demás de acuarela; va al final para mandar sobre lo de arriba) ===== */
+/* Cuenta regresiva: bloques negros con números condensados (moderno, como la portada) */
+.circulos{gap:6px}
+.circulos div{aspect-ratio:auto;border:0;border-radius:0;background:var(--marron);box-shadow:none;padding:14px 0 12px}
+.circulos strong{font-family:var(--bloque);font-weight:600;color:#fff;font-size:clamp(34px,9vw,54px)}
+.circulos span{font-family:var(--bloque);color:var(--ocre);text-transform:uppercase;letter-spacing:.08em;font-size:14px;font-weight:600;margin-top:2px}
+/* Tarjetas rectas con una franja coral */
+.tarjeta{border:0;border-left:6px solid var(--terracota);border-radius:0;background:#fff;box-shadow:var(--sombra);text-align:left}
+.tarjeta .icono-redondo{border:0;border-radius:0;background:var(--salvia-clara)}
+.tarjeta h3{font-family:var(--bloque);font-style:normal;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.tarjeta-hora{font-family:var(--bloque);font-weight:600}
+/* Itinerario: renglones con la hora grande a la izquierda, separados por filetes negros */
+.momentos{padding-left:0;max-width:540px}
+.momentos::before{display:none}
+.momentos .icono-redondo{display:none}
+.momentos li{display:grid;grid-template-columns:76px minmax(0,1fr);column-gap:14px;background:none;border:0;border-bottom:2px solid var(--marron);border-radius:0;padding:16px 0;margin:0}
+.momentos li>*{grid-column:2}
+.momentos time{grid-column:1;grid-row:1/span 2;font-family:var(--bloque);font-size:30px;font-weight:600;letter-spacing:0;color:#b4533b;margin:0;line-height:1}
+.momentos h3{font-family:var(--bloque);font-style:normal;font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:21px}
+/* Formulario y regalos: recuadros rectos de borde negro */
+#confirmacion{border:2px solid var(--marron);border-radius:0;background:#fff}
+#confirmacion input,#confirmacion textarea{border:2px solid var(--marron);border-radius:0}
+#confirmacion fieldset{border:2px solid var(--marron);border-radius:0}
+.datos-regalo{border:2px solid var(--marron);border-radius:0;background:#fff}
+
+/* El rulo de la derecha quedaba casi la mitad afuera de la tarjeta (se veía un pedazo suelto): ahora entra entero, al lado de "Te esperamos el" */
+.rulo-der{right:-2cqw;top:-12cqw;width:16cqw;height:7.7cqw}
+
+/* Computadora (diseño de compu): el itinerario va en cinco columnas; se devuelve el ancho completo */
+@media (min-width:1000px){.momentos{max-width:none}.momentos li{display:block;border:0;border-top:3px solid var(--marron);padding:16px 4px 0;text-align:left}.momentos time{display:block;margin-bottom:8px}}

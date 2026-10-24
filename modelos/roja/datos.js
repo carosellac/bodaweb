@@ -29,7 +29,7 @@ const DATOS = {
   invitacion: 'Este día tan especial queremos pasarlo junto a las personas que más queremos.',
   mensaje: '¡Te esperamos!',
 
-  frase: 'Entre viñedos y cerros de colores, con la gente que más queremos. Este día no sería lo mismo sin vos.',
+  frase: 'Entre viñedos y cerros de colores, con una copa de tinto en la mano. Queremos brindar con vos.',
 
   ceremonia: {
     hora: '19:00',
@@ -58,7 +58,17 @@ const DATOS = {
   },
 
   hashtag: '#RoYGonza',
+  // Información útil (opcional): si se completa alguno, aparece una sección con esos datos. Vacíos = no aparece.
+  ninos: '',          // ej. '¡Los chicos son bienvenidos!' o 'Es una fiesta para adultos'
+  alojamiento: 'Cafayate está a unas tres horas de Salta capital. Hay posadas y fincas con habitaciones cerca de la bodega: avisanos y te pasamos opciones.',    // dónde dormir, si la boda es lejos
+
+  // Cuántas personas se pueden anotar como máximo en la confirmación (si no se usa ?lugares= en el link)
+  maxPersonas: 10,
+
+  // Lo que dice la cuenta regresiva después de la boda (vacío = '¡Gracias por acompañarnos!')
+  textoDespues: '',
+
   // Música de fondo (opcional): el nombre del archivo que dejaste en esta carpeta, por ejemplo 'musica.mp3'. Vacío = sin música.
-  musica: '',
+  musica: '../../assets/musica-muestra.mp3',   // MUESTRA: Bach, "Air" (dominio público). Para una pareja: su archivo, o '' si no quieren música
   credito: true        // false para sacar el "Hecho con Boda Web" del pie
 };

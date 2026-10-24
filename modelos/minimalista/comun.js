@@ -20,7 +20,14 @@
   const esMuestra = /\/modelos\/[^/]+\/?/.test(location.pathname);
 
   /* ---------- Textos: <span data-dato="nombre1"></span> ---------- */
-  $$('[data-dato]').forEach(el => { const v = leer(el.dataset.dato); if (!vacio(v)) el.textContent = v; });
+  const escapar = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  $$('[data-dato]').forEach(el => {
+    const v = leer(el.dataset.dato);
+    if (vacio(v)) return;
+    // El alias se puede partir sólo después de un punto ("VALEN.NICO." / "BODA"), nunca en el medio de una palabra
+    if (el.dataset.dato === 'regalo.alias') el.innerHTML = escapar(v).replace(/\./g, '.<wbr>');
+    else el.textContent = v;
+  });
   /* Un bloque con data-si="regalo.alias" se esconde si ese dato está vacío */
   $$('[data-si]').forEach(el => { if (vacio(leer(el.dataset.si))) el.hidden = true; });
   if (!vacio(D.nombre1) && !vacio(D.nombre2)) {
@@ -119,6 +126,46 @@
     return;
   }
 
+  /* ---------- Link personalizado para cada invitado ----------
+     Agregando al final de la dirección ?para=Familia%20Gómez&lugares=4 la invitación saluda por el nombre,
+     deja el nombre ya escrito en la confirmación y avisa para cuántas personas es. Sin eso, todo igual. */
+  const parametros = new URLSearchParams(location.search);
+  const invitado = String(parametros.get('para') || '').trim().slice(0, 80);
+  const lugaresLink = parseInt(parametros.get('lugares'), 10);
+  const lugares = lugaresLink >= 1 && lugaresLink <= 30 ? lugaresLink : 0;
+  const maxPersonas = lugares || (parseInt(D.maxPersonas, 10) >= 1 ? parseInt(D.maxPersonas, 10) : 12);
+
+  /* ---------- Información útil (opcional): chicos y dónde dormir ----------
+     Si en datos.js se completa "ninos" o "alojamiento", aparece una sección con el mismo estilo que la de
+     vestimenta de cada modelo. Vacíos = no aparece nada. */
+  const infoItems = [['Chicos', D.ninos], ['Dónde dormir', D.alojamiento]].filter(([, t]) => !vacio(t));
+  if (infoItems.length) {
+    const base = $('section.vestimenta') || $('#regalos');
+    if (base) {
+      const sec = base.cloneNode(false);
+      sec.removeAttribute('id'); sec.removeAttribute('data-si'); sec.hidden = false; sec.classList.add('bw-info');
+      const etiquetaBase = base.querySelector('.antetitulo, .etiqueta, .chico');
+      if (etiquetaBase) { const e = etiquetaBase.cloneNode(false); e.removeAttribute('data-dato'); e.removeAttribute('data-si'); e.textContent = 'Información útil'; sec.appendChild(e); }
+      const tituloBase = base.querySelector('h2');
+      const h = tituloBase ? tituloBase.cloneNode(false) : document.createElement('h2');
+      h.removeAttribute('data-dato'); h.removeAttribute('data-si'); h.textContent = 'Para que no te falte nada'; sec.appendChild(h);
+      const parrafoBase = [...base.querySelectorAll('p')].find(x => !x.matches('.antetitulo, .etiqueta, .chico') && !x.hasAttribute('data-dato'));
+      infoItems.forEach(([titulo, texto]) => {
+        const pp = parrafoBase ? parrafoBase.cloneNode(false) : document.createElement('p');
+        pp.removeAttribute('data-dato'); pp.removeAttribute('data-si');
+        pp.innerHTML = '<strong>' + titulo + ':</strong> ' + escapar(texto);
+        pp.style.marginTop = '12px';
+        sec.appendChild(pp);
+      });
+      if (base.matches('section.vestimenta')) base.after(sec); else base.before(sec);
+    }
+  }
+
+  /* ---------- Descripción de las fotos de la galería (para quien usa un lector de pantalla) ---------- */
+  $$('[data-galeria] img').forEach((img, i) => {
+    if (/^Foto \d+$/.test(img.getAttribute('alt') || '') && !vacio(D.nombre1)) img.alt = 'Foto ' + (i + 1) + ' de ' + D.nombre1 + ' y ' + D.nombre2;
+  });
+
   /* ---------- Mapas: <a data-mapa="ceremonia">Cómo llegar</a> ---------- */
   $$('[data-mapa]').forEach(a => {
     const lugar = leer(a.dataset.mapa) || {};
@@ -137,6 +184,18 @@
     if (isNaN(fecha.getTime())) return;
     let diff = fecha.getTime() - Date.now();
     if (diff <= 0) { diff = 0; $$('[data-cuenta-regresiva]').forEach(el => el.classList.add('llego')); }
+    // Pasado el día de la boda la invitación agradece en vez de seguir diciendo "¡Llegó el gran día!"
+    if (Date.now() - fecha.getTime() > 20 * 3600 * 1000 && !tic.despues) {
+      tic.despues = true;
+      $$('.cuenta-llego').forEach(el => { el.textContent = vacio(D.textoDespues) ? '¡Gracias por acompañarnos!' : String(D.textoDespues); });
+      const f = $('#confirmacion');
+      if (f) {
+        const aviso = document.createElement('p');
+        aviso.className = 'bw-cerrado';
+        aviso.textContent = 'La confirmación ya cerró. ¡Gracias a todos los que nos acompañaron!';
+        f.hidden = true; f.after(aviso);
+      }
+    }
     const s = Math.floor(diff / 1000);
     const valores = { dias: Math.floor(s / 86400), horas: Math.floor((s % 86400) / 3600), minutos: Math.floor((s % 3600) / 60), segundos: s % 60 };
     partes.forEach(([k, els]) => els.forEach(el => { el.textContent = k === 'dias' ? String(valores[k]) : dos(valores[k]); }));
@@ -153,7 +212,14 @@
   $$('[data-calendario]').forEach(a => {
     if (isNaN(fecha.getTime())) { a.hidden = true; return; }
     const utc = d => d.toISOString().replace(/[-:]|\.\d{3}/g, '');
-    const fin = new Date(fecha.getTime() + 6 * 3600 * 1000);
+    // Termina una hora después del último momento del itinerario (ej. despedida a las 03:00 → 04:00);
+    // si el itinerario no tiene horas, dura 6 horas
+    const minutos = t => { const m = /^(\d{1,2}):(\d{2})/.exec(String(t).trim()); return m ? +m[1] * 60 + +m[2] : null; };
+    const inicioAR = new Date(fecha.getTime() - 3 * 3600 * 1000);
+    const minInicio = inicioAR.getUTCHours() * 60 + inicioAR.getUTCMinutes();
+    const saltos = $$('time').map(t => minutos(t.textContent)).filter(x => x !== null).map(x => (x - minInicio + 1440) % 1440);
+    const ultimo = saltos.length ? Math.max(...saltos) : 0;
+    const fin = new Date(fecha.getTime() + (ultimo >= 60 && ultimo <= 14 * 60 ? (ultimo + 60) * 60000 : 6 * 3600 * 1000));
     const lugar = D.ceremonia || D.fiesta || {};
     const titulo = 'Casamiento de ' + D.nombre1 + ' y ' + D.nombre2;
     const donde = [lugar.nombre, lugar.direccion].filter(Boolean).join(', ');
@@ -223,6 +289,16 @@
     const decir = msg => { if (!error) return; error.textContent = msg; error.hidden = !msg; };
     const botonConfirmar = $('[data-boton-confirmar]', form);
     if (botonConfirmar && !whatsapp) botonConfirmar.textContent = 'Preparar mi confirmación';
+    const campoPersonas = form.elements.personas;
+    if (campoPersonas) campoPersonas.max = String(maxPersonas);
+    if (invitado || lugares) {
+      const saludo = document.createElement('p');
+      saludo.className = 'bw-para';
+      saludo.textContent = (invitado ? '¡Hola, ' + invitado + '! ' : '') + (lugares ? 'Esta invitación es para ' + lugares + (lugares === 1 ? ' persona.' : ' personas.') : '');
+      form.insertAdjacentElement('beforebegin', saludo);
+      if (invitado && form.elements.nombre && !form.elements.nombre.value) form.elements.nombre.value = invitado;
+      if (lugares && campoPersonas) campoPersonas.placeholder = lugares === 1 ? '1' : 'Hasta ' + lugares;
+    }
     // En un modelo de muestra no hay número cargado: se avisa qué pasa en la invitación real
     if (esMuestra && !whatsapp && botonConfirmar) {
       const nota = document.createElement('p');
@@ -240,6 +316,11 @@
       const mensaje = String(f.get('mensaje') || '').trim();
       if (!nombre) { decir('Contanos tu nombre para saber quién confirma.'); form.elements.nombre.focus(); return; }
       if (!asiste) { decir('Decinos si vas a poder venir.'); return; }
+      if (asiste === 'si' && personas) {
+        const n = Number(personas);
+        if (!Number.isInteger(n) || n < 1) { decir('Revisá cuántos vienen: tiene que ser un número.'); form.elements.personas.focus(); return; }
+        if (n > maxPersonas) { decir(lugares ? 'Esta invitación es para ' + lugares + (lugares === 1 ? ' persona.' : ' personas.') : 'Si vienen más de ' + maxPersonas + ', escribiles directamente a los novios.'); form.elements.personas.focus(); return; }
+      }
       decir('');
       const lineas = [
         '¡Hola! Soy ' + nombre + '.',
@@ -279,6 +360,8 @@
     botonMusica.hidden = !archivo;
     if (archivo) {
       audio.src = archivo;
+      // Si el archivo no existe o no se puede leer, el botón se esconde en vez de quedar sin hacer nada
+      audio.addEventListener('error', () => { botonMusica.hidden = true; });
       const pintar = () => { botonMusica.classList.toggle('sonando', !audio.paused); botonMusica.setAttribute('aria-label', audio.paused ? 'Reproducir música' : 'Pausar música'); };
       botonMusica.addEventListener('click', () => { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); });
       audio.addEventListener('play', pintar);
@@ -353,6 +436,8 @@
     'html.bw-en-marco{cursor:grab}',
     'html.bw-en-marco input,html.bw-en-marco textarea,html.bw-en-marco select{cursor:auto}',
     'html.bw-arrastrando,html.bw-arrastrando *{cursor:grabbing!important;user-select:none!important;-webkit-user-select:none!important}',
+    '.bw-para{font-size:1.15em;font-weight:600;margin:0 auto 18px;max-width:560px;text-align:center}',
+    '.bw-cerrado{font-size:1.2em;font-style:italic;margin:10px auto 0;max-width:520px;text-align:center}',
     '.bw-nota-muestra{font:500 14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:inherit;opacity:.8;margin:0 0 12px;padding:10px 14px;border-radius:12px;background:rgba(127,127,127,.12)}',
     '.bw-muestra{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;padding-bottom:calc(10px + env(safe-area-inset-bottom));background:rgba(26,22,20,.94);color:#fff;font:600 14px/1.3 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;transform:translateY(110%);transition:transform .3s ease;box-shadow:0 -8px 24px rgba(0,0,0,.18)}',
     '.bw-muestra.ver{transform:none}',

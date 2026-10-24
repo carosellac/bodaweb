@@ -15,7 +15,7 @@ const DATOS = {
   // Fecha y hora de la ceremonia: año-mes-día T hora:minutos (hora argentina -03:00)
   fecha: '2027-10-16T16:30:00-03:00',
   fechaTexto: 'Sábado 16 de octubre de 2027',
-  lugarCorto: 'Pilar, Buenos Aires',
+  lugarCorto: 'Cañuelas, Buenos Aires',
 
   frase: 'Un día de primavera, un jardín lleno de flores y la gente que más queremos. ¡Nos casamos!',
 
@@ -46,7 +46,17 @@ const DATOS = {
   },
 
   hashtag: '#MartuYLucas',
+  // Información útil (opcional): si se completa alguno, aparece una sección con esos datos. Vacíos = no aparece.
+  ninos: '',          // ej. '¡Los chicos son bienvenidos!' o 'Es una fiesta para adultos'
+  alojamiento: '',    // dónde dormir, si la boda es lejos
+
+  // Cuántas personas se pueden anotar como máximo en la confirmación (si no se usa ?lugares= en el link)
+  maxPersonas: 10,
+
+  // Lo que dice la cuenta regresiva después de la boda (vacío = '¡Gracias por acompañarnos!')
+  textoDespues: '',
+
   // Música de fondo (opcional): el nombre del archivo que dejaste en esta carpeta, por ejemplo 'musica.mp3'. Vacío = sin música.
-  musica: '',
+  musica: '../../assets/musica-muestra.mp3',   // MUESTRA: Bach, "Air" (dominio público). Para una pareja: su archivo, o '' si no quieren música
   credito: true        // false para sacar el "Hecho con Boda Web" del pie
 };

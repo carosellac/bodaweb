@@ -63,17 +63,31 @@ CÓMO ARMAR LA INVITACIÓN DE UNA PAREJA (sin programar)
    2027-01-23T18:30:00-03:00), lugares y direcciones, código de vestimenta, fecha límite para
    confirmar, el WhatsApp al que llegan las confirmaciones (549 + área sin 0 + número sin 15),
    alias/CBU y titular para los regalos, hashtag. Lo que quede vacío no se muestra.
+   Opcionales: "ninos" y "alojamiento" (si se completan aparece la sección "Información útil"),
+   "maxPersonas" (tope de "¿Cuántos vienen?", 10 por defecto) y "textoDespues" (lo que dice la
+   cuenta regresiva pasada la boda; vacío = "¡Gracias por acompañarnos!").
 3. Reemplazar las fotos de fotos/ por las de la pareja, CON LOS MISMOS NOMBRES (portada.webp,
    historia-1.webp, …). Sirve cualquier medida: el diseño las acomoda. Conviene que pesen menos de
    400 KB cada una (en webp o jpg; si son .jpg, cambiar la terminación en index.html).
 4. Textos largos (la historia, el itinerario, la aclaración de vestimenta): están en index.html,
    marcados con comentarios "Texto de ejemplo: cambialo…". Se editan ahí mismo.
-5. Música de fondo (opcional): dejar el archivo (por ejemplo musica.mp3) en la carpeta y escribir su nombre
-   en datos.js, en el renglón musica: 'musica.mp3'. Si queda vacío, no hay botón de música.
-6. En index.html, las etiquetas og:url y og:image (dirección e imagen al compartir por WhatsApp) llevan
-   la dirección completa de la carpeta: cambiar "modelos/<modelo>" por la carpeta nueva en las dos
-   (están marcadas con un comentario).
+5. Música de fondo: los modelos de muestra traen la "Air" de Bach (dominio público, assets/musica-muestra.mp3).
+   Para la pareja: dejar SU archivo (por ejemplo musica.mp3) en la carpeta y escribir su nombre en datos.js,
+   en el renglón musica: 'musica.mp3'. Si queda vacío, no hay botón de música.
+6. Correr  node actualizar-invitaciones.js  (en la raíz). Escribe el título y la vista previa de WhatsApp con
+   los nombres de la pareja, arma fotos/compartir.jpg y AVISA si quedó algo del ejemplo: nombres de la
+   pareja de muestra en la historia, WhatsApp vacío o la música de muestra. Sin este paso, el link se
+   compartiría con los nombres de la pareja de ejemplo. (Para la foto necesita la librería sharp:
+   npm install sharp, una sola vez.)
 7. Hacer push: en un minuto queda publicada. Probar en el celular antes de mandarla.
+
+LINK PERSONALIZADO PARA CADA INVITADO (opcional)
+Agregando al final de la dirección  ?para=Familia%20Gómez&lugares=4  la invitación saluda por el nombre
+("¡Hola, Familia Gómez! Esta invitación es para 4 personas."), deja el nombre escrito en la confirmación
+y no deja anotar más de 4. Los espacios se escriben %20. Sin esos datos, la invitación es la misma para todos.
+
+DESPUÉS DE LA BODA
+Pasado el día, la cuenta regresiva dice "¡Gracias por acompañarnos!" y la confirmación se cierra sola.
 Para que la invitación de una pareja no aparezca en Google, index.html ya lleva <meta name="robots" content="noindex">.
 
 LO QUE HAY QUE COMPLETAR ANTES DE VENDER
@@ -97,3 +111,7 @@ NOTAS
 - "Agregar al calendario": en iPhone, iPad y Mac entrega un archivo de calendario (abre el calendario del
   teléfono); en el resto abre Google Calendar.
 - Tipografías de Google Fonts; sin conexión se usan tipografías alternativas.
+- Interior de los modelos de acuarela: Bohemio es el diseño original; Eucalipto, Botánico, Coral, Pincelada,
+  Flores Azules, Rosas y Rosas Bordó tienen además un interior propio (cuenta regresiva, tarjetas, itinerario,
+  formulario y regalos) en el bloque "IDENTIDAD PROPIA" al final de su estilo.css. Si se toca la estructura
+  común, revisar los ocho.

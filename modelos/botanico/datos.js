@@ -22,10 +22,10 @@ const DATOS = {
   titulo1: 'Nos',
   titulo2: 'vamos a',
   titulo3: 'Casar',
-  invitacion: 'Querida familia y amigos: con mucha alegría los invitamos a la boda de',
-  mensaje: 'Te esperamos para celebrar juntos',
+  invitacion: 'Familia y amigos: nos llena de alegría invitarlos al casamiento de',
+  mensaje: 'Te esperamos entre las sierras',
 
-  frase: 'Entre las sierras, al aire libre y con la gente que más queremos. Este día no sería lo mismo sin vos.',
+  frase: 'Entre las sierras, al aire libre y con el mate siempre a mano. Queremos festejarlo con vos.',
 
   ceremonia: {
     hora: '18:00',
@@ -54,7 +54,17 @@ const DATOS = {
   },
 
   hashtag: '#CarlaYMartin',
+  // Información útil (opcional): si se completa alguno, aparece una sección con esos datos. Vacíos = no aparece.
+  ninos: '',          // ej. '¡Los chicos son bienvenidos!' o 'Es una fiesta para adultos'
+  alojamiento: '',    // dónde dormir, si la boda es lejos
+
+  // Cuántas personas se pueden anotar como máximo en la confirmación (si no se usa ?lugares= en el link)
+  maxPersonas: 10,
+
+  // Lo que dice la cuenta regresiva después de la boda (vacío = '¡Gracias por acompañarnos!')
+  textoDespues: '',
+
   // Música de fondo (opcional): el nombre del archivo que dejaste en esta carpeta, por ejemplo 'musica.mp3'. Vacío = sin música.
-  musica: '',
+  musica: '../../assets/musica-muestra.mp3',   // MUESTRA: Bach, "Air" (dominio público). Para una pareja: su archivo, o '' si no quieren música
   credito: true        // false para sacar el "Hecho con Boda Web" del pie
 };

@@ -168,7 +168,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .datos-regalo p:not(:has(.boton)){grid-template-areas:"etiqueta etiqueta" "valor valor"}
 .datos-regalo p:last-child{border-bottom:0}
 .datos-regalo span{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave);font-weight:700}
-.datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:anywhere;min-width:0}
+.datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:break-word;min-width:0}
 
 /* ================= CONFIRMACIÓN ================= */
 .confirmar{padding-bottom:84px}
@@ -324,3 +324,27 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Celular: la portada mide lo mismo que la lámina. Antes ocupaba la pantalla entera y, en los celulares alargados de hoy, la lámina quedaba en el medio con una franja vacía arriba y otra abajo */
 @media (max-width:719px){.portada{min-height:0}}
+
+/* ===== IDENTIDAD PROPIA DE ESTE MODELO (lo que lo distingue de los demás de acuarela; va al final para mandar sobre lo de arriba) ===== */
+/* Cuenta regresiva: manchas de pintura rosa y celeste en lugar de círculos perfectos */
+.circulos div{border:0;box-shadow:none;background:var(--arena);border-radius:58% 42% 55% 45%/47% 55% 45% 53%}
+.circulos div:nth-child(even){background:#eaf0f9;border-radius:45% 55% 42% 58%/55% 45% 55% 45%}
+.circulos strong{color:var(--azul-oscuro)}
+.circulos span{text-transform:none;letter-spacing:.02em;font-size:13px;font-weight:600}
+/* Tarjetas de papel apenas torcidas, con borde de puntadas */
+.tarjeta{background:#fff;border:2px dashed var(--celeste);border-radius:22px;transform:rotate(-1deg)}
+.tarjeta:nth-child(2){transform:rotate(1deg);border-color:var(--rosa)}
+/* Itinerario: notas que alternan rosa y celeste */
+.momentos::before{border-left:3px dashed var(--celeste)}
+.momentos li{border:0;background:#fff;box-shadow:var(--sombra)}
+.momentos li:nth-child(odd){transform:rotate(-.6deg)}
+.momentos li:nth-child(even){background:#f4f7fc;transform:rotate(.6deg)}
+.momentos .icono-redondo{border-style:dashed;border-color:var(--celeste);color:var(--azul)}
+.momentos time{color:var(--azul)}
+/* Formulario y regalos con borde de puntadas */
+#confirmacion input,#confirmacion textarea{border-style:dashed;border-color:var(--celeste)}
+#confirmacion fieldset{border-style:dashed;border-color:var(--celeste)}
+.datos-regalo{border-color:var(--celeste);background:#fff}
+
+/* Celulares angostos: los rótulos de la cuenta regresiva entran con aire dentro de su forma */
+@media (max-width:400px){.circulos{gap:6px}.circulos span{font-size:11px;letter-spacing:0}}

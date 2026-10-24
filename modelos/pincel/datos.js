@@ -21,11 +21,11 @@ const DATOS = {
   // la línea rosa en mayúsculas y la nota de abajo
   titulo1: 'Nos Casamos',
   saludo: 'Querida familia y amigos,',
-  invitacion: 'con mucha alegría queremos invitarlos a la boda de',
+  invitacion: 'tenemos el gusto de invitarlos al casamiento de',
   mensaje: '¡Reservá la fecha!',
   nota: 'Nos encantaría que nos acompañes en este día tan especial.',
 
-  frase: 'Una noche de verano, mucha música y la gente que más queremos. Este día no sería lo mismo sin vos.',
+  frase: 'Una noche de primavera, mucha música y un piano que no puede faltar. Te esperamos para cantar con nosotros.',
 
   ceremonia: {
     hora: '19:30',
@@ -54,7 +54,17 @@ const DATOS = {
   },
 
   hashtag: '#AgusYNacho',
+  // Información útil (opcional): si se completa alguno, aparece una sección con esos datos. Vacíos = no aparece.
+  ninos: '',          // ej. '¡Los chicos son bienvenidos!' o 'Es una fiesta para adultos'
+  alojamiento: '',    // dónde dormir, si la boda es lejos
+
+  // Cuántas personas se pueden anotar como máximo en la confirmación (si no se usa ?lugares= en el link)
+  maxPersonas: 10,
+
+  // Lo que dice la cuenta regresiva después de la boda (vacío = '¡Gracias por acompañarnos!')
+  textoDespues: '',
+
   // Música de fondo (opcional): el nombre del archivo que dejaste en esta carpeta, por ejemplo 'musica.mp3'. Vacío = sin música.
-  musica: '',
+  musica: '../../assets/musica-muestra.mp3',   // MUESTRA: Bach, "Air" (dominio público). Para una pareja: su archivo, o '' si no quieren música
   credito: true        // false para sacar el "Hecho con Boda Web" del pie
 };

@@ -13,9 +13,11 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Agustina &amp; Ignacio · Nos casamos" />
   <meta property="og:description" content="Con mucha alegría te invitamos a nuestra boda. Toda la información y la confirmación de asistencia, acá." />
-  <!-- Imagen al compartir por WhatsApp: tiene que ser la dirección COMPLETA. Al copiar la carpeta para una pareja, cambiá "modelos/pincel" por su carpeta en las dos líneas. -->
+  <!-- Título y vista previa al compartir por WhatsApp: los completa solo "node actualizar-invitaciones.js" a partir de datos.js (no hace falta tocarlos a mano). -->
   <meta property="og:url" content="https://bodaweb-rose.vercel.app/modelos/pincel/" />
-  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/pincel/fotos/portada.webp" />
+  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/pincel/fotos/compartir.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -104,7 +106,7 @@
           <div class="portada-textos">
             <p class="titulo"><svg class="corazon" aria-hidden="true"><use href="#corazon"/></svg><span data-dato="titulo1">Nos Casamos</span></p>
             <p class="saludo" data-dato="saludo">Querida familia y amigos,</p>
-            <p class="portada-intro" data-dato="invitacion">con mucha alegría queremos invitarlos a la boda de</p>
+            <p class="portada-intro" data-dato="invitacion">tenemos el gusto de invitarlos al casamiento de</p>
             <h1 class="portada-nombres"><span data-dato="nombre1">Agustina</span> <em>&amp;</em> <span data-dato="nombre2">Ignacio</span></h1>
             <p class="portada-mensaje" data-dato="mensaje">¡Reservá la fecha!</p>
             <p class="portada-nota" data-dato="nota">Nos encantaría que nos acompañes en este día tan especial.</p>
@@ -135,7 +137,7 @@
 
     <!-- ================= INVITACIÓN ================= -->
     <section class="frase banda-crema" data-reveal>
-      <p class="frase-texto" data-dato="frase">Una noche de verano, mucha música y la gente que más queremos. Este día no sería lo mismo sin vos.</p>
+      <p class="frase-texto" data-dato="frase">Una noche de primavera, mucha música y un piano que no puede faltar. Te esperamos para cantar con nosotros.</p>
       <p class="frase-firma"><span data-dato="nombre1">Agustina</span> <em>&amp;</em> <span data-dato="nombre2">Ignacio</span></p>
     </section>
 
@@ -189,11 +191,11 @@
       </div>
       <!-- Texto de ejemplo: cambiá horas y momentos a gusto; podés agregar o sacar tarjetas -->
       <ol class="momentos">
-        <li><span class="icono-redondo"><svg><use href="#i-anillos"/></svg></span><time>19:30</time><h3>Ceremonia</h3><p>En la catedral. Les pedimos llegar unos minutos antes.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-anillos"/></svg></span><time>19:30</time><h3>Ceremonia</h3><p>En la Catedral de San Isidro, frente al río. Llegá con tiempo para estacionar.</p></li>
         <li><span class="icono-redondo"><svg><use href="#i-copas"/></svg></span><time>21:00</time><h3>Recepción</h3><p>Brindis de bienvenida en el jardín de la quinta.</p></li>
-        <li><span class="icono-redondo"><svg><use href="#i-cubiertos"/></svg></span><time>22:30</time><h3>Cena</h3><p>Avisanos si tenés alguna restricción con la comida.</p></li>
-        <li><span class="icono-redondo"><svg><use href="#i-nota"/></svg></span><time>00:30</time><h3>Vals y baile</h3><p>Primero el vals, después la pista es de todos.</p></li>
-        <li><span class="icono-redondo"><svg><use href="#i-corazon"/></svg></span><time>05:00</time><h3>Despedida</h3><p>Mesa dulce y el último brindis de la noche.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-cubiertos"/></svg></span><time>22:30</time><h3>Cena</h3><p>Cena en la galería de la quinta. Si comés distinto, avisanos al confirmar.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-nota"/></svg></span><time>00:30</time><h3>Vals y baile</h3><p>Ignacio toca una canción al piano y después arranca la pista.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-corazon"/></svg></span><time>05:00</time><h3>Despedida</h3><p>Mesa dulce y la última canción de la noche.</p></li>
       </ol>
     </section>
 

@@ -161,7 +161,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 .datos-regalo p:not(:has(.boton)){grid-template-areas:"etiqueta etiqueta" "valor valor"}
 .datos-regalo p:last-child{border-bottom:0}
 .datos-regalo span{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave);font-weight:700}
-.datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:anywhere;min-width:0}
+.datos-regalo strong{font-family:var(--serif);font-weight:500;color:var(--marron);font-size:19px;overflow-wrap:break-word;min-width:0}
 
 /* ================= CONFIRMACIÓN ================= */
 .confirmar{padding-bottom:84px}
@@ -318,3 +318,25 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Celular: la portada mide lo mismo que la lámina. Antes ocupaba la pantalla entera y, en los celulares alargados de hoy, la lámina quedaba en el medio con una franja vacía arriba y otra abajo */
 @media (max-width:719px){.portada{min-height:0}}
+
+/* ===== IDENTIDAD PROPIA DE ESTE MODELO (lo que lo distingue de los demás de acuarela; va al final para mandar sobre lo de arriba) ===== */
+/* Cuenta regresiva: óvalos con doble filete, como los camafeos */
+.circulos div{aspect-ratio:4/5;border-radius:50%;border:1px solid var(--rosa);background:var(--crema);box-shadow:inset 0 0 0 4px var(--crema),inset 0 0 0 5px var(--ocre-claro)}
+.circulos strong{color:var(--rosa)}
+.circulos span{font-family:var(--serif);font-style:italic;font-weight:500;text-transform:none;letter-spacing:0;font-size:16px}
+/* Tarjetas con doble borde dorado, como una tarjeta impresa */
+.tarjeta{background:#fff;border:4px double var(--ocre-claro);border-radius:14px}
+/* Itinerario: tarjetas centradas con la hora en cursiva grande, sin línea ni íconos */
+.momentos{padding-left:0;max-width:480px;text-align:center}
+.momentos::before{display:none}
+.momentos .icono-redondo{display:none}
+.momentos li{background:#fff;border:4px double var(--ocre-claro);border-radius:14px;padding:18px 20px}
+.momentos time{font-family:var(--serif);font-style:italic;font-size:30px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--rosa);margin:0}
+/* Formulario y regalos: campos rellenos de rosa pálido */
+#confirmacion{background:#fff;border:4px double var(--ocre-claro);border-radius:14px}
+#confirmacion input,#confirmacion textarea{background:var(--arena);border-color:transparent}
+#confirmacion fieldset{border-color:var(--arena);background:var(--arena)}
+.datos-regalo{border:4px double var(--ocre-claro);border-radius:14px;background:#fff}
+
+/* Computadora (diseño de compu): el itinerario va en cinco columnas; se devuelve el ancho completo */
+@media (min-width:1000px){.momentos{max-width:none}.momentos li{margin:0;padding:22px 14px}}

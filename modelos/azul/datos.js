@@ -29,7 +29,7 @@ const DATOS = {
   invitacion: 'Tenemos el gusto de invitarte a este día tan importante de nuestras vidas',
   mensaje: 'Te esperamos',
 
-  frase: 'Entre sierras y flores, con la gente que más queremos. Este día no sería lo mismo sin vos.',
+  frase: 'Entre sierras y flores, con la gente que más queremos. Nos haría muy felices que estés.',
 
   ceremonia: {
     hora: '18:00',
@@ -58,7 +58,17 @@ const DATOS = {
   },
 
   hashtag: '#ValeYSanti',
+  // Información útil (opcional): si se completa alguno, aparece una sección con esos datos. Vacíos = no aparece.
+  ninos: 'Queremos que sea una noche para adultos: te pedimos que los chicos se queden en casa.',          // ej. '¡Los chicos son bienvenidos!' o 'Es una fiesta para adultos'
+  alojamiento: '',    // dónde dormir, si la boda es lejos
+
+  // Cuántas personas se pueden anotar como máximo en la confirmación (si no se usa ?lugares= en el link)
+  maxPersonas: 10,
+
+  // Lo que dice la cuenta regresiva después de la boda (vacío = '¡Gracias por acompañarnos!')
+  textoDespues: '',
+
   // Música de fondo (opcional): el nombre del archivo que dejaste en esta carpeta, por ejemplo 'musica.mp3'. Vacío = sin música.
-  musica: '',
+  musica: '../../assets/musica-muestra.mp3',   // MUESTRA: Bach, "Air" (dominio público). Para una pareja: su archivo, o '' si no quieren música
   credito: true        // false para sacar el "Hecho con Boda Web" del pie
 };

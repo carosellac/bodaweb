@@ -7,15 +7,17 @@
   <!-- En la computadora la invitación se muestra dentro de un celular (comun.js arma el marco). Con ?vista=compu se ve el diseño de computadora. -->
   <script>(function(){var d=document.documentElement;d.classList.add('js');try{if(window.self!==window.top){d.classList.add('bw-en-marco')}else if(window.matchMedia&&matchMedia('(min-width:900px) and (hover:hover)').matches&&!/[?&]vista=compu(&|$)/.test(location.search)){d.classList.add('bw-escritorio')}}catch(e){}})()</script>
   <style>html.bw-escritorio body>*:not(.bw-marco){display:none!important}html.bw-escritorio,html.bw-escritorio body{overflow:hidden;height:100%}html.bw-en-marco{scrollbar-width:none}html.bw-en-marco::-webkit-scrollbar{display:none}</style>
-  <title>Martina & Lucas · Nos casamos</title>
+  <title>Martina &amp; Lucas · Nos casamos</title>
   <meta name="description" content="Invitación a nuestro casamiento: fecha, lugar, itinerario y confirmación de asistencia." />
   <meta name="robots" content="noindex" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Martina & Lucas · Nos casamos" />
+  <meta property="og:title" content="Martina &amp; Lucas · Nos casamos" />
   <meta property="og:description" content="Un día de primavera, un jardín lleno de flores y la gente que más queremos. Toda la información y la confirmación de asistencia, acá." />
-  <!-- Imagen al compartir por WhatsApp: tiene que ser la dirección COMPLETA. Al copiar la carpeta para una pareja, cambiá "modelos/jardin" por su carpeta en las dos líneas. -->
+  <!-- Título y vista previa al compartir por WhatsApp: los completa solo "node actualizar-invitaciones.js" a partir de datos.js (no hace falta tocarlos a mano). -->
   <meta property="og:url" content="https://bodaweb-rose.vercel.app/modelos/jardin/" />
-  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/jardin/fotos/portada.webp" />
+  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/jardin/fotos/compartir.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -119,7 +121,7 @@
       </div>
       <div class="portada-datos">
         <p class="pildora"><svg aria-hidden="true"><use href="#i-calendario"/></svg><span data-dato="fechaTexto">Sábado 16 de octubre de 2027</span></p>
-        <p class="portada-lugar"><svg aria-hidden="true"><use href="#i-pin"/></svg><span data-dato="lugarCorto">Pilar, Buenos Aires</span></p>
+        <p class="portada-lugar"><svg aria-hidden="true"><use href="#i-pin"/></svg><span data-dato="lugarCorto">Cañuelas, Buenos Aires</span></p>
         <div class="botones">
           <a class="boton" href="#confirmar">Confirmar asistencia</a>
           <a class="boton boton-lila" data-calendario href="#"><svg aria-hidden="true"><use href="#i-calendario"/></svg>Agendar</a>
@@ -205,7 +207,7 @@
         <li><span class="momento-icono icono-rosa"><svg><use href="#i-anillos"/></svg></span><div><time>16:30</time><h3>Ceremonia en la capilla</h3><p>Cortita y al aire libre. Vení unos minutos antes para encontrar tu lugar a la sombra.</p></div></li>
         <li><span class="momento-icono icono-lila"><svg><use href="#i-copas"/></svg></span><div><time>18:00</time><h3>Brindis en el jardín</h3><p>Limonada, espumante y picadita entre las flores mientras sacamos las fotos.</p></div></li>
         <li><span class="momento-icono icono-verde"><svg><use href="#i-cubiertos"/></svg></span><div><time>20:00</time><h3>Cena bajo las lucecitas</h3><p>Mesas largas en el parque. Avisanos si tenés alguna restricción.</p></div></li>
-        <li><span class="momento-icono icono-amarillo"><svg><use href="#i-nota"/></svg></span><div><time>22:00</time><h3>¡A bailar!</h3><p>Primero el vals, después la pista es de todos. Hay canasta de ojotas.</p></div></li>
+        <li><span class="momento-icono icono-amarillo"><svg><use href="#i-nota"/></svg></span><div><time>22:00</time><h3>¡A bailar!</h3><p>Arrancamos con el vals y después, pista abierta. Hay canasta de ojotas.</p></div></li>
         <li><span class="momento-icono icono-rosa"><svg><use href="#i-corazon"/></svg></span><div><time>02:00</time><h3>Último brindis</h3><p>Mesa dulce, fogón y el último abrazo del día.</p></div></li>
       </ol>
     </section>

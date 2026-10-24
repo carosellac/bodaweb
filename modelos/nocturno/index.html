@@ -7,15 +7,17 @@
   <!-- En la computadora la invitación se muestra dentro de un celular (comun.js arma el marco). Con ?vista=compu se ve el diseño de computadora. -->
   <script>(function(){var d=document.documentElement;d.classList.add('js');try{if(window.self!==window.top){d.classList.add('bw-en-marco')}else if(window.matchMedia&&matchMedia('(min-width:900px) and (hover:hover)').matches&&!/[?&]vista=compu(&|$)/.test(location.search)){d.classList.add('bw-escritorio')}}catch(e){}})()</script>
   <style>html.bw-escritorio body>*:not(.bw-marco){display:none!important}html.bw-escritorio,html.bw-escritorio body{overflow:hidden;height:100%}html.bw-en-marco{scrollbar-width:none}html.bw-en-marco::-webkit-scrollbar{display:none}</style>
-  <title>Sofía & Agustín · Nos casamos</title>
+  <title>Sofía &amp; Agustín · Nos casamos</title>
   <meta name="description" content="Invitación a nuestro casamiento: fecha, lugar, itinerario y confirmación de asistencia." />
   <meta name="robots" content="noindex" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Sofía & Agustín · Nos casamos" />
+  <meta property="og:title" content="Sofía &amp; Agustín · Nos casamos" />
   <meta property="og:description" content="Una noche para brindar por el amor. Toda la información y la confirmación de asistencia, acá." />
-  <!-- Imagen al compartir por WhatsApp: tiene que ser la dirección COMPLETA. Al copiar la carpeta para una pareja, cambiá "modelos/nocturno" por su carpeta en las dos líneas. -->
+  <!-- Título y vista previa al compartir por WhatsApp: los completa solo "node actualizar-invitaciones.js" a partir de datos.js (no hace falta tocarlos a mano). -->
   <meta property="og:url" content="https://bodaweb-rose.vercel.app/modelos/nocturno/" />
-  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/nocturno/fotos/portada.webp" />
+  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/nocturno/fotos/compartir.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet" />
@@ -147,11 +149,11 @@
         <h2>Así va a ser la noche</h2>
         <!-- Texto de ejemplo: cambiá horas y textos a gusto; podés agregar o sacar renglones -->
         <ol class="linea-tiempo">
-          <li><time>19:00</time><div><h3>Ceremonia</h3><p>En la Catedral de Rosario. Les pedimos llegar unos minutos antes.</p></div></li>
+          <li><time>19:00</time><div><h3>Ceremonia</h3><p>En la Catedral de Rosario. Llegá un rato antes: la ceremonia empieza puntual.</p></div></li>
           <li><time>21:30</time><div><h3>Recepción</h3><p>Copa de bienvenida en la terraza del Salón Metropolitano.</p></div></li>
           <li><time>22:30</time><div><h3>Cena</h3><p>Menú de tres pasos. Avisanos si tenés alguna restricción.</p></div></li>
-          <li><time>00:30</time><div><h3>Vals y baile</h3><p>Primero el vals, después la pista es de todos.</p></div></li>
-          <li><time>04:00</time><div><h3>Despedida</h3><p>Mesa dulce y el último brindis de la noche.</p></div></li>
+          <li><time>00:30</time><div><h3>Vals y baile</h3><p>Vals a la luz de las velas y después, pista hasta el amanecer.</p></div></li>
+          <li><time>04:00</time><div><h3>Despedida</h3><p>Mesa dulce, café y el último brindis antes del amanecer.</p></div></li>
         </ol>
       </div>
     </section>

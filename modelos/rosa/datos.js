@@ -17,13 +17,13 @@ const DATOS = {
   // Fecha y hora de la ceremonia: año-mes-día T hora:minutos (hora argentina -03:00)
   fecha: '2028-05-20T16:00:00-03:00',
   fechaTexto: 'Sábado 20 de mayo de 2028',
-  fechaCorta: 'Sábado 20 de mayo · 16 hs',   // la fecha de la portada, entre las dos filigranas
+  fechaCorta: 'Sábado 20 de mayo de 2028 · 16 hs',   // la fecha de la portada, entre las dos filigranas
   lugarCorto: 'Chascomús, Buenos Aires',
 
   // Portada: la frase de invitación debajo de los nombres
   invitacion: 'Te invitamos a celebrar nuestro amor y nuestro compromiso.',
 
-  frase: 'Junto a la laguna, entre flores y con la gente que más queremos. Este día no sería lo mismo sin vos.',
+  frase: 'Junto a la laguna, entre flores y con la gente de siempre. Sos parte de nuestra historia.',
 
   ceremonia: {
     hora: '16:00',
@@ -52,7 +52,17 @@ const DATOS = {
   },
 
   hashtag: '#PauYBenja',
+  // Información útil (opcional): si se completa alguno, aparece una sección con esos datos. Vacíos = no aparece.
+  ninos: '',          // ej. '¡Los chicos son bienvenidos!' o 'Es una fiesta para adultos'
+  alojamiento: '',    // dónde dormir, si la boda es lejos
+
+  // Cuántas personas se pueden anotar como máximo en la confirmación (si no se usa ?lugares= en el link)
+  maxPersonas: 10,
+
+  // Lo que dice la cuenta regresiva después de la boda (vacío = '¡Gracias por acompañarnos!')
+  textoDespues: '',
+
   // Música de fondo (opcional): el nombre del archivo que dejaste en esta carpeta, por ejemplo 'musica.mp3'. Vacío = sin música.
-  musica: '',
+  musica: '../../assets/musica-muestra.mp3',   // MUESTRA: Bach, "Air" (dominio público). Para una pareja: su archivo, o '' si no quieren música
   credito: true        // false para sacar el "Hecho con Boda Web" del pie
 };
