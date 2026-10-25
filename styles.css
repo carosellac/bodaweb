@@ -496,3 +496,11 @@ main:focus{outline:none}
 .hero2-pagina h1{font-size:clamp(40px,4.3vw,60px)}
 .hero2-pagina .hero2-texto{font-size:20px}
 @media(max-width:780px){.hero2-pagina h1{font-size:clamp(36px,10vw,48px)}.hero2-pagina .hero2-texto{font-size:18px}}
+/* Celular: los teléfonos de los costados entran enteros (con el giro, sus puntas se salían del recuadro) */
+@media(max-width:780px){
+  .tel-centro{width:40%;left:30%;top:3%}
+  .tel-izq,.tel-der{width:31%;top:15%}
+  .tel-izq{left:6%}
+  .tel-der{right:6%}
+  .hero2-aviso{left:3%;bottom:9%}
+}
