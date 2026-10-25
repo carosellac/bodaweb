@@ -483,3 +483,16 @@ main:focus{outline:none}
   .hero2-aviso small{font-size:11.5px}
 }
 @media(prefers-reduced-motion:reduce){.hero2-aviso{animation:none}.tel{transition:none}}
+/* Páginas de búsqueda con la portada de la página de inicio */
+.hero2 .migas{margin-bottom:14px}
+.seo-chat{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:48px;align-items:center;max-width:900px}
+.seo-chat .chat{width:100%}
+.seo-chat .seo-texto{margin:0}
+@media(max-width:780px){
+  .hero2-copy .migas{order:0}
+  .seo-chat{grid-template-columns:minmax(0,1fr);gap:24px}
+  .seo-chat .chat{width:min(100%,360px)}
+}
+.hero2-pagina h1{font-size:clamp(40px,4.3vw,60px)}
+.hero2-pagina .hero2-texto{font-size:20px}
+@media(max-width:780px){.hero2-pagina h1{font-size:clamp(36px,10vw,48px)}.hero2-pagina .hero2-texto{font-size:18px}}

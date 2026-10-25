@@ -128,8 +128,10 @@ NOTAS
 - Las tarjetas de "Diseños" usan una captura por modelo: assets/modelo-*-movil.webp (la primera pantalla
   del celular, 780×975), en el celular y en la compu. Si se cambia el diseño de un modelo, volver a sacarla
   para que la tarjeta no mienta.
-- Los celulares dibujados (portada y páginas de búsqueda) usan assets/modelo-*-pantalla.webp: la pantalla
-  completa de un celular (585×1203). La de la portada es modelo-clasico-pantalla.webp.
+- La portada de la página de inicio y de las páginas de búsqueda es la misma: tres celulares con diseños
+  reales (assets/modelo-*-pantalla.webp, la pantalla completa de un celular, 585×1203) y el aviso de
+  "Carla confirmó". En las páginas de búsqueda, los tres diseños de cada una se eligen en seo/paginas.js
+  (telefonos: [centro, izquierda, derecha]). Si cambia el diseño de un modelo, volver a sacar su captura.
 - "Agregar al calendario": en iPhone, iPad y Mac entrega un archivo de calendario (abre el calendario del
   teléfono); en el resto abre Google Calendar.
 - Tipografías de Google Fonts; sin conexión se usan tipografías alternativas.

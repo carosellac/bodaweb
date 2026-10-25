@@ -68,8 +68,26 @@ const VISUALES = {
 function armar(p, todas) {
   const url = DOMINIO + '/' + p.slug + '/';
   const imagenCompartir = DOMINIO + '/modelos/' + (p.modelo || p.disenos[0]) + '/fotos/compartir.jpg';
-  const visual = p.visual ? VISUALES[p.visual]
-    : `<div class="seo-telefono"><img src="/assets/modelo-${p.modelo}-pantalla.webp" alt="${esc(p.modeloAlt)}" width="585" height="1203" fetchpriority="high" /></div>`;
+  // Portada igual a la de la página de inicio: tres celulares con diseños reales (los de esta página) y el aviso de confirmación
+  const [tc, ti, td] = p.telefonos;
+  const nombreDe = s => modeloNombre(s) || s;
+  const visual = `<div class="hero2-telefonos">
+            <a class="tel tel-izq" href="/modelos/${ti}/" tabindex="-1" aria-hidden="true"><img src="/assets/modelo-${ti}-pantalla.webp" width="585" height="1203" alt="" /></a>
+            <a class="tel tel-der" href="/modelos/${td}/" tabindex="-1" aria-hidden="true"><img src="/assets/modelo-${td}-pantalla.webp" width="585" height="1203" alt="" /></a>
+            <a class="tel tel-centro" href="/modelos/${tc}/"><img src="/assets/modelo-${tc}-pantalla.webp" width="585" height="1203" alt="${esc(sinEtiquetas(p.h1))}: diseños ${esc([tc, ti, td].map(nombreDe).join(', '))} vistos en el celular" fetchpriority="high" /></a>
+            <div class="hero2-aviso" aria-hidden="true">
+              <span class="hero2-aviso-icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L19 7"/></svg></span>
+              <span><strong>${esc(p.aviso ? p.aviso[0] : 'Carla confirmó')}</strong><small>${esc(p.aviso ? p.aviso[1] : 'Vienen 2 · llegó por WhatsApp')}</small></span>
+            </div>
+          </div>`;
+  // La conversación de WhatsApp de muestra (páginas de WhatsApp y de confirmación) baja a una sección propia
+  const chat = p.visual ? `
+    <section class="seo-bloque suave" aria-labelledby="chat-title">
+      <div class="container seo-chat">
+        <div class="seo-texto"><h2 id="chat-title">${esc(p.chatTitulo)}</h2><p>${p.chatTexto}</p></div>
+        ${VISUALES[p.visual]}
+      </div>
+    </section>` : '';
   const mitad = Math.ceil(p.faqs.length / 2);
   const det = ([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`;
   const otras = todas.filter(o => o.slug !== p.slug);
@@ -109,24 +127,29 @@ function armar(p, todas) {
   ${ld(grafo)}
 </head>
 <body>${cabecera}<main id="contenido" tabindex="-1">
-    <section class="hero seo-hero" aria-labelledby="hero-title">
-      <div class="container hero-container">
-        <div class="hero-copy">
+    <section class="hero hero2 hero2-pagina" aria-labelledby="hero-title">
+      <div class="container hero2-grid">
+        <div class="hero2-copy">
           <nav class="migas" aria-label="Estás en"><ol><li><a href="/">Inicio</a></li><li aria-current="page">${esc(p.migas)}</li></ol></nav>
           <p class="eyebrow">${p.eyebrow}</p>
           <h1 id="hero-title">${p.h1}</h1>
-          <p class="hero-description">${p.intro}</p>
+          <p class="hero2-texto">${p.intro}</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#disenos">Ver diseños <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a>
             <button class="btn btn-outline js-start" type="button">Quiero mi invitación</button>
           </div>
+          <ul class="hero2-datos">
+            <li><a href="#precio-title"><strong>$55.000</strong><span>todo incluido</span></a></li>
+            <li><strong>3 a 5 días</strong><span>y la tenés lista</span></li>
+            <li><strong>Cambios</strong><span>incluidos</span></li>
+          </ul>
         </div>
-        <div class="hero-visual">
+        <div class="hero2-visual">
           ${visual}
         </div>
       </div>
     </section>
-${p.contenido}
+${p.contenido}${chat}
 
     <section class="designs section-container" id="disenos" aria-labelledby="designs-title">
       <div class="section-intro"><p class="eyebrow">DISEÑOS</p><h2 id="designs-title">${esc(p.tituloDisenos || ('Diseños para tu ' + p.migas.toLowerCase().replace(/^invitaciones /, 'invitación ').replace(/^tarjetas /, 'tarjeta ')))}</h2><p class="lead">Tocá "Ver diseño" para recorrerlo completo en tu celular. Hay trece en total: <a href="/#disenos">ver todos</a>.</p></div>

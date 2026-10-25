@@ -19,6 +19,7 @@ module.exports = [
   h1: 'Página web de boda: <em>tu invitación en un link</em>',
   intro: 'Crear una página web de boda es la forma más simple de reunir en un solo lugar todo lo que tus invitados necesitan saber: cuándo es, dónde es, cómo llegar, qué ponerse y cómo confirmar. Es tu invitación de casamiento en formato link web, lista para mandar por WhatsApp.',
   modelo: 'eucalipto',
+  telefonos: ['eucalipto', 'minimalista', 'roja'],
   modeloAlt: 'Página web de boda con el diseño Eucalipto y Acuarela vista en un celular',
   disenos: ['eucalipto', 'nocturno', 'minimalista', 'roja'],
   tituloDisenos: 'Diseños para la web de tu casamiento',
@@ -81,7 +82,12 @@ module.exports = [
   eyebrow: 'INVITACIONES POR WHATSAPP',
   h1: 'Invitaciones de casamiento <em>por WhatsApp</em>',
   intro: 'Las invitaciones de casamiento por WhatsApp llegan donde ya están todos tus invitados: en el chat. Mandás un link y se abre una página con la foto de ustedes, la fecha, el mapa y un botón para confirmar, sin descargar nada.',
+  modelo: 'playa',
+  telefonos: ['playa', 'coral', 'pincel'],
+  aviso: ['Tía Marta abrió la invitación', 'Confirmó: vienen 2 · por WhatsApp'],
   visual: 'chat-invitacion',
+  chatTitulo: 'Así se ve en el chat',
+  chatTexto: 'El link llega con la foto de portada y sus nombres, y la respuesta vuelve al mismo chat.',
   disenos: ['playa', 'coral', 'pincel', 'azul'],
   contenido: `
     <section class="seo-bloque" aria-labelledby="porque-title">
@@ -134,6 +140,7 @@ module.exports = [
   h1: 'Tarjetas de casamiento <em>virtuales</em>',
   intro: 'Las tarjetas de casamiento virtuales reemplazan a la tarjeta impresa sin perder lo lindo: un diseño cuidado, sus nombres y la fecha. Y suman lo que el papel no puede: mapa, confirmación de asistencia y cambios de último momento.',
   modelo: 'rosa',
+  telefonos: ['rosa', 'clasico', 'bohemio'],
   modeloAlt: 'Tarjeta de casamiento virtual con el diseño Rosas en Acuarela en un celular',
   disenos: ['clasico', 'rosa', 'minimalista', 'coral', 'bohemio', 'jardin'],
   contenido: `
@@ -202,7 +209,11 @@ module.exports = [
   eyebrow: 'CONFIRMACIÓN DE ASISTENCIA',
   h1: 'Invitaciones digitales para boda <em>con confirmación</em>',
   intro: 'Las invitaciones digitales para boda con confirmación de asistencia te ahorran la parte más pesada de organizar: saber quién viene. Cada invitado confirma desde su celular en un minuto y la respuesta te llega por WhatsApp.',
+  modelo: 'clasico',
+  telefonos: ['clasico', 'botanico', 'jardin'],
   visual: 'chat-confirmacion',
+  chatTitulo: 'Así te llega cada confirmación',
+  chatTexto: 'Un mensaje por invitado, con su nombre, cuántos son y si tiene alguna comida especial.',
   disenos: ['clasico', 'botanico', 'nocturno', 'jardin'],
   contenido: `
     <section class="seo-bloque" aria-labelledby="funciona-title">
