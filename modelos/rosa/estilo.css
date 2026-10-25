@@ -138,7 +138,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 /* ================= VESTIMENTA ================= */
 .vestimenta{padding:60px 22px 64px}
 .vestimenta .icono-redondo{color:var(--salvia);border-color:var(--salvia);position:relative;z-index:1}
-.vestimenta .etiqueta{color:var(--salvia)}
+.vestimenta .etiqueta{color:var(--terracota)}
 .vestimenta h2{font-size:clamp(26px,5vw,40px);max-width:640px;margin:0 auto 18px;position:relative;z-index:1}
 .paleta{list-style:none;display:flex;justify-content:center;gap:12px;margin:0 0 20px;padding:0;position:relative;z-index:1}
 .paleta li{width:30px;height:30px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55),0 2px 8px rgba(59,42,46,.15)}
@@ -340,3 +340,12 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Computadora (diseño de compu): el itinerario va en cinco columnas; se devuelve el ancho completo */
 @media (min-width:1000px){.momentos{max-width:none}.momentos li{margin:0;padding:22px 14px}}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'salvia' o 'champagne'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Rosa y dorado|#fdf3f1|#a84a60;salvia|Verde salvia|#f0f5ef|#4f7556;champagne|Champagne|#faf3e8|#946f33";--bw-paleta-nombre:"Rosa y dorado"}
+:root[data-paleta="salvia"]{--terracota:#4f7556;--terracota-oscura:#3e5e45;--rosa:#4f7556;--rosa-oscuro:#3e5e45;--salvia-clara:#f0f5ef;--bw-paleta-nombre:"Verde salvia"}
+@media (min-width:1000px){:root[data-paleta="salvia"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+:root[data-paleta="champagne"]{--terracota:#946f33;--terracota-oscura:#775828;--rosa:#946f33;--rosa-oscuro:#775828;--arena:#fbf6ee;--linea:#efe3d2;--bw-paleta-nombre:"Champagne"}
+@media (min-width:1000px){:root[data-paleta="champagne"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+/* ===== FIN PALETAS ===== */

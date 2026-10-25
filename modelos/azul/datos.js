@@ -61,6 +61,21 @@ const DATOS = {
   // Información útil (opcional): si se completa alguno, aparece una sección con esos datos. Vacíos = no aparece.
   ninos: 'Queremos que sea una noche para adultos: te pedimos que los chicos se queden en casa.',          // ej. '¡Los chicos son bienvenidos!' o 'Es una fiesta para adultos'
   alojamiento: '',    // dónde dormir, si la boda es lejos
+  traslado: 'Sale una combi desde la Plaza Independencia de Tandil a las 19:30 y vuelve al final de la noche.',       // combi o transporte. Si se completa, la confirmación pregunta quién lo usa
+  menu: '',           // qué se va a comer
+  notas: '',          // cualquier otra cosa para tener en cuenta
+
+  // Confirmación de asistencia (opcional)
+  confirmarPorEvento: true,   // true = cada invitado marca si va a la ceremonia, a la fiesta o a las dos
+  preguntarChicos: false,      // true = pregunta cuántos chicos vienen
+  sugerirCanciones: true,     // false = no aparece "¿Qué canción no puede faltar?"
+  compartirFotos: true,       // false = no aparece "Compartí tus fotos" con el hashtag
+
+  // Colores: '' = los del diseño. Las otras paletas de este diseño están al final de su estilo.css
+  paleta: '',
+
+  // Panel de los novios (opcional): ver cada confirmación y cada canción en /panel/. Lo activa Boda Web.
+  panel: { invitacion: '' },
 
   // Cuántas personas se pueden anotar como máximo en la confirmación (si no se usa ?lugares= en el link)
   maxPersonas: 10,

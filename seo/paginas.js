@@ -196,7 +196,7 @@ module.exports = [
     ['¿Qué diferencia hay entre una tarjeta virtual y una invitación digital?', 'Ninguna en la práctica: son dos nombres para lo mismo. En nuestro caso la tarjeta es una página con mapa, confirmación y fotos, no sólo una imagen.'],
     ['¿Puedo poner nuestras propias fotos?', 'Sí. La portada, la historia y la galería llevan sus fotos. Sirve cualquier foto del celular.'],
     ['¿Sirve para el civil y para la fiesta?', 'Sí. Se pueden poner los dos eventos con sus horarios y lugares, o uno solo.'],
-    ['¿Cuánto tarda en estar lista?', 'Normalmente entre 3 y 5 días hábiles desde que recibimos los datos y las fotos.'],
+    ['¿Cuánto tarda en estar lista?', '72 horas hábiles desde que recibimos los datos y las fotos.'],
   ],
 },
 {
@@ -279,6 +279,74 @@ module.exports = [
     ['¿Puedo limitar cuántas personas vienen por invitación?', 'Sí. Cada link puede llevar la cantidad de lugares, y la invitación no deja anotar a más.'],
     ['¿Qué pasa si un invitado se equivoca al confirmar?', 'Vuelve a confirmar con los datos correctos y te llega un mensaje nuevo.'],
     ['¿Hay una lista de confirmados en algún lado?', 'Las confirmaciones te llegan por WhatsApp, una por invitado. Te recomendamos ir anotándolas en una planilla.'],
+  ],
+},
+{
+  slug: 'invitaciones-de-15-anos',
+  tipo: 'quince',
+  busqueda: 'invitaciones de 15 años digitales',
+  busquedas: ['invitaciones de 15 años', 'invitación digital de 15 años para WhatsApp'],
+  title: 'Invitaciones de 15 años digitales para WhatsApp | Boda Web',
+  description: 'Invitaciones de 15 años digitales: una página con su foto, cuenta regresiva, mapa, música y confirmación por WhatsApp. Diseños listos y entrega en 72 hs.',
+  migas: 'Invitaciones de 15 años',
+  eyebrow: 'INVITACIONES DE 15 AÑOS',
+  h1: 'Invitaciones de 15 años <em>digitales</em>',
+  intro: 'Las invitaciones de 15 años digitales son una página propia para la fiesta: su foto, la fecha, la cuenta regresiva, el mapa del salón, la música y la confirmación de cada invitado, todo en un link que se manda por WhatsApp.',
+  modelo: 'quince-rosa',
+  telefonos: ['quince-rosa', 'quince-azul', 'quince-nocturno'],
+  aviso: ['Sofi confirmó', 'Van 3 · llegó por WhatsApp'],
+  quince: [
+    ['quince-rosa', 'Rosas en Acuarela', 'Rosas pintadas en acuarela y un aro dorado para su foto. Romántica y delicada.'],
+    ['quince-azul', 'Flores Azules', 'Flores azules en acuarela y un calendario en la portada. Ideal con un vestido celeste.'],
+    ['quince-nocturno', 'Elegante Nocturno', 'Azul noche, dorado y destellos sobre su foto. Para una fiesta con mucho brillo.'],
+  ],
+  tituloDisenos: 'Diseños para sus 15',
+  leadDisenos: 'Tocá "Ver diseño" para recorrerlo completo y probarlo con su nombre. Todos los diseños de boda también se pueden adaptar a unos 15.',
+  contenido: `
+    <section class="seo-bloque" aria-labelledby="que-title">
+      <div class="container seo-texto">
+        <h2 id="que-title">Qué tiene una invitación de 15 digital</h2>
+        <p>Es mucho más que una tarjeta: es una página que los invitados recorren desde el celular y que responde todo lo que te preguntarían por mensaje.</p>
+        <ul class="seo-partes">
+          <li><strong>Portada con su foto</strong>Su nombre, "Mis 15" y la fecha, con la foto que ella elija.</li>
+          <li><strong>Cuenta regresiva</strong>Los días, las horas y los minutos que faltan para la fiesta.</li>
+          <li><strong>Misa y fiesta</strong>Horarios y lugares, con un botón que abre el mapa del celular.</li>
+          <li><strong>Itinerario de la noche</strong>La entrada, el vals, la cena, las velas y el baile, con sus horarios.</li>
+          <li><strong>Código de vestimenta</strong>Qué ponerse y qué colores evitar para no coincidir con la quinceañera.</li>
+          <li><strong>Galería</strong>Las fotos de la sesión o de sus años, que se abren en grande con un toque.</li>
+          <li><strong>Canciones</strong>Los invitados sugieren el tema que no puede faltar y le llega por WhatsApp.</li>
+          <li><strong>Regalos</strong>Alias o CBU con un botón para copiarlo, si la familia quiere.</li>
+          <li><strong>Confirmación</strong>Cada invitado confirma, dice cuántos van y si tiene alguna comida especial.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="seo-bloque suave" aria-labelledby="whatsapp15-title">
+      <div class="container seo-texto">
+        <h2 id="whatsapp15-title">Una invitación de 15 años para WhatsApp, con su nombre en cada link</h2>
+        <p>La invitación digital de 15 años se manda por WhatsApp como cualquier link: en el chat aparece su foto con el nombre y la fecha, y se abre con un toque, sin descargar nada. Si la familia quiere, cada invitado recibe su propio link con un saludo personal ("¡Hola, tía Marta!") y los nombres de quienes están invitados.</p>
+        <p>Las confirmaciones llegan ordenadas por WhatsApp, con el nombre, cuántos van, si van a la misa, a la fiesta o a las dos, y cualquier comida especial. Así armar las mesas deja de ser una cadena de mensajes sueltos.</p>
+        <h3>¿Y las amigas del colegio?</h3>
+        <p>La página tiene una sección para compartir las fotos de la fiesta con un hashtag propio (como #Los15DeMartu) y un botón para sugerir canciones. Es lo que más usan los invitados de su edad.</p>
+      </div>
+    </section>
+
+    <section class="seo-bloque" aria-labelledby="pasos15-title">
+      <div class="container seo-texto">
+        <h2 id="pasos15-title">Cómo pedir la invitación de sus 15</h2>
+        <ol>
+          <li><strong>Elegí el diseño.</strong> Probalo con su nombre y su fecha antes de decidir: se ve al instante.</li>
+          <li><strong>Mandanos los datos y las fotos.</strong> Nombre, fecha, misa, salón, horarios y las fotos que quiera mostrar.</li>
+          <li><strong>Recibí el link en 72 horas.</strong> Lo revisan en el celular y, si quieren cambiar algo, lo cambiamos.</li>
+        </ol>
+        <p>La dirección lleva su nombre y la página no aparece en Google: sólo la ve quien recibe el link. Queda publicada hasta un mes después de la fiesta.</p>
+      </div>
+    </section>`,
+  faqs: [
+    ['¿Las invitaciones de 15 años cuestan lo mismo que las de boda?', 'Sí: es la misma invitación completa, con todo incluido. Te confirmamos el precio y la fecha de entrega al hacer el pedido.'],
+    ['¿Puedo usar un diseño de boda para unos 15?', 'Sí. Cualquiera de los trece diseños se adapta: cambiamos los textos para que hable una sola persona y sumamos lo propio de los 15, como el vals y las velas.'],
+    ['¿Se puede poner música?', 'Sí. Al abrirla, cada invitado elige entrar con música o sin música. La canción la eligen ustedes.'],
+    ['¿Cómo se manda a cada invitado?', 'Por WhatsApp, como cualquier link. Si quieren, preparamos un link distinto para cada familia con su nombre.'],
   ],
 },
 ];

@@ -168,3 +168,12 @@ section{padding:64px var(--margen);border-top:1px solid var(--linea)}
 }
 
 .cuenta.llego .numero span{display:none}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'arena' o 'marino'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Blanco y negro|#ffffff|#111111;arena|Arena|#efe7dc|#2b2520;marino|Azul marino|#eef1f6|#1b2a44";--bw-paleta-nombre:"Blanco y negro"}
+:root[data-paleta="arena"]{--fondo:#f6f1ea;--tinta:#2b2520;--texto:#463e37;--gris:#6b6158;--linea:#e0d6c9;--suave:#ede5da;--bw-paleta-nombre:"Arena"}
+:root[data-paleta="arena"] .barra{background:rgba(246,241,234,.92)}:root[data-paleta="arena"] .boton:hover{background:#17130f}:root[data-paleta="arena"] .musica{background:var(--fondo)}
+:root[data-paleta="marino"]{--tinta:#1b2a44;--texto:#2f3b52;--gris:#5c6678;--linea:#dde2ea;--suave:#f1f4f8;--bw-paleta-nombre:"Azul marino"}
+:root[data-paleta="marino"] .boton:hover{background:#101b30}
+/* ===== FIN PALETAS ===== */

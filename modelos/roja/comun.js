@@ -18,6 +18,117 @@
   const vacio = v => v === undefined || v === null || String(v).trim() === '';
   // ¿Es un modelo de muestra? (vive en /modelos/…). Las invitaciones reales van en otra carpeta.
   const esMuestra = /\/modelos\/[^/]+\/?/.test(location.pathname);
+  const parametros = new URLSearchParams(location.search);
+  const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const mayus = t => String(t).charAt(0).toUpperCase() + String(t).slice(1);
+  const sinTildes = t => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const lista = arr => arr.length <= 1 ? arr.join('') : arr.slice(0, -1).join(', ') + ' y ' + arr[arr.length - 1];
+  // Para qué evento es: casamiento (por defecto) o 15 años ("evento: 'quince'" en datos.js): ahí hay UN solo nombre
+  const esQuince = D.evento === 'quince';
+
+  /* ---------- Probar el diseño con sus nombres (sólo en los modelos de MUESTRA) ----------
+     ?nombre1=Ana&nombre2=Bruno&fecha=2027-10-16 muestra el modelo con esos nombres y esa fecha, en el momento.
+     También cambian las iniciales, el hashtag, el alias de muestra y los nombres escritos en la historia.
+     En una invitación real (fuera de /modelos/) no hace nada. */
+  const prueba = (() => {
+    if (!esMuestra) return null;
+    const limpio = v => String(v || '').replace(/[<>{}]/g, '').replace(/\s+/g, ' ').trim().slice(0, 30);
+    const n1 = limpio(parametros.get('nombre1')), n2 = limpio(parametros.get('nombre2'));
+    if (!n1 || (!n2 && !esQuince)) return null;
+    const f = String(parametros.get('fecha') || '');
+    const valida = /^\d{4}-\d{2}-\d{2}$/.test(f) && !isNaN(new Date(f + 'T12:00:00Z').getTime());
+    return { n1, n2, fecha: valida ? f : '', viejo1: String(D.nombre1 || ''), viejo2: String(D.nombre2 || '') };
+  })();
+  if (prueba) {
+    const { n1, n2, viejo1, viejo2 } = prueba;
+    const pegado = t => mayus(sinTildes(t).replace(/[^A-Za-z0-9]/g, ''));
+    D.nombre1 = n1; if (!esQuince) D.nombre2 = n2;
+    const ini = /^(\S)([\s\S]*?)(\S)$/u.exec(String(D.iniciales || ''));
+    if (!esQuince && ini) D.iniciales = n1.charAt(0).toUpperCase() + ini[2] + n2.charAt(0).toUpperCase();
+    if (!vacio(D.hashtag)) D.hashtag = esQuince ? '#Los15De' + pegado(n1) : '#' + [n1, n2].map(pegado).join('Y');
+    if (D.regalo) {
+      if (!vacio(D.regalo.alias)) D.regalo.alias = esQuince ? sinTildes(n1).toUpperCase().replace(/[^A-Z0-9]/g, '') + '.MIS15' : [n1, n2].map(t => sinTildes(t).toUpperCase().replace(/[^A-Z0-9]/g, '')).join('.') + '.BODA';
+      if (!vacio(D.regalo.titular)) D.regalo.titular = String(D.regalo.titular).replace(viejo1, n1).replace(viejo2, n2);
+    }
+    if (prueba.fecha && /T\d/.test(String(D.fecha))) {
+      D.fecha = prueba.fecha + String(D.fecha).slice(10);
+      const [a, mo, di] = prueba.fecha.split('-').map(Number);
+      const dia = DIAS[new Date(Date.UTC(a, mo - 1, di)).getUTCDay()], mes = MESES[mo - 1];
+      const larga = mayus(dia) + ' ' + di + ' de ' + mes + ' de ' + a;
+      if (!vacio(D.fechaTexto)) D.fechaTexto = /^\d{2}\.\d{2}\.\d{4}$/.test(D.fechaTexto) ? String(di).padStart(2, '0') + '.' + String(mo).padStart(2, '0') + '.' + a : larga;
+      if (!vacio(D.fechaCorta)) {
+        const fc = String(D.fechaCorta);
+        const conDia = DIAS.some(x => sinTildes(fc.toLowerCase()).startsWith(sinTildes(x)));
+        D.fechaCorta = conDia ? larga + (fc.includes(' · ') ? ' · ' + fc.split(' · ').slice(1).join(' · ') : '') : di + ' ' + mes + ' ' + a;
+      }
+      if (!vacio(D.fechaDia)) D.fechaDia = mayus(dia);
+      if (!vacio(D.fechaNumero)) D.fechaNumero = String(di);
+      if (!vacio(D.fechaMes)) D.fechaMes = mayus(mes);
+      if (!vacio(D.confirmarHasta)) { const h = new Date(Date.UTC(a, mo - 1, di) - 30 * 864e5); D.confirmarHasta = h.getUTCDate() + ' de ' + MESES[h.getUTCMonth()] + ' de ' + h.getUTCFullYear(); }
+    }
+  }
+
+  /* ---------- Colores: cada diseño puede venir en otras paletas ----------
+     En datos.js "paleta" (o ?paleta= en las muestras) elige una de las que define su estilo.css. */
+  const paleta = String((esMuestra && parametros.get('paleta')) || D.paleta || '').replace(/[^a-z0-9-]/g, '').slice(0, 20);
+  if (paleta) document.documentElement.dataset.paleta = paleta;
+  const nombrePaleta = () => { const v = getComputedStyle(document.documentElement).getPropertyValue('--bw-paleta-nombre').trim().replace(/^["']|["']$/g, ''); return paleta && v ? v : ''; };
+  // Las paletas de este diseño (las declara su estilo.css en --bw-paletas: "slug|Nombre|fondo|acento;…")
+  const paletas = (() => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue('--bw-paletas').trim().replace(/^["']|["']$/g, '');
+    return v ? v.split(';').map(x => { const [slug, nombre, c1, c2] = x.split('|').map(t => (t || '').trim()); return { slug, nombre, c1, c2 }; })
+      .filter(x => /^[a-z0-9-]+$/.test(x.slug) && x.nombre && /^#[0-9a-f]{3,8}$/i.test(x.c1) && /^#[0-9a-f]{3,8}$/i.test(x.c2)) : [];
+  })();
+  const paletaActual = paletas.some(x => x.slug === paleta) ? paleta : 'original';
+  const urlConPaleta = slug => {
+    const q = new URLSearchParams(location.search);
+    if (slug === 'original') q.delete('paleta'); else q.set('paleta', slug);
+    q.delete('entrada');
+    const t = q.toString();
+    return location.pathname + (t ? '?' + t : '');
+  };
+  const htmlColores = () => paletas.length < 2 ? '' : '<div class="bw-colores"><p class="bw-colores-titulo">Elegí los colores</p><div class="bw-colores-lista">'
+    + paletas.map(x => '<a class="bw-color' + (x.slug === paletaActual ? ' activo" aria-current="true' : '') + '" href="' + escapar(urlConPaleta(x.slug)) + '">'
+      + '<span class="bw-color-muestra" aria-hidden="true"><i style="background-color:' + x.c1 + '"></i><i style="background-color:' + x.c2 + '"></i></span>' + escapar(x.nombre) + '</a>').join('')
+    + '</div></div>';
+
+  /* ---------- Muestras: link al pedido (con el diseño, sus nombres, la fecha y el color) y "Probalo con sus nombres" ---------- */
+  const inicioSitio = location.pathname.replace(/\/modelos\/[^/]+\/?.*$/, '/');
+  const linkPedido = nombreModelo => {
+    const q = new URLSearchParams();
+    if (nombreModelo) q.set('diseno', nombreModelo);
+    if (prueba) { q.set('pareja', esQuince ? prueba.n1 + ' (15 años)' : prueba.n1 + ' y ' + prueba.n2); if (prueba.fecha) q.set('fecha', prueba.fecha); }
+    const color = nombrePaleta(); if (color) q.set('color', color);
+    const t = q.toString();
+    return inicioSitio + (t ? '?' + t : '');
+  };
+  const hoyISO = () => { const h = new Date(); h.setMinutes(h.getMinutes() - h.getTimezoneOffset()); return h.toISOString().slice(0, 10); };
+  const formProbar = () => '<form class="bw-probar-form" novalidate>'
+    + '<p class="bw-probar-titulo">' + (esQuince ? 'Probalo con su nombre' : 'Probalo con sus nombres') + '</p>'
+    + (esQuince
+      ? '<div class="bw-probar-fila bw-probar-uno"><input name="nombre1" maxlength="30" placeholder="Su nombre" aria-label="Nombre de la quinceañera" autocomplete="off" value="' + (prueba ? escapar(prueba.n1) : '') + '" /></div>'
+      : '<div class="bw-probar-fila"><input name="nombre1" maxlength="30" placeholder="Nombre" aria-label="Primer nombre" autocomplete="off" value="' + (prueba ? escapar(prueba.n1) : '') + '" />'
+        + '<span aria-hidden="true">&amp;</span><input name="nombre2" maxlength="30" placeholder="Nombre" aria-label="Segundo nombre" autocomplete="off" value="' + (prueba ? escapar(prueba.n2) : '') + '" /></div>')
+    + '<label class="bw-probar-fecha">' + (esQuince ? 'Fecha de la fiesta' : 'Fecha del casamiento') + ' <span>(opcional)</span><input type="date" name="fecha" min="' + hoyISO() + '" value="' + (prueba && prueba.fecha ? prueba.fecha : '') + '" /></label>'
+    + '<p class="bw-probar-error" role="alert" hidden></p>'
+    + '<button type="submit">' + (esQuince ? 'Ver con su nombre' : 'Ver con sus nombres') + '</button></form>';
+  const activarProbar = f => f.addEventListener('submit', e => {
+    e.preventDefault();
+    const n1 = f.elements.nombre1.value.trim(), n2 = esQuince ? '' : f.elements.nombre2.value.trim(), fe = f.elements.fecha.value;
+    const err = f.querySelector('.bw-probar-error');
+    if (esQuince && !n1) { err.textContent = 'Escribí su nombre.'; err.hidden = false; f.elements.nombre1.focus(); return; }
+    if (!esQuince && (!n1 || !n2)) { err.textContent = 'Escribí los dos nombres.'; err.hidden = false; (n1 ? f.elements.nombre2 : f.elements.nombre1).focus(); return; }
+    const q = new URLSearchParams(esQuince ? { nombre1: n1 } : { nombre1: n1, nombre2: n2 });
+    if (fe) q.set('fecha', fe);
+    if (paleta) q.set('paleta', paleta);
+    (window.top || window).location.href = location.pathname + '?' + q.toString();
+  });
+
+  /* ---------- Textos según el evento (casamiento o 15 años) ---------- */
+  const quienes = () => esQuince || vacio(D.nombre2) ? String(D.nombre1 || '') : D.nombre1 + ' y ' + D.nombre2;
+  const elEvento = () => esQuince ? 'los 15 de ' + D.nombre1 : 'el casamiento de ' + quienes();
+  const anfitriones = () => esQuince ? String(D.nombre1 || '') : 'los novios';
 
   /* ---------- Textos: <span data-dato="nombre1"></span> ---------- */
   const escapar = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -30,8 +141,19 @@
   });
   /* Un bloque con data-si="regalo.alias" se esconde si ese dato está vacío */
   $$('[data-si]').forEach(el => { if (vacio(leer(el.dataset.si))) el.hidden = true; });
-  if (!vacio(D.nombre1) && !vacio(D.nombre2)) {
-    document.title = D.nombre1 + ' & ' + D.nombre2 + (vacio(D.fechaTexto) ? '' : ' · ' + D.fechaTexto);
+  if (!vacio(D.nombre1) && (!vacio(D.nombre2) || esQuince)) {
+    document.title = (esQuince ? (D.nombre1 + ' · Mis 15') : (D.nombre1 + ' & ' + D.nombre2)) + (vacio(D.fechaTexto) ? '' : ' · ' + D.fechaTexto);
+  }
+  /* En la prueba con sus nombres, los nombres de la pareja de ejemplo escritos a mano en la página también cambian */
+  if (prueba) {
+    try {
+      const cambios = [[prueba.viejo1, prueba.n1], [prueba.viejo2, prueba.n2]].filter(([v, n]) => v && n && v !== n)
+        .map(([v, n]) => [new RegExp('(^|[^\\p{L}\\p{N}])' + v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\p{L}\\p{N}])', 'gu'), n]);
+      const cambiar = t => cambios.reduce((acc, [re, n]) => acc.replace(re, (m, antes) => antes + n), t);
+      const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement && n.parentElement.closest('script,style,textarea') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+      for (let n = w.nextNode(); n; n = w.nextNode()) { const t = cambiar(n.nodeValue); if (t !== n.nodeValue) n.nodeValue = t; }
+      $$('[alt],[aria-label],[title]').forEach(el => ['alt', 'aria-label', 'title'].forEach(a => { const v = el.getAttribute(a); if (v) { const t = cambiar(v); if (t !== v) el.setAttribute(a, t); } }));
+    } catch (_) { /* navegador viejo: quedan los nombres del ejemplo en la historia, el resto ya cambió */ }
   }
 
   /* ---------- Computadora: la invitación se muestra DENTRO DE UN CELULAR ----------
@@ -73,6 +195,17 @@
       '.bw-telefono{position:absolute;top:0;left:0;width:414px;height:868px;padding:12px;border-radius:56px;background:#16161a;box-shadow:0 40px 90px rgba(0,0,0,.35),0 0 0 2px #2c2c33,inset 0 0 0 2px #000;transform:scale(var(--bw-escala,1));transform-origin:0 0}',
       '.bw-telefono iframe{display:block;width:390px;height:844px;border:0;border-radius:44px;background:#fff}',
       '.bw-ayuda{font-size:13px;opacity:.65}',
+      '.bw-marco .bw-titulo small{display:block!important;font:600 13px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif!important;letter-spacing:.12em!important;text-transform:uppercase!important;opacity:.7;margin-top:6px}',
+      '.bw-marco .bw-probar-form{display:grid;gap:8px;padding:14px;border-radius:16px;background:' + (oscuro ? 'rgba(255,255,255,.08)' : 'rgba(255,255,255,.7)') + ';border:1px solid ' + (oscuro ? 'rgba(255,255,255,.18)' : 'rgba(42,35,32,.12)') + '}',
+      '.bw-marco .bw-probar-titulo{font-weight:700!important;font-size:15px!important}',
+      '.bw-marco .bw-probar-fila{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center}',
+      '.bw-marco .bw-probar-uno{grid-template-columns:1fr}',
+      '.bw-marco .bw-probar-form input{width:100%;min-width:0;font:15px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:10px 12px;border-radius:10px;border:1px solid ' + (oscuro ? 'rgba(255,255,255,.3)' : 'rgba(42,35,32,.25)') + ';background:' + (oscuro ? 'rgba(0,0,0,.25)' : '#fff') + ';color:inherit}',
+      '.bw-marco .bw-probar-fecha{display:grid;gap:4px;font-size:13px;font-weight:600}',
+      '.bw-marco .bw-probar-fecha span{font-weight:400;opacity:.7}',
+      '.bw-marco .bw-probar-error{font-size:13px!important;color:' + (oscuro ? '#ffb4a8' : '#b03a2e') + '!important}',
+      '.bw-marco .bw-probar-form button{min-height:44px;border-radius:999px;border:1.5px solid currentColor;background:transparent;color:inherit;font:700 14px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;cursor:pointer}',
+      '.bw-marco .bw-probar-form button:hover{background:' + (oscuro ? 'rgba(255,255,255,.12)' : 'rgba(0,0,0,.06)') + '}',
       // Flechitas al costado del celular: avisan que la invitación sigue para abajo
       '.bw-flechas{position:absolute;left:100%;bottom:20%;margin-left:32px;display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px;border:0;background:none;color:inherit;font:700 14px/1.25 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;text-align:center;cursor:pointer;transition:opacity .4s;width:120px}',
       '.bw-flechas .bw-circulo{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;border:2px solid currentColor}',
@@ -86,6 +219,17 @@
       // Si no hay lugar al costado, van sobre la parte de abajo del celular, en una pastilla oscura
       '@media (max-width:1150px){.bw-flechas{left:50%;bottom:calc(36px * var(--bw-escala,1));margin-left:0;width:auto;transform:translateX(-50%);flex-direction:row;gap:8px;padding:10px 18px 10px 12px;border-radius:999px;background:rgba(20,18,16,.78);color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);white-space:nowrap}.bw-flechas .bw-circulo{width:auto;height:auto;border:0}.bw-flechas svg{width:22px;height:22px}.bw-flechas svg+svg{margin-top:-14px}}',
       '@media (prefers-reduced-motion:reduce){.bw-flechas .bw-circulo>span{animation:none!important}}',
+      // El selector de colores (en la compu la página de afuera no carga los estilos de la invitación)
+      '.bw-marco .bw-colores{display:grid;gap:8px}',
+      '.bw-marco .bw-colores-titulo{font-weight:700!important;font-size:15px!important}',
+      '.bw-marco .bw-colores-lista{display:flex;flex-wrap:wrap;gap:6px}',
+      '.bw-marco .bw-color{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:4px 12px 4px 4px;border-radius:999px;border:1px solid ' + (oscuro ? 'rgba(255,255,255,.3)' : 'rgba(42,35,32,.25)') + ';text-decoration:none;font:600 13px/1.2 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}',
+      '.bw-marco .bw-color:hover{border-color:currentColor}',
+      '.bw-marco .bw-color.activo{border:2px solid currentColor;padding:3px 11px 3px 3px}',
+      '.bw-marco .bw-color-muestra{display:inline-flex;width:28px;height:28px;border-radius:50%;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18);transform:rotate(-45deg)}',
+      '.bw-marco .bw-color-muestra i{display:block;flex:1}',
+      // Pantallas bajas: el texto de ayuda se va para que entre todo el panel
+      '@media (max-height:800px){.bw-marco .bw-texto{display:none}.bw-lado{gap:12px!important}}',
       '@media (max-width:1100px){.bw-lado{max-width:260px}}'
     ].join('\n');
     document.head.appendChild(css);
@@ -95,16 +239,19 @@
     const inicio = location.pathname.replace(/\/modelos\/[^/]+\/?.*$/, '/');
     const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     const lado = esMuestra
-      ? '<div class="bw-lado"><p class="bw-eyebrow">Diseño de muestra · Boda Web</p>'
-        + '<h1 class="bw-titulo">' + esc(nombreModelo || 'Invitación') + '</h1>'
-        + '<p class="bw-texto">Así la ven tus invitados en el celular. Arrastrala con el mouse o usá la ruedita para recorrerla completa: cuenta regresiva, mapa, galería y confirmación.</p>'
-        + '<div class="bw-acciones"><a class="bw-principal" href="' + inicio + (nombreModelo ? '?diseno=' + encodeURIComponent(nombreModelo) : '') + '">Quiero este diseño</a>'
+      ? '<div class="bw-lado"><p class="bw-eyebrow">' + (prueba ? 'Así se vería su invitación' : 'Diseño de muestra · Boda Web') + '</p>'
+        + '<h1 class="bw-titulo">' + esc(nombreModelo || 'Invitación') + (nombrePaleta() ? ' <small>' + esc(nombrePaleta()) + '</small>' : '') + '</h1>'
+        + '<p class="bw-texto">Así la ven tus invitados en el celular. Arrastrala con el mouse o usá la ruedita para recorrerla completa.</p>'
+        + htmlColores()
+        + formProbar()
+        + '<div class="bw-acciones"><a class="bw-principal" href="' + esc(linkPedido(nombreModelo)) + '">Quiero este diseño</a>'
         + '<a href="' + inicio + '#disenos">Ver otros diseños</a></div></div>'
       : '';
     const flecha = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
     marco.innerHTML = lado + '<div class="bw-caja"><div class="bw-telefono"><iframe title="' + esc(document.title) + '" src="' + esc(location.href) + '"></iframe></div>'
       + '<button type="button" class="bw-flechas" aria-label="Bajar para ver más de la invitación"><span class="bw-circulo"><span>' + flecha + flecha + '</span></span><span>Bajá para ver más</span></button></div>';
     document.body.appendChild(marco);
+    const fp = marco.querySelector('.bw-probar-form'); if (fp) activarProbar(fp);
     const escalar = () => marco.style.setProperty('--bw-escala', String(Math.min(1, (window.innerHeight - 40) / 868)));
     escalar();
     window.addEventListener('resize', escalar);
@@ -129,43 +276,94 @@
   /* ---------- Link personalizado para cada invitado ----------
      Agregando al final de la dirección ?para=Familia%20Gómez&lugares=4 la invitación saluda por el nombre,
      deja el nombre ya escrito en la confirmación y avisa para cuántas personas es. Sin eso, todo igual. */
-  const parametros = new URLSearchParams(location.search);
-  const invitado = String(parametros.get('para') || '').trim().slice(0, 80);
+  const invitado = String(parametros.get('para') || '').replace(/[<>]/g, '').trim().slice(0, 80);
+  // ?nombres=Juan,Sofía,Mateo: cada integrante aparece en la invitación y se marca quién viene
+  const nombresLink = String(parametros.get('nombres') || '').split(',').map(t => t.replace(/[<>]/g, '').trim().slice(0, 40)).filter(Boolean).slice(0, 20);
   const lugaresLink = parseInt(parametros.get('lugares'), 10);
-  const lugares = lugaresLink >= 1 && lugaresLink <= 30 ? lugaresLink : 0;
+  const lugares = lugaresLink >= 1 && lugaresLink <= 30 ? lugaresLink : nombresLink.length;
   const maxPersonas = lugares || (parseInt(D.maxPersonas, 10) >= 1 ? parseInt(D.maxPersonas, 10) : 12);
 
-  /* ---------- Información útil (opcional): chicos y dónde dormir ----------
-     Si en datos.js se completa "ninos" o "alojamiento", aparece una sección con el mismo estilo que la de
-     vestimenta de cada modelo. Vacíos = no aparece nada. */
-  const infoItems = [['Chicos', D.ninos], ['Dónde dormir', D.alojamiento]].filter(([, t]) => !vacio(t));
-  if (infoItems.length) {
-    const base = $('section.vestimenta') || $('#regalos');
-    if (base) {
-      const sec = base.cloneNode(false);
-      // La copia no puede repetir ids ni apuntar a los títulos de la original (confunde a los lectores de pantalla)
-      const limpiar = el => ['id', 'data-si', 'data-dato', 'aria-labelledby', 'aria-describedby'].forEach(a => el.removeAttribute(a));
-      limpiar(sec); sec.hidden = false; sec.classList.add('bw-info');
-      const etiquetaBase = base.querySelector('.antetitulo, .etiqueta, .chico');
-      if (etiquetaBase) { const e = etiquetaBase.cloneNode(false); limpiar(e); e.textContent = 'Información útil'; sec.appendChild(e); }
-      const tituloBase = base.querySelector('h2');
-      const h = tituloBase ? tituloBase.cloneNode(false) : document.createElement('h2');
-      limpiar(h); h.textContent = 'Para que no te falte nada'; sec.appendChild(h);
-      const parrafoBase = [...base.querySelectorAll('p')].find(x => !x.matches('.antetitulo, .etiqueta, .chico') && !x.hasAttribute('data-dato'));
-      infoItems.forEach(([titulo, texto]) => {
-        const pp = parrafoBase ? parrafoBase.cloneNode(false) : document.createElement('p');
-        limpiar(pp);
-        pp.innerHTML = '<strong>' + titulo + ':</strong> ' + escapar(texto);
-        pp.style.marginTop = '12px';
-        sec.appendChild(pp);
-      });
-      if (base.matches('section.vestimenta')) base.after(sec); else base.before(sec);
-    }
+  /* ---------- Secciones agregadas: copian el estilo de una sección del propio modelo ----------
+     (la de vestimenta o, si no tiene, la de regalos), así cada diseño las muestra con su letra y sus colores. */
+  const limpiar = el => ['id', 'data-si', 'data-dato', 'aria-labelledby', 'aria-describedby'].forEach(a => el.removeAttribute(a));
+  const baseSeccion = $('section.vestimenta') || $('#regalos');
+  const parrafoBase = baseSeccion && [...baseSeccion.querySelectorAll('p')].find(x => !x.matches('.antetitulo, .etiqueta, .chico') && !x.hasAttribute('data-dato') && !x.closest('.datos-regalo'));
+  const parrafo = html => { const pp = parrafoBase ? parrafoBase.cloneNode(false) : document.createElement('p'); limpiar(pp); pp.innerHTML = html; return pp; };
+  function seccionNueva(etiqueta, titulo, clase) {
+    if (!baseSeccion) return null;
+    const sec = baseSeccion.cloneNode(false);
+    limpiar(sec); sec.hidden = false; sec.classList.add('bw-extra', clase);
+    const etiquetaBase = baseSeccion.querySelector('.antetitulo, .etiqueta, .chico');
+    if (etiquetaBase) { const e = etiquetaBase.cloneNode(false); limpiar(e); e.textContent = etiqueta; sec.appendChild(e); }
+    const tituloBase = baseSeccion.querySelector('h2');
+    const h = tituloBase ? tituloBase.cloneNode(false) : document.createElement('h2');
+    limpiar(h); h.textContent = titulo; sec.appendChild(h);
+    return sec;
+  }
+  // Las secciones nuevas van una detrás de otra: después de la de vestimenta, o antes de la de regalos
+  let ultimaExtra = null;
+  const ubicar = sec => { if (ultimaExtra) ultimaExtra.after(sec); else if (baseSeccion.matches('section.vestimenta')) baseSeccion.after(sec); else baseSeccion.before(sec); ultimaExtra = sec; };
+  const copiarTexto = async (texto, boton) => {
+    const original = boton.textContent;
+    try { await navigator.clipboard.writeText(texto); boton.textContent = '¡Copiado!'; }
+    catch { window.prompt('Copiá el texto:', texto); }
+    setTimeout(() => { boton.textContent = original; }, 1800);
+  };
+
+  /* Información útil (opcional): chicos, dónde dormir, traslados, menú y notas. Vacíos = no aparece nada. */
+  const infoItems = [['Chicos', D.ninos], ['Dónde dormir', D.alojamiento], ['Traslados', D.traslado], ['Menú', D.menu], ['Para tener en cuenta', D.notas]].filter(([, t]) => !vacio(t));
+  if (infoItems.length && baseSeccion) {
+    const sec = seccionNueva('Información útil', 'Para que no te falte nada', 'bw-info');
+    infoItems.forEach(([titulo, texto]) => { const pp = parrafo('<strong>' + titulo + ':</strong> ' + escapar(texto)); pp.style.marginTop = '12px'; sec.appendChild(pp); });
+    ubicar(sec);
+  }
+
+  /* Sugerí una canción: el invitado propone un tema para la fiesta y les llega por WhatsApp ("sugerirCanciones: false" la apaga) */
+  const whatsappNovios = String(D.whatsapp || '').replace(/\D/g, '');
+  if (D.sugerirCanciones !== false && baseSeccion) {
+    const sec = seccionNueva('Música', '¿Qué canción no puede faltar?', 'bw-canciones');
+    sec.appendChild(parrafo('Contanos qué tema querés bailar en la fiesta.'));
+    const f = document.createElement('form');
+    f.className = 'bw-cancion'; f.noValidate = true;
+    f.innerHTML = '<label>Tu nombre<input name="quien" maxlength="60" autocomplete="name" placeholder="Tu nombre" /></label>'
+      + '<label>Canción y artista<input name="tema" maxlength="120" placeholder="Ej. Persiana americana, Soda Stereo" /></label>'
+      + '<p class="bw-cancion-aviso" role="status" hidden></p>'
+      + '<button type="submit" class="boton">' + (whatsappNovios ? 'Sugerir por WhatsApp' : 'Sugerir canción') + '</button>';
+    sec.appendChild(f);
+    if (invitado) f.elements.quien.value = invitado;
+    f.addEventListener('submit', e => {
+      e.preventDefault();
+      const aviso = $('.bw-cancion-aviso', f);
+      const quien = f.elements.quien.value.trim(), tema = f.elements.tema.value.trim();
+      if (!tema) { aviso.textContent = 'Escribí la canción que querés sugerir.'; aviso.hidden = false; f.elements.tema.focus(); return; }
+      const texto = '¡Hola! ' + (quien ? 'Soy ' + quien + '. ' : '') + 'Para la fiesta les sugiero esta canción: ' + tema + ' 🎶';
+      guardarEnPanel('cancion', { quien, tema });
+      if (whatsappNovios) { window.open('https://wa.me/' + whatsappNovios + '?text=' + encodeURIComponent(texto), '_blank', 'noopener'); aviso.textContent = '¡Gracias! Te abrimos WhatsApp con tu sugerencia.'; }
+      else aviso.textContent = esMuestra ? 'En la invitación real, se abre WhatsApp con este mensaje: «' + texto + '»' : '¡Gracias! Mandales este mensaje: «' + texto + '»';
+      aviso.hidden = false;
+      f.elements.tema.value = '';
+    });
+    ubicar(sec);
+  }
+
+  /* Compartí tus fotos con el hashtag ("compartirFotos: false" la apaga). Va después de la galería. */
+  const etiquetaFotos = String(D.hashtag || '').replace(/^#/, '').replace(/[^\p{L}\p{N}_]/gu, '');
+  if (etiquetaFotos && D.compartirFotos !== false && baseSeccion) {
+    const sec = seccionNueva('Fotos', 'Compartí tus fotos', 'bw-fotos');
+    sec.appendChild(parrafo('Subí tus fotos y videos de la fiesta con <strong>#' + escapar(etiquetaFotos) + '</strong> para que todos podamos verlos.'));
+    const acciones = document.createElement('div');
+    acciones.className = 'bw-acciones-extra';
+    acciones.innerHTML = '<button type="button" class="boton">Copiar el hashtag</button>'
+      + '<a class="boton boton-linea" href="https://www.instagram.com/explore/tags/' + encodeURIComponent(etiquetaFotos) + '/" target="_blank" rel="noopener">Ver en Instagram</a>';
+    acciones.querySelector('button').addEventListener('click', e => copiarTexto('#' + etiquetaFotos, e.currentTarget));
+    sec.appendChild(acciones);
+    const galeria = $('#galeria');
+    if (galeria) galeria.after(sec); else ubicar(sec);
   }
 
   /* ---------- Descripción de las fotos de la galería (para quien usa un lector de pantalla) ---------- */
   $$('[data-galeria] img').forEach((img, i) => {
-    if (/^Foto \d+$/.test(img.getAttribute('alt') || '') && !vacio(D.nombre1)) img.alt = 'Foto ' + (i + 1) + ' de ' + D.nombre1 + ' y ' + D.nombre2;
+    if (/^Foto \d+$/.test(img.getAttribute('alt') || '') && !vacio(D.nombre1)) img.alt = 'Foto ' + (i + 1) + ' de ' + quienes();
   });
 
   /* ---------- Mapas: <a data-mapa="ceremonia">Cómo llegar</a> ---------- */
@@ -197,7 +395,7 @@
         aviso.textContent = 'La confirmación ya cerró. ¡Gracias a todos los que nos acompañaron!';
         f.hidden = true; f.after(aviso);
         // Lo que habla de confirmar ya no corresponde
-        $$('[data-si="confirmarHasta"], .confirmar-plazo, .bw-para').forEach(el => { el.hidden = true; });
+        $$('[data-si="confirmarHasta"], .confirmar-plazo, .bw-para, .bw-canciones').forEach(el => { el.hidden = true; });
       }
     }
     // Pasada la boda la cuenta queda en cero: no hace falta seguir recalculándola cada segundo
@@ -230,7 +428,7 @@
     const ultimo = saltos.length ? Math.max(...saltos) : 0;
     const fin = new Date(fecha.getTime() + (ultimo >= 60 && ultimo <= 14 * 60 ? (ultimo + 60) * 60000 : 6 * 3600 * 1000));
     const lugar = D.ceremonia || D.fiesta || {};
-    const titulo = 'Casamiento de ' + D.nombre1 + ' y ' + D.nombre2;
+    const titulo = mayus(elEvento());
     const donde = [lugar.nombre, lugar.direccion].filter(Boolean).join(', ');
     const detalle = vacio(D.frase) ? '' : String(D.frase);
     if (esApple) {
@@ -293,6 +491,24 @@
     });
   }
 
+  /* ---------- Panel de los novios: cada confirmación y cada canción quedan guardadas ----------
+     Si en datos.js está "panel" ({ invitacion: 'ana-y-bruno' }), además de WhatsApp la respuesta se guarda y
+     los novios la ven en /panel/. Sin "panel", todo funciona como siempre (sólo WhatsApp). Si guardar falla,
+     el invitado no se entera: el WhatsApp ya salió. */
+  const PANEL_URL = 'https://PROYECTO.supabase.co';
+  const PANEL_CLAVE = 'CLAVE_PUBLICA';
+  function guardarEnPanel(tipo, datos) {
+    const inv = D.panel && String(D.panel.invitacion || '').trim();
+    if (!inv || esMuestra || /PROYECTO|CLAVE_PUBLICA/.test(PANEL_URL + PANEL_CLAVE)) return;
+    try {
+      fetch(PANEL_URL + '/rest/v1/rpc/registrar_respuesta', {
+        method: 'POST', keepalive: true,
+        headers: { 'Content-Type': 'application/json', apikey: PANEL_CLAVE, Authorization: 'Bearer ' + PANEL_CLAVE },
+        body: JSON.stringify({ p_invitacion: inv, p_tipo: tipo, p_datos: datos })
+      }).catch(() => {});
+    } catch (_) {}
+  }
+
   /* ---------- Confirmación de asistencia ---------- */
   const form = $('#confirmacion');
   if (form) {
@@ -308,16 +524,63 @@
     if ((invitado || lugares) && !tic.despues) {
       const saludo = document.createElement('p');
       saludo.className = 'bw-para';
-      saludo.textContent = (invitado ? '¡Hola, ' + invitado + '! ' : '') + (lugares ? 'Esta invitación es para ' + lugares + (lugares === 1 ? ' persona.' : ' personas.') : '');
+      saludo.textContent = (invitado ? '¡Hola, ' + invitado + '! ' : '')
+        + (nombresLink.length ? 'Esta invitación es para ' + lista(nombresLink) + '.' : lugares ? 'Esta invitación es para ' + lugares + (lugares === 1 ? ' persona.' : ' personas.') : '');
       form.insertAdjacentElement('beforebegin', saludo);
       if (invitado && form.elements.nombre && !form.elements.nombre.value) form.elements.nombre.value = invitado;
       if (lugares && campoPersonas) campoPersonas.placeholder = lugares === 1 ? '1' : 'Hasta ' + lugares;
     }
+
+    // ---- Campos que se agregan según datos.js y el link. Copian los del propio formulario, así toman su estilo ----
+    const grupoAsistencia = form.querySelector('fieldset');
+    const nuevoGrupo = (leyenda, nombre, tipo, opciones) => {
+      if (!grupoAsistencia || !grupoAsistencia.querySelector('.opcion')) return null;
+      const fs = grupoAsistencia.cloneNode(true);
+      const lg = fs.querySelector('legend'); if (lg) lg.textContent = leyenda;
+      const molde = fs.querySelector('.opcion');
+      fs.querySelectorAll('.opcion').forEach(o => o.remove());
+      opciones.forEach(([valor, texto, marcado]) => {
+        const o = molde.cloneNode(true); const inp = o.querySelector('input');
+        inp.type = tipo; inp.name = nombre; inp.value = valor; inp.checked = !!marcado; inp.removeAttribute('required');
+        const sp = o.querySelector('span'); if (sp) sp.textContent = texto; else o.append(texto);
+        fs.appendChild(o);
+      });
+      fs.classList.add('bw-extra-campo');
+      return fs;
+    };
+    let despuesDeAsistencia = grupoAsistencia;
+    const agregarTrasAsistencia = el => { if (el && despuesDeAsistencia) { despuesDeAsistencia.after(el); despuesDeAsistencia = el; } };
+    // Quiénes vienen (link con ?nombres=)
+    if (nombresLink.length) {
+      agregarTrasAsistencia(nuevoGrupo('¿Quiénes vienen?', 'quienes', 'checkbox', nombresLink.map(n => [n, n, true])));
+      if (campoPersonas && campoPersonas.closest('label')) campoPersonas.closest('label').hidden = true;
+    }
+    // A qué evento va ("confirmarPorEvento: true" en datos.js, cuando hay ceremonia y fiesta)
+    const porEvento = D.confirmarPorEvento === true && D.ceremonia && D.fiesta;
+    if (porEvento) {
+      const h = l => vacio(l && l.hora) ? '' : ' · ' + l.hora + ' hs';
+      agregarTrasAsistencia(nuevoGrupo('¿A qué vas a ir?', 'eventos', 'checkbox', [['ceremonia', (esQuince ? 'La misa' : 'La ceremonia') + h(D.ceremonia), true], ['fiesta', 'La fiesta' + h(D.fiesta), true]]));
+    }
+    // Chicos ("preguntarChicos: true") y traslado (si hay "traslado" en datos.js): después de personas y comida
+    let despuesDeDatos = (campoPersonas && campoPersonas.closest('.dos-columnas')) || (campoPersonas && campoPersonas.closest('label')) || despuesDeAsistencia;
+    const agregarTrasDatos = el => { if (el && despuesDeDatos) { despuesDeDatos.after(el); despuesDeDatos = el; } };
+    if (D.preguntarChicos === true && campoPersonas && campoPersonas.closest('label')) {
+      const lab = campoPersonas.closest('label').cloneNode(true);
+      lab.hidden = false; lab.classList.add('bw-extra-campo');
+      const inp = lab.querySelector('input'); inp.name = 'chicos'; inp.min = '0'; inp.max = '15'; inp.placeholder = '0'; inp.value = '';
+      [...lab.childNodes].filter(n => n.nodeType === 3 && n.nodeValue.trim()).forEach(n => { n.nodeValue = '¿Cuántos chicos vienen?'; });
+      agregarTrasDatos(lab);
+    }
+    if (!vacio(D.traslado)) agregarTrasDatos(nuevoGrupo('¿Vas a usar el traslado?', 'traslado', 'radio', [['si', 'Sí, lo voy a usar'], ['no', 'No, voy por mi cuenta']]));
+    // Si no viene, esos campos no hacen falta
+    const extras = () => $$('.bw-extra-campo', form);
+    form.addEventListener('change', e => { if (e.target.name === 'asistencia') extras().forEach(el => { el.hidden = e.target.value === 'no'; }); });
+
     // En un modelo de muestra no hay número cargado: se avisa qué pasa en la invitación real
     if (esMuestra && !whatsapp && botonConfirmar) {
       const nota = document.createElement('p');
       nota.className = 'bw-nota-muestra';
-      nota.textContent = 'En la invitación real, este botón abre WhatsApp con la confirmación ya escrita, lista para mandársela a los novios.';
+      nota.textContent = 'En la invitación real, este botón abre WhatsApp con la confirmación ya escrita, lista para mandársela a ' + anfitriones() + '.';
       botonConfirmar.insertAdjacentElement('beforebegin', nota);
     }
     form.addEventListener('submit', e => {
@@ -325,35 +588,53 @@
       const f = new FormData(form);
       const nombre = String(f.get('nombre') || '').trim();
       const asiste = f.get('asistencia');
-      const personas = String(f.get('personas') || '').trim();
+      let personas = String(f.get('personas') || '').trim();
       const comida = String(f.get('comida') || '').trim();
       const mensaje = String(f.get('mensaje') || '').trim();
+      const vienen = f.getAll('quienes').map(String);
+      const eventos = f.getAll('eventos').map(String);
+      const chicos = String(f.get('chicos') || '').trim();
+      const traslado = f.get('traslado');
       if (!nombre) { decir('Contanos tu nombre para saber quién confirma.'); form.elements.nombre.focus(); return; }
       if (!asiste) { decir('Decinos si vas a poder venir.'); return; }
-      if (asiste === 'si' && personas) {
-        const n = Number(personas);
-        if (!Number.isInteger(n) || n < 1) { decir('Revisá cuántos vienen: tiene que ser un número.'); form.elements.personas.focus(); return; }
-        if (n > maxPersonas) { decir(lugares ? 'Esta invitación es para ' + lugares + (lugares === 1 ? ' persona.' : ' personas.') : 'Si vienen más de ' + maxPersonas + ', escribiles directamente a los novios.'); form.elements.personas.focus(); return; }
+      if (asiste === 'si') {
+        if (nombresLink.length) {
+          if (!vienen.length) { decir('Marcá quiénes vienen.'); return; }
+          personas = String(vienen.length);
+        }
+        if (porEvento && !eventos.length) { decir('Marcá a qué vas a ir: la ceremonia, la fiesta o las dos.'); return; }
+        if (personas) {
+          const n = Number(personas);
+          if (!Number.isInteger(n) || n < 1) { decir('Revisá cuántos vienen: tiene que ser un número.'); form.elements.personas.focus(); return; }
+          if (n > maxPersonas) { decir(lugares ? 'Esta invitación es para ' + lugares + (lugares === 1 ? ' persona.' : ' personas.') : 'Si vienen más de ' + maxPersonas + ', escribiles directamente a ' + anfitriones() + '.'); form.elements.personas.focus(); return; }
+        }
+        if (chicos && (!Number.isInteger(Number(chicos)) || Number(chicos) < 0)) { decir('Revisá cuántos chicos vienen: tiene que ser un número.'); form.elements.chicos.focus(); return; }
       }
       decir('');
+      const si = asiste === 'si';
+      // "a el casamiento" → "al casamiento"; y si vienen varios, se habla en plural
+      const aEvento = ('a ' + elEvento()).replace(/^a el /, 'al ');
+      const varios = si && (nombresLink.length ? vienen.length : Number(personas || 1)) > 1;
       const lineas = [
         '¡Hola! Soy ' + nombre + '.',
-        asiste === 'si'
-          ? 'Confirmo que voy al casamiento de ' + D.nombre1 + ' y ' + D.nombre2 + '. 🎉'
-          : 'Lamentablemente no voy a poder ir al casamiento de ' + D.nombre1 + ' y ' + D.nombre2 + '.',
-        ...(asiste === 'si' && personas ? ['Somos ' + personas + (personas === '1' ? ' persona.' : ' personas.')] : []),
-        ...(asiste === 'si' && comida ? ['Comida / restricciones: ' + comida] : []),
+        si ? (varios ? 'Confirmo que vamos ' : 'Confirmo que voy ') + aEvento + '. 🎉' : 'Lamentablemente no voy a poder ir ' + aEvento + '.',
+        ...(si && nombresLink.length ? ['Vamos ' + vienen.length + ': ' + lista(vienen) + '.'] : si && personas ? ['Somos ' + personas + (personas === '1' ? ' persona.' : ' personas.')] : []),
+        ...(si && porEvento ? [(varios ? 'Vamos' : 'Voy') + (eventos.length === 2 ? (esQuince ? ' a la misa y a la fiesta.' : ' a la ceremonia y a la fiesta.') : ' sólo a la ' + (esQuince && eventos[0] === 'ceremonia' ? 'misa' : eventos[0]) + '.')] : []),
+        ...(si && chicos && Number(chicos) > 0 ? ['Chicos: ' + chicos + '.'] : []),
+        ...(si && traslado ? [traslado === 'si' ? (varios ? 'Vamos a usar el traslado.' : 'Voy a usar el traslado.') : (varios ? 'No usamos el traslado.' : 'No uso el traslado.')] : []),
+        ...(si && comida ? ['Comida / restricciones: ' + comida] : []),
         ...(mensaje ? ['Mensaje: ' + mensaje] : [])
       ];
       const texto = lineas.join('\n');
       if (resumen) resumen.value = texto;
+      guardarEnPanel('confirmacion', { nombre, asiste: si, personas: si ? Number(personas || 1) : 0, quienes: si ? vienen : [], eventos: si ? eventos : [], chicos: si ? Number(chicos || 0) : 0, traslado: si ? (traslado || '') : '', comida: si ? comida : '', mensaje, invitado });
       if (whatsapp) {
         window.open('https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
         if (resultado) resultado.innerHTML = '<strong>¡Gracias! Te abrimos WhatsApp con la confirmación lista.</strong> Si no se abrió, copiá el texto y mandalo al mismo número.';
       } else if (resultado) {
         resultado.innerHTML = esMuestra
-          ? '<strong>Así queda el mensaje.</strong> En la invitación real se abre WhatsApp con este texto ya escrito para los novios.'
-          : '<strong>¡Gracias!</strong> Copiá el texto y mandáselo a los novios.';
+          ? '<strong>Así queda el mensaje.</strong> En la invitación real se abre WhatsApp con este texto ya escrito para ' + escapar(anfitriones()) + '.'
+          : '<strong>¡Gracias!</strong> Copiá el texto y mandáselo a ' + escapar(anfitriones()) + '.';
       }
       $('[data-listo]', form)?.removeAttribute('hidden');
       $('[data-listo]', form)?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
@@ -365,8 +646,9 @@
   }
 
   /* ---------- Música de fondo ----------
-     Se declara en datos.js (musica: 'musica.mp3'). Antes se preguntaba al servidor si existía el
-     archivo, y en cada invitación sin música eso dejaba un error de "archivo no encontrado". */
+     Se declara en datos.js (musica: 'musica.mp3'). Si hay música, la invitación abre con una pantalla de
+     bienvenida: "Entrar con música" / "Entrar sin música". Así la música arranca aunque el celular no deje
+     reproducirla sola, y abrir la invitación se siente como abrir un sobre. Se muestra una vez por visita. */
   const audio = $('#musica');
   const botonMusica = $('[data-musica]');
   if (audio && botonMusica) {
@@ -381,6 +663,45 @@
       audio.addEventListener('play', pintar);
       audio.addEventListener('pause', pintar);
       pintar();
+
+      const claveEntrada = 'bw-entrada:' + location.pathname;
+      let yaEntro = false;
+      try { yaEntro = sessionStorage.getItem(claveEntrada) === '1'; } catch (_) {}
+      // Las herramientas automáticas (capturas, pruebas) entran directo, salvo que pidan verla con ?entrada
+      if (!yaEntro && !tic.despues && (!navigator.webdriver || parametros.has('entrada'))) {
+        const cs = getComputedStyle(document.body);
+        const h1 = $('h1') ? getComputedStyle($('h1')) : cs;
+        const fondo = cs.backgroundColor && cs.backgroundColor !== 'rgba(0, 0, 0, 0)' ? cs.backgroundColor : '#ffffff';
+        const capa = document.createElement('div');
+        capa.className = 'bw-entrada';
+        capa.setAttribute('role', 'dialog'); capa.setAttribute('aria-modal', 'true'); capa.setAttribute('aria-labelledby', 'bw-entrada-nombres');
+        capa.style.setProperty('--bw-fondo', fondo);
+        capa.style.color = cs.color;
+        const nombres = esQuince || vacio(D.nombre2) ? escapar(D.nombre1 || '') : escapar(D.nombre1) + ' <span>&amp;</span> ' + escapar(D.nombre2);
+        capa.innerHTML = '<div class="bw-entrada-caja">'
+          + '<p class="bw-entrada-pre">' + (esQuince ? 'Bienvenidos a la invitación de los 15 de' : 'Bienvenidos a la invitación de') + '</p>'
+          + '<p class="bw-entrada-nombres" id="bw-entrada-nombres">' + nombres + '</p>'
+          + '<p class="bw-entrada-nota">La música es parte de la invitación</p>'
+          + '<button type="button" class="boton bw-entrada-con"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>Entrar con música</button>'
+          + '<button type="button" class="bw-entrada-sin">Entrar sin música</button></div>';
+        const nombresEl = capa.querySelector('.bw-entrada-nombres');
+        nombresEl.style.fontFamily = h1.fontFamily; nombresEl.style.color = h1.color;
+        document.body.appendChild(capa);
+        document.documentElement.classList.add('bw-con-entrada');
+        const entrar = conMusica => {
+          try { sessionStorage.setItem(claveEntrada, '1'); } catch (_) {}
+          if (conMusica) audio.play().catch(() => {});
+          capa.classList.add('bw-saliendo');
+          document.documentElement.classList.remove('bw-con-entrada');
+          setTimeout(() => capa.remove(), 450);
+          document.removeEventListener('keydown', teclas);
+        };
+        const teclas = e => { if (e.key === 'Escape') entrar(false); };
+        document.addEventListener('keydown', teclas);
+        capa.querySelector('.bw-entrada-con').addEventListener('click', () => entrar(true));
+        capa.querySelector('.bw-entrada-sin').addEventListener('click', () => entrar(false));
+        setTimeout(() => capa.querySelector('.bw-entrada-con').focus({ preventScroll: true }), 50);
+      }
     }
   }
 
@@ -450,6 +771,47 @@
     'html.bw-en-marco{cursor:grab}',
     'html.bw-en-marco input,html.bw-en-marco textarea,html.bw-en-marco select{cursor:auto}',
     'html.bw-arrastrando,html.bw-arrastrando *{cursor:grabbing!important;user-select:none!important;-webkit-user-select:none!important}',
+    // Entrada con o sin música
+    '.bw-entrada{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:24px;background:var(--bw-fondo,#fff);text-align:center;transition:opacity .45s ease,visibility .45s}',
+    '.bw-entrada:before{content:"";position:absolute;inset:0;background:radial-gradient(70% 50% at 50% 40%,rgba(255,255,255,.35),transparent 70%);pointer-events:none}',
+    '.bw-entrada.bw-saliendo{opacity:0;visibility:hidden}',
+    'html.bw-con-entrada,html.bw-con-entrada body{overflow:hidden}',
+    '.bw-entrada-caja{position:relative;display:grid;gap:14px;justify-items:center;max-width:420px;animation:bw-aparece .7s ease both}',
+    '.bw-entrada-pre{margin:0;font-size:15px;letter-spacing:.06em;opacity:.8}',
+    '.bw-entrada-nombres{margin:0 0 6px;font-size:clamp(40px,12vw,64px);line-height:1.1}',
+    '.bw-entrada-nombres span{font-size:.6em;opacity:.8}',
+    '.bw-entrada-nota{margin:0;font-size:14px;opacity:.75}',
+    '.bw-entrada .boton{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:240px;margin-top:4px}',
+    '.bw-entrada-sin{background:none;border:0;color:inherit;font:inherit;font-size:15px;text-decoration:underline;text-underline-offset:4px;opacity:.85;padding:12px;cursor:pointer}',
+    '@keyframes bw-aparece{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}',
+    // Sugerí una canción y compartí tus fotos
+    '.bw-cancion{display:grid;gap:12px;max-width:480px;margin:18px auto 0;text-align:left}',
+    '.bw-cancion label{display:grid;gap:6px;font-size:14px;font-weight:600}',
+    '.bw-cancion input{font:inherit;font-size:16px;font-weight:400;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(127,127,127,.4);background:transparent;color:inherit;width:100%;min-height:48px}',
+    '.bw-cancion input::placeholder{color:inherit;opacity:.5}',
+    '.bw-cancion .boton{justify-self:stretch;width:100%}',
+    '.bw-cancion-aviso{margin:0;font-size:15px;line-height:1.45;padding:10px 14px;border-radius:12px;background:rgba(127,127,127,.12)}',
+    '.bw-acciones-extra{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}',
+    // Probalo con sus nombres (ventana del celular)
+    '.bw-probar-dialogo{border:0;border-radius:20px;padding:26px 20px 20px;width:min(92vw,380px);background:#fffdfb;color:#2a2320;box-shadow:0 24px 60px rgba(0,0,0,.3);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}',
+    '.bw-probar-dialogo::backdrop{background:rgba(20,16,14,.55)}',
+    '.bw-probar-cerrar{position:absolute;top:6px;right:6px;width:44px;height:44px;border:0;background:none;font-size:26px;line-height:1;cursor:pointer;color:inherit}',
+    '.bw-probar-dialogo .bw-probar-form{display:grid;gap:12px}',
+    '.bw-probar-dialogo .bw-probar-titulo{margin:0;font-weight:700;font-size:18px}',
+    '.bw-probar-dialogo .bw-probar-fila{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}',
+    '.bw-probar-dialogo .bw-probar-uno{grid-template-columns:1fr}',
+    '.bw-probar-dialogo input{width:100%;min-width:0;font:16px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:12px;border-radius:12px;border:1px solid rgba(42,35,32,.3);background:#fff;color:#2a2320;min-height:48px}',
+    '.bw-probar-dialogo .bw-probar-fecha{display:grid;gap:6px;font-weight:600;font-size:14px}',
+    '.bw-probar-dialogo .bw-probar-fecha span{font-weight:400;opacity:.7}',
+    '.bw-probar-dialogo .bw-probar-error{margin:0;color:#b03a2e;font-size:14px}',
+    '.bw-probar-dialogo button[type=submit]{min-height:48px;border-radius:999px;border:0;background:#2a2320;color:#fff;font:700 15px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;cursor:pointer}',
+    '.bw-colores{display:grid;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(42,35,32,.12)}',
+    '.bw-colores-titulo{margin:0;font-weight:700;font-size:15px}',
+    '.bw-colores-lista{display:flex;flex-wrap:wrap;gap:8px}',
+    '.bw-color{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px 6px 6px;border-radius:999px;border:1px solid rgba(42,35,32,.25);color:inherit;text-decoration:none;font:600 14px/1.2 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}',
+    '.bw-color.activo{border:2px solid currentColor;padding:5px 13px 5px 5px}',
+    '.bw-color-muestra{display:inline-flex;width:30px;height:30px;border-radius:50%;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18);transform:rotate(-45deg)}',
+    '.bw-color-muestra i{flex:1}',
     '.bw-para{font-size:1.15em;font-weight:600;margin:0 auto 18px;max-width:560px;text-align:center}',
     '.bw-cerrado{font-size:1.2em;font-style:italic;margin:10px auto 0;max-width:520px;text-align:center}',
     '.bw-nota-muestra{font:500 14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:inherit;opacity:.8;margin:0 0 12px;padding:10px 14px;border-radius:12px;background:rgba(127,127,127,.12)}',
@@ -459,7 +821,11 @@
     '.bw-muestra a{color:#fff;text-decoration:none;padding:11px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.55);white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}',
     '.bw-muestra a.bw-principal{background:#fff;color:#2a2320;border-color:#fff}',
     '.bw-muestra a:focus-visible{outline:2px solid #fff;outline-offset:2px}',
-    '@media (max-width:560px){.bw-muestra span{display:none}.bw-muestra{justify-content:stretch}.bw-muestra a{flex:1;justify-content:center}}',
+    '.bw-muestra .bw-volver{gap:6px}',
+    '.bw-muestra button{font:inherit;color:#fff;background:transparent;padding:11px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.55);white-space:nowrap;min-height:44px;cursor:pointer}',
+    '.bw-muestra button:focus-visible{outline:2px solid #fff;outline-offset:2px}',
+    '@media (max-width:560px){.bw-muestra>span{display:none}.bw-muestra{justify-content:stretch;gap:8px;padding-left:10px;padding-right:10px}.bw-muestra a,.bw-muestra button{flex:1;justify-content:center;padding-left:8px;padding-right:8px}.bw-muestra .bw-volver{flex:0 0 44px;padding:0}.bw-muestra .bw-volver b{display:none}}',
+    '.bw-muestra .bw-volver b{font-weight:600}',
     'body.bw-con-barra{padding-bottom:calc(72px + env(safe-area-inset-bottom))}',
     'body.bw-con-barra .musica{bottom:calc(84px + env(safe-area-inset-bottom))}',
     '@media (prefers-reduced-motion:reduce){.bw-muestra{transition:none}}'
@@ -476,10 +842,20 @@
     barra.setAttribute('role', 'region');
     barra.setAttribute('aria-label', 'Este es un diseño de muestra de Boda Web');
     const nombreModelo = vacio(D.modelo) ? '' : String(D.modelo);
-    barra.innerHTML = '<span>Este es un diseño de muestra de Boda Web</span>'
-      + '<a href="' + inicio + '#disenos">Ver otros diseños</a>'
-      + '<a class="bw-principal" href="' + inicio + (nombreModelo ? '?diseno=' + encodeURIComponent(nombreModelo) : '') + '">Quiero este diseño</a>';
+    barra.innerHTML = '<span>' + (prueba ? 'Así se vería su invitación' : 'Este es un diseño de muestra de Boda Web') + '</span>'
+      + '<a class="bw-volver" href="' + inicio + '#disenos" aria-label="Ver otros diseños"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><b>Otros diseños</b></a>'
+      + '<button type="button" class="bw-abrir-probar">' + (paletas.length > 1 ? (esQuince ? 'Nombre y colores' : 'Nombres y colores') : esQuince ? (prueba ? 'Cambiar nombre' : 'Con su nombre') : prueba ? 'Cambiar nombres' : 'Con sus nombres') + '</button>'
+      + '<a class="bw-principal" href="' + escapar(linkPedido(nombreModelo)) + '">Quiero este</a>';
     document.body.appendChild(barra);
+    const dlg = document.createElement('dialog');
+    dlg.className = 'bw-probar-dialogo';
+    dlg.setAttribute('aria-label', esQuince ? 'Probalo con su nombre' : paletas.length > 1 ? 'Probalo con sus nombres y sus colores' : 'Probalo con sus nombres');
+    dlg.innerHTML = '<button type="button" class="bw-probar-cerrar" aria-label="Cerrar">×</button>' + formProbar() + htmlColores();
+    document.body.appendChild(dlg);
+    activarProbar(dlg.querySelector('form'));
+    dlg.querySelector('.bw-probar-cerrar').addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+    barra.querySelector('.bw-abrir-probar').addEventListener('click', () => { dlg.showModal(); setTimeout(() => dlg.querySelector('input').focus(), 50); });
     document.body.classList.add('bw-con-barra');
     let visible = false;
     const revisar = () => {

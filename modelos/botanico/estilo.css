@@ -144,7 +144,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 /* ================= VESTIMENTA ================= */
 .vestimenta{padding:60px 22px 64px}
 .vestimenta .icono-redondo{color:var(--salvia);border-color:var(--salvia);position:relative;z-index:1}
-.vestimenta .etiqueta{color:var(--salvia)}
+.vestimenta .etiqueta{color:var(--terracota)}
 .vestimenta h2{font-size:clamp(26px,5vw,40px);max-width:640px;margin:0 auto 18px;position:relative;z-index:1}
 .paleta{list-style:none;display:flex;justify-content:center;gap:12px;margin:0 0 20px;padding:0;position:relative;z-index:1}
 .paleta li{width:30px;height:30px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55),0 2px 8px rgba(56,53,54,.15)}
@@ -329,3 +329,12 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Computadora (diseño de compu): el itinerario va en cinco columnas; se devuelve el ancho completo */
 @media (min-width:1000px){.momentos li{padding-top:22px}}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'lavanda' o 'terracota'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Verde botánico|#eaf5ef|#3c7a5b;lavanda|Lavanda|#f2eff8|#6f5a96;terracota|Terracota|#f8efe9|#a65d43";--bw-paleta-nombre:"Verde botánico"}
+:root[data-paleta="lavanda"]{--arena:#f6f4f9;--terracota:#6f5a96;--terracota-oscura:#594778;--salvia:#9c8cbd;--salvia-clara:#f2eff8;--linea:#e6e1ee;--bw-paleta-nombre:"Lavanda"}
+@media (min-width:1000px){:root[data-paleta="lavanda"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+:root[data-paleta="terracota"]{--arena:#f9f5f1;--terracota:#a65d43;--terracota-oscura:#874a35;--salvia:#c0907a;--salvia-clara:#f8efe9;--linea:#ece1d6;--bw-paleta-nombre:"Terracota"}
+@media (min-width:1000px){:root[data-paleta="terracota"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+/* ===== FIN PALETAS ===== */

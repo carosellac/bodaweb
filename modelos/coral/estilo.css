@@ -148,7 +148,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 /* ================= VESTIMENTA ================= */
 .vestimenta{padding:60px 22px 64px}
 .vestimenta .icono-redondo{color:var(--salvia);border-color:var(--salvia);position:relative;z-index:1}
-.vestimenta .etiqueta{color:var(--salvia)}
+.vestimenta .etiqueta{color:var(--terracota-oscura)}
 .vestimenta h2{font-size:clamp(26px,5vw,40px);max-width:640px;margin:0 auto 18px;position:relative;z-index:1}
 .paleta{list-style:none;display:flex;justify-content:center;gap:12px;margin:0 0 20px;padding:0;position:relative;z-index:1}
 .paleta li{width:30px;height:30px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55),0 2px 8px rgba(35,32,31,.15)}
@@ -350,3 +350,12 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Computadora (diseño de compu): el itinerario va en cinco columnas; se devuelve el ancho completo */
 @media (min-width:1000px){.momentos{max-width:none}.momentos li{display:block;border:0;border-top:3px solid var(--marron);padding:16px 4px 0;text-align:left}.momentos time{display:block;margin-bottom:8px}}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'agua' o 'lila'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Coral|#fdf0eb|#e8836b;agua|Verde agua|#e9f6f4|#2f8f84;lila|Lila|#f5effb|#8a62b3";--bw-paleta-nombre:"Coral"}
+:root[data-paleta="agua"]{--arena:#f2f8f7;--terracota:#2f8f84;--terracota-oscura:#25756c;--salvia:#86cbc1;--salvia-clara:#e9f6f4;--ocre:#a3d8d0;--ocre-claro:#d2ede9;--linea:#d9ebe8;--bw-paleta-nombre:"Verde agua"}
+:root[data-paleta="agua"] .rulo{color:#9fd6cd}:root[data-paleta="agua"] .franja{background:#8fd3c9;color:#1f4f49}:root[data-paleta="agua"] .momentos time{color:#25756c}@media (min-width:1000px){:root[data-paleta="agua"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+:root[data-paleta="lila"]{--arena:#f7f3fa;--terracota:#8a62b3;--terracota-oscura:#734f99;--salvia:#c3a9e0;--salvia-clara:#f5effb;--ocre:#d3c0ea;--ocre-claro:#e8ddf5;--linea:#e9e0f2;--bw-paleta-nombre:"Lila"}
+:root[data-paleta="lila"] .rulo{color:#cdb6e8}:root[data-paleta="lila"] .franja{background:#c9b0e6;color:#4a3166}:root[data-paleta="lila"] .momentos time{color:#734f99}@media (min-width:1000px){:root[data-paleta="lila"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+/* ===== FIN PALETAS ===== */

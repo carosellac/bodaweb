@@ -30,6 +30,7 @@ const ANALITICA = {
   const orderDialog = $('#order-dialog');
   const form = $('#order-form');
   let selectedDesign = '';
+  let selectedColor = '';
 
   /* ---------- Contacto: enlaces del pie y canal del formulario ---------- */
   const whatsapp = String(CONTACTO.whatsapp || '').replace(/\D/g, '');
@@ -57,6 +58,16 @@ const ANALITICA = {
     const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id; document.head.appendChild(s);
     window.dataLayer = window.dataLayer || []; window.gtag = function () { window.dataLayer.push(arguments); };
     window.gtag('js', new Date()); window.gtag('config', id, { anonymize_ip: true });
+  }
+  /* ---------- Botón flotante de WhatsApp (sólo si hay número cargado arriba) ---------- */
+  if (enlaces.whatsapp && !$('.wa-flotante')) {
+    const flotante = document.createElement('a');
+    flotante.className = 'wa-flotante';
+    flotante.href = enlaces.whatsapp + '?text=' + encodeURIComponent('¡Hola! Quiero consultar por una invitación web.');
+    flotante.target = '_blank'; flotante.rel = 'noopener';
+    flotante.setAttribute('aria-label', 'Escribinos por WhatsApp');
+    flotante.innerHTML = '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 0 1-12.4 7.5L3 21l1.5-5.1A8.5 8.5 0 1 1 20.5 12Z"/><path d="M9 8c-.7-.4-1.3.3-1.3 1.2 0 2.2 3.4 5.8 5.8 6.6.9.3 2-.2 2.4-1.1l-2.2-1.2-1 .9a8 8 0 0 1-3.1-3.1l.9-1Z"/></svg><span>Consultanos</span>';
+    document.body.appendChild(flotante);
   }
   const faqMas = $('#faq-mas');
   if (faqMas && enlaces.whatsapp) { const a = $('a', faqMas); a.href = enlaces.whatsapp; a.target = '_blank'; a.rel = 'noopener'; faqMas.hidden = false; }
@@ -91,21 +102,72 @@ const ANALITICA = {
 
   /* ---------- Diseño elegido: "Quiero este" en la tarjeta, o ?diseno=… en la dirección ---------- */
   const designLine = $('#order-design');
-  function elegirDiseno(nombre) {
-    selectedDesign = String(nombre || '').trim();
+  function elegirDiseno(nombre, color) {
+    selectedDesign = String(nombre || '').trim().slice(0, 80);
+    selectedColor = selectedDesign ? String(color || '').trim().slice(0, 40) : '';
     if (!designLine) return;
     designLine.hidden = !selectedDesign;
-    $('strong', designLine).textContent = selectedDesign;
+    $('strong', designLine).textContent = selectedDesign + (selectedColor ? ' · ' + selectedColor : '');
   }
   $$('.js-elegir').forEach(button => button.addEventListener('click', () => {
-    elegirDiseno(button.dataset.design);
+    elegirDiseno(button.dataset.design, button.dataset.color);
     showOrder(button);
   }));
   function showOrder(trigger) {
     closeMenu();
     showDialog(orderDialog);
-    setTimeout(() => $('input[name="pareja"]', orderDialog)?.focus(), 50);
+    // El cursor va al primer dato que falta (si vienen de probar un diseño, los nombres ya están)
+    setTimeout(() => { const vacio = ['pareja', 'whatsapp'].map(n => form?.elements?.[n]).find(f => f && !f.value.trim()); (vacio || $('input[name="pareja"]', orderDialog))?.focus(); }, 50);
   }
+
+  /* ---------- Impresos a juego: abre el pedido con la casilla ya marcada ---------- */
+  $$('.js-impresos').forEach(button => button.addEventListener('click', () => {
+    if (form?.elements?.impresos) form.elements.impresos.checked = true;
+    showOrder(button);
+  }));
+
+  /* ---------- Probalo con sus nombres: abre el diseño elegido con los dos nombres y la fecha ---------- */
+  const probar = $('#probar-form');
+  if (probar) {
+    const hoy = new Date(); hoy.setMinutes(hoy.getMinutes() - hoy.getTimezoneOffset());
+    probar.elements.fecha.min = hoy.toISOString().slice(0, 10);
+    const error = $('#probar-error');
+    probar.addEventListener('submit', event => {
+      event.preventDefault();
+      const n1 = probar.elements.nombre1.value.trim(), n2 = probar.elements.nombre2.value.trim(), fecha = probar.elements.fecha.value;
+      const falta = !n1 ? probar.elements.nombre1 : !n2 ? probar.elements.nombre2 : null;
+      [probar.elements.nombre1, probar.elements.nombre2].forEach(f => { const mal = f === falta; f.classList.toggle('invalid', mal); f.setAttribute('aria-invalid', String(mal)); });
+      if (falta) { error.textContent = 'Escribí los dos nombres para verla.'; error.hidden = false; falta.focus(); return; }
+      if (fecha && probar.elements.fecha.validity.rangeUnderflow) { error.textContent = 'Esa fecha ya pasó: elegí otra o dejala vacía.'; error.hidden = false; probar.elements.fecha.focus(); return; }
+      error.hidden = true;
+      const diseno = /^[a-z]+$/.test(probar.elements.diseno.value) ? probar.elements.diseno.value : 'rosa';
+      const q = new URLSearchParams({ nombre1: n1, nombre2: n2 });
+      if (fecha) q.set('fecha', fecha);
+      location.href = '/modelos/' + diseno + '/?' + q.toString();
+    });
+    probar.addEventListener('input', event => { if (event.target.classList?.contains('invalid') && event.target.value.trim()) { event.target.classList.remove('invalid'); event.target.setAttribute('aria-invalid', 'false'); } });
+  }
+
+  /* ---------- Colores de cada diseño en su tarjeta ---------- */
+  $$('.design-card').forEach(card => {
+    const grupo = $('.design-colores', card);
+    if (!grupo) return;
+    const img = $('.design-image img', card);
+    const enlaces = $$('a.design-image, a.design-card-link', card);
+    const base = enlaces.map(a => (a.getAttribute('href') || '').split('?')[0]);
+    const elegir = $('.js-elegir', card);
+    const nombre = $('.design-color-nombre', card);
+    grupo.addEventListener('click', event => {
+      const boton = event.target.closest('.design-color');
+      if (!boton) return;
+      $$('.design-color', grupo).forEach(b => b.setAttribute('aria-pressed', String(b === boton)));
+      if (img && boton.dataset.img) img.src = boton.dataset.img;
+      const paleta = boton.dataset.paleta || '';
+      enlaces.forEach((a, i) => a.setAttribute('href', base[i] + (paleta ? '?paleta=' + encodeURIComponent(paleta) : '')));
+      if (nombre) nombre.textContent = boton.dataset.nombre || '';
+      if (elegir) elegir.dataset.color = paleta ? (boton.dataset.nombre || '') : '';
+    });
+  });
   $$('.js-start').forEach(button => button.addEventListener('click', event => {
     event.preventDefault();
     showOrder(button);
@@ -120,8 +182,6 @@ const ANALITICA = {
   }));
 
   const anio = $('#year'); if (anio) anio.textContent = String(new Date().getFullYear());
-  const disenoEnLaDireccion = new URLSearchParams(location.search).get('diseno');
-  if (disenoEnLaDireccion) { elegirDiseno(disenoEnLaDireccion); setTimeout(() => showOrder(), 300); }
 
   /* ---------- Las secciones aparecen suavemente al bajar ---------- */
   const reveal = $$('[data-reveal]');
@@ -154,6 +214,16 @@ const ANALITICA = {
   const whatsappValido = v => { const d = String(v || '').replace(/\D/g, ''); return d.length >= 10 && d.length <= 13; };
   const fechaField = form?.elements?.fecha;
   if (fechaField) { const hoy = new Date(); hoy.setMinutes(hoy.getMinutes() - hoy.getTimezoneOffset()); fechaField.min = hoy.toISOString().slice(0, 10); }
+  // Desde una muestra ("Quiero este"): ?diseno=…&pareja=…&fecha=…&color=… llegan ya cargados en el pedido
+  const enLaDireccion = new URLSearchParams(location.search);
+  if (enLaDireccion.get('diseno')) {
+    elegirDiseno(enLaDireccion.get('diseno'), enLaDireccion.get('color'));
+    const pareja = String(enLaDireccion.get('pareja') || '').trim().slice(0, 100);
+    if (pareja && form?.elements?.pareja) form.elements.pareja.value = pareja;
+    const fecha = String(enLaDireccion.get('fecha') || '');
+    if (fechaField && /^\d{4}-\d{2}-\d{2}$/.test(fecha) && fecha >= fechaField.min) fechaField.value = fecha;
+    setTimeout(() => showOrder(), 300);
+  }
   function fechaLegible(iso) {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
     return m ? m[3] + '/' + m[2] + '/' + m[1] : iso || '';
@@ -210,13 +280,15 @@ const ANALITICA = {
     // El precio sale de la pantalla de Precio: así está escrito en UN solo lugar
     const precio = (($('[data-precio]') || $('.price'))?.textContent || '').replace(/\s+/g, '');
     const summary = [
-      'Hola, quiero pedir mi invitación web para boda.',
-      'Pareja: ' + String(data.get('pareja')).trim(),
+      /15 años/.test(selectedDesign) ? 'Hola, quiero pedir una invitación web para unos 15 años.' : 'Hola, quiero pedir mi invitación web para boda.',
+      (/15 años/.test(selectedDesign) ? 'Nombre: ' : 'Pareja: ') + String(data.get('pareja')).trim(),
       'WhatsApp: ' + String(data.get('whatsapp')).trim(),
       ...(String(data.get('email') || '').trim() ? ['Email: ' + String(data.get('email')).trim()] : []),
       'Fecha: ' + (String(data.get('fecha') || '').trim() ? fechaLegible(String(data.get('fecha'))) : 'todavía no definida'),
       ...(precio ? ['Precio: ' + precio + ' (todo incluido)'] : []),
       ...(selectedDesign ? ['Diseño: ' + selectedDesign] : []),
+      ...(selectedColor ? ['Colores: ' + selectedColor] : []),
+      ...(form.elements.impresos?.checked ? ['También quiero los impresos a juego (cartel de bienvenida, menú y números de mesa).'] : []),
       ...(String(data.get('mensaje') || '').trim() ? ['Mensaje: ' + String(data.get('mensaje')).trim()] : [])
     ].join('\n');
     $('#order-summary').value = summary;

@@ -6,7 +6,8 @@
    · Escribe los datos para Google (ruta, servicio con precio y preguntas frecuentes) en cada página y
      en la portada, el sitemap.xml y la línea del sitemap en robots.txt.
    · Revisa la LISTA DE FACTORES en cada página y corta con error si alguno no se cumple.
-   El contenido de cada página está en seo/paginas.js.
+   El contenido de cada página está en seo/paginas.js; el de las páginas de cada diseño (/disenos/…), en
+   seo/disenos.js.
    ===================================================================== */
 'use strict';
 const fs = require('fs');
@@ -16,6 +17,7 @@ const DOMINIO = 'https://bodaweb-rose.vercel.app';   // si se conecta un dominio
 const PRECIO = '55000';
 const RAIZ = path.join(__dirname, '..');
 const PAGINAS = require('./paginas.js');
+const DISENOS = require('./disenos.js');
 const hoy = new Date().toISOString().slice(0, 10);
 
 const leer = f => fs.readFileSync(path.join(RAIZ, f), 'utf8');
@@ -39,12 +41,21 @@ if (!cabecera.includes('site-header') || !pie.includes('order-dialog')) throw ne
 const tarjeta = slug => {
   const m = new RegExp('<article class="design-card">\\s*<a class="design-image" href="modelos/' + slug + '/"[\\s\\S]*?</article>').exec(portada);
   if (!m) throw new Error('No está la tarjeta del diseño "' + slug + '" en la portada');
-  return m[0].replace(/href="modelos\//g, 'href="/modelos/').replace(/src="assets\//g, 'src="/assets/');
+  return m[0].replace(/href="modelos\//g, 'href="/modelos/').replace(/src="assets\//g, 'src="/assets/').replace(/data-img="assets\//g, 'data-img="/assets/');
 };
-const modeloNombre = slug => (new RegExp('data-design="([^"]+)"[^>]*>Quiero este</button>').exec(tarjeta(slug)) || [])[1];
+const modeloNombre = slug => { try { return (new RegExp('data-design="([^"]+)"[^>]*>Quiero este</button>').exec(tarjeta(slug)) || [])[1]; } catch (e) { return ''; } };
+// Tarjeta de un diseño de 15 años (no están en el catálogo de la portada)
+const tarjetaQuince = ([m, nombre, texto]) => `<article class="design-card">
+          <a class="design-image" href="/modelos/${m}/" aria-label="Ver el diseño ${esc(nombre)} para 15 años"><img src="/assets/modelo-${m}-movil.webp" alt="Invitación de 15 años ${esc(nombre)} vista en el celular" loading="lazy" width="780" height="975" /></a>
+          <div class="design-card-body">
+            <span class="design-card-title">${esc(nombre)}</span>
+            <span class="design-card-text">${esc(texto)}</span>
+            <div class="design-card-actions"><a class="design-card-link" href="/modelos/${m}/">Ver diseño <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a><button type="button" class="design-card-choose js-elegir" data-design="${esc(nombre)} · 15 años">Quiero este</button></div>
+          </div>
+        </article>`;
 
 // ---------- Datos para Google ----------
-const servicio = nombre => ({ '@type': 'Service', name: nombre, serviceType: 'Invitaciones de boda digitales', areaServed: { '@type': 'Country', name: 'Argentina' },
+const servicio = (nombre, tipo) => ({ '@type': 'Service', name: nombre, serviceType: tipo || 'Invitaciones de boda digitales', areaServed: { '@type': 'Country', name: 'Argentina' },
   provider: { '@type': 'Organization', name: 'Boda Web', url: DOMINIO + '/' },
   offers: { '@type': 'Offer', price: PRECIO, priceCurrency: 'ARS', availability: 'https://schema.org/InStock', url: DOMINIO + '/#precios' } });
 const faqLd = faqs => ({ '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) });
@@ -93,7 +104,7 @@ function armar(p, todas) {
   const otras = todas.filter(o => o.slug !== p.slug);
   const grafo = [
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: DOMINIO + '/' }, { '@type': 'ListItem', position: 2, name: p.migas, item: url }] },
-    { ...servicio(sinEtiquetas(p.h1)), url },
+    { ...servicio(sinEtiquetas(p.h1), p.tipo === 'quince' ? 'Invitaciones de 15 años digitales' : ''), url },
     faqLd(p.faqs),
   ];
   return `<!doctype html>
@@ -140,7 +151,7 @@ function armar(p, todas) {
           </div>
           <ul class="hero2-datos">
             <li><a href="#precio-title"><strong>$55.000</strong><span>todo incluido</span></a></li>
-            <li><strong>3 a 5 días</strong><span>y la tenés lista</span></li>
+            <li><strong>72 hs</strong><span>y la tenés lista</span></li>
             <li><strong>Cambios</strong><span>incluidos</span></li>
           </ul>
         </div>
@@ -152,9 +163,9 @@ function armar(p, todas) {
 ${p.contenido}${chat}
 
     <section class="designs section-container" id="disenos" aria-labelledby="designs-title">
-      <div class="section-intro"><p class="eyebrow">DISEÑOS</p><h2 id="designs-title">${esc(p.tituloDisenos || ('Diseños para tu ' + p.migas.toLowerCase().replace(/^invitaciones /, 'invitación ').replace(/^tarjetas /, 'tarjeta ')))}</h2><p class="lead">Tocá "Ver diseño" para recorrerlo completo en tu celular. Hay trece en total: <a href="/#disenos">ver todos</a>.</p></div>
+      <div class="section-intro"><p class="eyebrow">DISEÑOS</p><h2 id="designs-title">${esc(p.tituloDisenos || ('Diseños para tu ' + p.migas.toLowerCase().replace(/^invitaciones /, 'invitación ').replace(/^tarjetas /, 'tarjeta ')))}</h2><p class="lead">${p.leadDisenos ? esc(p.leadDisenos) : 'Tocá "Ver diseño" para recorrerlo completo en tu celular. Hay trece en total: <a href="/#disenos">ver todos</a>.'}</p></div>
       <div class="design-grid">
-        ${p.disenos.map(tarjeta).join('\n        ')}
+        ${(p.quince ? p.quince.map(tarjetaQuince) : p.disenos.map(tarjeta)).join('\n        ')}
       </div>
     </section>
 
@@ -184,17 +195,211 @@ ${p.contenido}${chat}
 
     <section class="relacionadas" aria-labelledby="relacionadas-title">
       <div class="container">
-        <div class="section-intro"><p class="eyebrow">SEGUÍ LEYENDO</p><h2 id="relacionadas-title">Más sobre invitaciones de casamiento</h2></div>
+        <div class="section-intro"><p class="eyebrow">SEGUÍ LEYENDO</p><h2 id="relacionadas-title">Más sobre invitaciones digitales</h2></div>
         <div class="guias-grid">
           ${otras.map(o => `<a class="guia" href="/${o.slug}/"><span class="guia-titulo">${esc(o.migas)}</span><span class="guia-texto">${esc(o.description.split(':')[0].split('.')[0])}.</span></a>`).join('\n          ')}
         </div>
-        <p class="faq-mas"><a href="/">Volver a invitaciones de boda digitales</a></p>
+        <p class="faq-mas"><a href="/">Volver al inicio</a></p>
       </div>
     </section>
   </main>
 ${pie}</body>
 </html>
 `;
+}
+
+// ---------- Página de cada diseño (/disenos/<slug>/) ----------
+const listaPaletas = m => {
+  const css = leer('modelos/' + m + '/estilo.css');
+  const v = (/--bw-paletas:"([^"]*)"/.exec(css) || [])[1] || '';
+  return v.split(';').filter(Boolean).map(x => { const [slug, nombre, c1, c2] = x.split('|'); return { slug, nombre, c1, c2 }; });
+};
+function armarDiseno(d) {
+  const url = DOMINIO + '/disenos/' + d.slug + '/';
+  const pals = listaPaletas(d.modelo);
+  const imgPal = (x, tipo) => '/assets/modelo-' + d.modelo + (x.slug === 'original' ? '' : '-' + x.slug) + '-' + tipo + '.webp';
+  const [p0, p1, p2] = pals;
+  const tel = (x, clase, extra) => `<a class="tel ${clase}" href="/modelos/${d.modelo}/${x.slug === 'original' ? '' : '?paleta=' + x.slug}"${extra}><img src="${imgPal(x, 'pantalla')}" width="585" height="1203" alt="${clase === 'tel-centro' ? esc('Invitación ' + d.nombre + ' vista en el celular, en ' + x.nombre) : ''}"${clase === 'tel-centro' ? ' fetchpriority="high"' : ''} /></a>`;
+  const visual = `<div class="hero2-telefonos">
+            ${p1 ? tel(p1, 'tel-izq', ' tabindex="-1" aria-hidden="true"') : ''}
+            ${p2 ? tel(p2, 'tel-der', ' tabindex="-1" aria-hidden="true"') : ''}
+            ${tel(p0, 'tel-centro', '')}
+          </div>`;
+  const faqs = [...d.faqs,
+    ['¿Puedo verlo con nuestros nombres antes de pedirlo?', 'Sí. En "Probalo con sus nombres" escribís los dos nombres y la fecha y lo ves al instante, completo, como lo van a ver tus invitados.'],
+    ['¿Cuánto cuesta y cuánto tarda?', 'Un solo precio con todo incluido y entrega en 72 horas hábiles desde que recibimos los datos y las fotos.']];
+  const det = ([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`;
+  const mitad = Math.ceil(faqs.length / 2);
+  const grafo = [
+    { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: DOMINIO + '/' }, { '@type': 'ListItem', position: 2, name: 'Diseños', item: DOMINIO + '/#disenos' }, { '@type': 'ListItem', position: 3, name: d.nombre, item: url }] },
+    { ...servicio('Invitación de boda ' + d.nombre), url, image: DOMINIO + '/modelos/' + d.modelo + '/fotos/compartir.jpg' },
+    faqLd(faqs),
+  ];
+  const contenido = `
+    <section class="seo-bloque" aria-labelledby="como-title">
+      <div class="container seo-texto">
+        <h2 id="como-title">Cómo es el diseño ${esc(d.nombre)}</h2>
+        ${d.estilo.map(t => '<p>' + esc(t) + '</p>').join('\n        ')}
+        <h3>Lo que lo distingue</h3>
+        <ul>${d.detalles.map(t => '<li>' + esc(t) + '</li>').join('')}</ul>
+      </div>
+    </section>
+
+    <section class="seo-bloque suave" aria-labelledby="colores-title">
+      <div class="container">
+        <div class="section-intro"><h2 id="colores-title">${esc(d.nombre)} en ${pals.length} combinaciones de colores</h2><p class="lead">Tocá una para verla completa. Si buscás otra, la preparamos.</p></div>
+        <div class="colores-grid">
+          ${pals.map(x => `<a class="color-variante" href="/modelos/${d.modelo}/${x.slug === 'original' ? '' : '?paleta=' + x.slug}"><img src="${imgPal(x, 'movil')}" width="780" height="975" loading="lazy" alt="${esc('Invitación ' + d.nombre + ' en ' + x.nombre)}" /><span class="color-variante-nombre"><span class="design-color-circulo" aria-hidden="true"><i style="background-color:${x.c1}"></i><i style="background-color:${x.c2}"></i></span>${esc(x.nombre)}</span></a>`).join('\n          ')}
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-bloque" aria-labelledby="ideal-title">
+      <div class="container seo-texto">
+        <h2 id="ideal-title">Para qué casamiento es ideal</h2>
+        <ul>${d.ideal.map(t => '<li>' + esc(t) + '</li>').join('')}</ul>
+        <p>Como todas nuestras invitaciones, trae cuenta regresiva, mapa de la ceremonia y la fiesta, itinerario, galería, música, regalos y confirmación de asistencia por WhatsApp. Lo que no quieran mostrar, no aparece.</p>
+      </div>
+    </section>`;
+  const html = `<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fbf8f5" />
+  <script>document.documentElement.classList.add('js')</script>
+  <title>${esc(d.title)}</title>
+  <meta name="description" content="${esc(d.description)}" />
+  <link rel="canonical" href="${url}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Boda Web" />
+  <meta property="og:title" content="${esc(d.title)}" />
+  <meta property="og:description" content="${esc(d.description)}" />
+  <meta property="og:url" content="${url}" />
+  <meta property="og:image" content="${DOMINIO}/modelos/${d.modelo}/fotos/compartir.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_AR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script defer src="/script.js"></script>
+  ${ld(grafo)}
+</head>
+<body>${cabecera}<main id="contenido" tabindex="-1">
+    <section class="hero hero2 hero2-pagina" aria-labelledby="hero-title">
+      <div class="container hero2-grid">
+        <div class="hero2-copy">
+          <nav class="migas" aria-label="Estás en"><ol><li><a href="/">Inicio</a></li><li><a href="/#disenos">Diseños</a></li><li aria-current="page">${esc(d.nombre)}</li></ol></nav>
+          <p class="eyebrow">DISEÑO · ${esc(d.nombre.toUpperCase())}</p>
+          <h1 id="hero-title">${d.h1}</h1>
+          <p class="hero2-texto">${esc(d.intro)}</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/modelos/${d.modelo}/">Ver el diseño completo <svg class="icon icon-btn"><use href="#i-arrow"/></svg></a>
+            <button class="btn btn-outline js-elegir" type="button" data-design="${esc(d.nombre)}">Quiero este diseño</button>
+          </div>
+          <ul class="hero2-datos">
+            <li><a href="#precio-title"><strong>$55.000</strong><span>todo incluido</span></a></li>
+            <li><strong>72 hs</strong><span>y la tenés lista</span></li>
+            <li><strong>${pals.length} colores</strong><span>a elección</span></li>
+          </ul>
+        </div>
+        <div class="hero2-visual">
+          ${visual}
+        </div>
+      </div>
+    </section>
+${contenido}
+
+    <section class="probar" id="probar" aria-labelledby="probar-title">
+      <div class="container probar-grid">
+        <div class="probar-texto">
+          <p class="eyebrow">PROBALO AHORA</p>
+          <h2 id="probar-title">Miralo <em>con sus nombres</em></h2>
+          <p class="lead">Escribí los dos nombres y la fecha, y mirá ${esc(d.nombre)} como lo van a recibir tus invitados.</p>
+        </div>
+        <form class="probar-form" id="probar-form" novalidate>
+          <div class="probar-nombres">
+            <label>Tu nombre <input name="nombre1" maxlength="30" autocomplete="off" placeholder="Ej. Valentina" /></label>
+            <label>El de tu pareja <input name="nombre2" maxlength="30" autocomplete="off" placeholder="Ej. Matías" /></label>
+          </div>
+          <label>Fecha <span class="opcional">(opcional)</span> <input type="date" name="fecha" /></label>
+          <input type="hidden" name="diseno" value="${d.modelo}" />
+          <p class="form-error" id="probar-error" role="alert" hidden></p>
+          <button class="btn btn-primary" type="submit">Ver mi invitación <svg class="icon icon-btn"><use href="#i-arrow"/></svg></button>
+        </form>
+      </div>
+    </section>
+
+    <section class="seo-bloque suave" aria-labelledby="precio-title">
+      <div class="container">
+        <h2 id="precio-title" class="visually-hidden">Precio</h2>
+        <div class="seo-precio">
+          <p>Un solo precio, todo incluido<strong data-precio>$ 55.000</strong>Pesos argentinos · pago único</p>
+          <button class="btn btn-primary js-elegir" type="button" data-design="${esc(d.nombre)}">Quiero este diseño</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-intro"><p class="eyebrow">DUDAS</p><h2 id="faq-title">Preguntas sobre ${esc(d.nombre)}</h2></div>
+        <div class="faq-grid">
+        <div class="faq-column">
+          ${faqs.slice(0, mitad).map(det).join('\n          ')}
+        </div>
+        <div class="faq-column">
+          ${faqs.slice(mitad).map(det).join('\n          ')}
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="designs section-container" id="disenos" aria-labelledby="designs-title">
+      <div class="section-intro"><p class="eyebrow">TAMBIÉN TE PUEDEN GUSTAR</p><h2 id="designs-title">Diseños parecidos</h2><p class="lead"><a href="/#disenos">Ver los trece diseños</a></p></div>
+      <div class="design-grid">
+        ${d.parecidos.map(tarjeta).join('\n        ')}
+      </div>
+    </section>
+  </main>
+${pie}</body>
+</html>
+`;
+  return html;
+}
+function revisarDiseno(d, html) {
+  const fallas = [], notas = [];
+  const chequeo = (ok, que) => { (ok ? notas : fallas).push(que); };
+  const kw = normal(d.busqueda);
+  const titulo = (/<title>([^<]*)<\/title>/.exec(html) || [])[1] || '';
+  const desc = (/name="description" content="([^"]*)"/.exec(html) || [])[1] || '';
+  const h1s = [...html.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/g)].map(m => normal(m[1]));
+  const main = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
+  const tieneKw = t => normal(t).includes(kw) || clave(d.busqueda).every(w => normal(t).includes(w));
+  chequeo(titulo.length >= 30 && titulo.length <= 60, `Título de 30 a 60 caracteres (${titulo.length})`);
+  chequeo(tieneKw(titulo), 'La búsqueda está en el título');
+  chequeo(desc.length >= 120 && desc.length <= 160, `Descripción de 120 a 160 caracteres (${desc.length})`);
+  chequeo(tieneKw(desc), 'La búsqueda está en la descripción');
+  chequeo(h1s.length === 1 && tieneKw(h1s[0]), 'Un solo H1 y con la búsqueda');
+  chequeo(normal(d.intro).indexOf(kw) >= 0 && normal(d.intro).indexOf(kw) < 40, 'La búsqueda está al principio del primer párrafo');
+  const imgs = [...main.matchAll(/<img\b[^>]*>/g)].map(m => m[0]);
+  chequeo(imgs.every(i => /\balt="/.test(i) && /\bwidth="\d+"/.test(i) && /\bheight="\d+"/.test(i)), `Imágenes con texto alternativo y medidas (${imgs.length})`);
+  chequeo(imgs.every(i => { const f = (/src="\/([^"]+)"/.exec(i) || [])[1]; return f && fs.existsSync(path.join(RAIZ, f)); }), 'Todas las imágenes existen');
+  try { [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].forEach(m => JSON.parse(m[1])); chequeo(true, 'Datos estructurados válidos'); } catch (e) { chequeo(false, 'Datos estructurados válidos'); }
+  const palabras = normal(main).split(' ').length;
+  chequeo(palabras >= 450, `Contenido suficiente (${palabras} palabras)`);
+  chequeo(portada.includes(`href="/disenos/${d.slug}/"`), 'La portada enlaza a esta página');
+  // Texto propio frente a los otros diseños
+  const tejas = t => { const w = normal(t).split(' '); const s = new Set(); for (let i = 0; i + 8 <= w.length; i++) s.add(w.slice(i, i + 8).join(' ')); return s; };
+  const propio = x => [x.intro, ...x.estilo, ...x.detalles, ...x.ideal, ...x.faqs.flat()].join(' ');
+  const mias = tejas(propio(d));
+  for (const o of DISENOS.filter(o => o.slug !== d.slug)) { const otras = tejas(propio(o)); let c = 0; mias.forEach(x => { if (otras.has(x)) c++; }); if (c / mias.size >= 0.05) chequeo(false, `Texto propio frente a "${o.nombre}" (${Math.round(100 * c / mias.size)}% en común)`); }
+  return { fallas, notas, palabras };
 }
 
 // ---------- Datos para Google en la portada ----------
@@ -272,8 +477,18 @@ for (const p of PAGINAS) {
   r.fallas.forEach(f => console.log('    ✖ ' + f));
   if (r.fallas.length) hayFallas = true;
 }
+// Páginas de cada diseño
+for (const d of DISENOS) {
+  const html = armarDiseno(d);
+  escribir('disenos/' + d.slug + '/index.html', html);
+  const r = revisarDiseno(d, html);
+  if (titulos.has(d.title)) r.fallas.push('Título repetido con otra página'); titulos.add(d.title);
+  console.log((r.fallas.length ? '✖ ' : '✔ ') + '/disenos/' + d.slug + '/  —  ' + r.notas.length + ' factores cumplidos' + (r.fallas.length ? ', ' + r.fallas.length + ' sin cumplir:' : ''));
+  r.fallas.forEach(f => console.log('    ✖ ' + f));
+  if (r.fallas.length) hayFallas = true;
+}
 // Mapa del sitio y robots
-const urls = ['/', ...PAGINAS.map(p => '/' + p.slug + '/')];
+const urls = ['/', ...PAGINAS.map(p => '/' + p.slug + '/'), ...DISENOS.map(d => '/disenos/' + d.slug + '/')];
 escribir('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls.map(u => `  <url><loc>${DOMINIO}${u}</loc><lastmod>${hoy}</lastmod></url>`).join('\n') + '\n</urlset>\n');
 escribir('robots.txt', 'User-agent: *\nAllow: /\n\nSitemap: ' + DOMINIO + '/sitemap.xml\n');
 console.log('\nPortada: ' + nFaqs + ' preguntas en sus datos estructurados. Sitemap con ' + urls.length + ' direcciones.');

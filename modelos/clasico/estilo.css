@@ -173,3 +173,12 @@ section{padding:72px 22px;max-width:1040px;margin:0 auto;text-align:center}
 /* Celulares angostos: "segundos" entra con aire en su caja */
 @media (max-width:380px){.cuenta-cajas span{font-size:11px;letter-spacing:0}}
 #confirmacion input[type=number]{font-family:var(--sans)}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'plata' o 'salvia'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Crema y dorado|#f3ebdf|#b08d57;plata|Plata|#eceef0|#8f969f;salvia|Verde salvia|#e3eadf|#7f9a80";--bw-paleta-nombre:"Crema y dorado"}
+:root[data-paleta="plata"]{--fondo:#f5f5f3;--papel:#ffffff;--tinta:#24272b;--texto:#45494f;--suave:#6c7179;--oro:#9da3ab;--oro-texto:#5b626c;--oro-oscuro:#41474f;--oro-claro:#d0d4d9;--linea:#e1e3e6;--sombra:0 20px 50px #2a2f3514;--bw-paleta-nombre:"Plata"}
+:root[data-paleta="plata"] .portada-tarjeta{background:rgba(255,255,255,.94)}
+:root[data-paleta="salvia"]{--fondo:#f4f6f1;--papel:#fcfdfa;--tinta:#24302a;--texto:#414d46;--suave:#67736b;--oro:#8aa38b;--oro-texto:#4f6a53;--oro-oscuro:#3a523e;--oro-claro:#c7d5c4;--linea:#dde4d8;--sombra:0 20px 50px #2a3a2c14;--bw-paleta-nombre:"Verde salvia"}
+:root[data-paleta="salvia"] .portada-tarjeta{background:rgba(252,253,250,.94)}
+/* ===== FIN PALETAS ===== */

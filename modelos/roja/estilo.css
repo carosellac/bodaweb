@@ -138,7 +138,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 /* ================= VESTIMENTA ================= */
 .vestimenta{padding:60px 22px 64px}
 .vestimenta .icono-redondo{color:var(--salvia);border-color:var(--salvia);position:relative;z-index:1}
-.vestimenta .etiqueta{color:var(--salvia)}
+.vestimenta .etiqueta{color:var(--terracota)}
 .vestimenta h2{font-size:clamp(26px,5vw,40px);max-width:640px;margin:0 auto 18px;position:relative;z-index:1}
 .paleta{list-style:none;display:flex;justify-content:center;gap:12px;margin:0 0 20px;padding:0;position:relative;z-index:1}
 .paleta li{width:30px;height:30px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55),0 2px 8px rgba(71,52,42,.15)}
@@ -349,3 +349,12 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Celulares angostos: los rótulos de la cuenta regresiva entran con aire dentro de su forma */
 @media (max-width:400px){.circulos{gap:6px}.circulos span{font-size:11px;letter-spacing:0}}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'verde' o 'azul'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Bordó y dorado|#f5ede1|#b94261;verde|Verde y dorado|#eef3ee|#2f6b55;azul|Azul noche y dorado|#edf0f5|#2b4a6f";--bw-paleta-nombre:"Bordó y dorado"}
+:root[data-paleta="verde"]{--terracota:#2f6b55;--terracota-oscura:#245443;--bordo:#2f6b55;--bordo-oscuro:#245443;--bw-paleta-nombre:"Verde y dorado"}
+:root[data-paleta="verde"] .tarjeta-direccion{color:#e1ece6}@media (min-width:1000px){:root[data-paleta="verde"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+:root[data-paleta="azul"]{--terracota:#2b4a6f;--terracota-oscura:#203a58;--bordo:#2b4a6f;--bordo-oscuro:#203a58;--bw-paleta-nombre:"Azul noche y dorado"}
+:root[data-paleta="azul"] .tarjeta-direccion{color:#e1e7ef}@media (min-width:1000px){:root[data-paleta="azul"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+/* ===== FIN PALETAS ===== */

@@ -132,7 +132,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 /* ================= VESTIMENTA ================= */
 .vestimenta{padding:60px 22px 64px}
 .vestimenta .icono-redondo{color:var(--salvia);border-color:var(--salvia);position:relative;z-index:1}
-.vestimenta .etiqueta{color:var(--salvia)}
+.vestimenta .etiqueta{color:var(--terracota)}
 .vestimenta h2{font-size:clamp(26px,5vw,40px);max-width:640px;margin:0 auto 18px;position:relative;z-index:1}
 .paleta{list-style:none;display:flex;justify-content:center;gap:12px;margin:0 0 20px;padding:0;position:relative;z-index:1}
 .paleta li{width:30px;height:30px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55),0 2px 8px rgba(35,65,59,.15)}
@@ -291,3 +291,12 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 /* Celulares angostos: los rótulos de la cuenta regresiva entran con aire dentro de su forma */
 @media (max-width:400px){.circulos{gap:6px}.circulos span{font-size:11px;letter-spacing:0}}
 @media (max-width:380px){.cuenta{padding-left:10px;padding-right:10px}}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'terracota' o 'azul'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Verde y dorado|#e7efea|#2c635a;terracota|Terracota|#f6ece5|#a4553a;azul|Azul polvo|#ebf1f6|#3d6788";--bw-paleta-nombre:"Verde y dorado"}
+:root[data-paleta="terracota"]{--arena:#f8f3ee;--terracota:#a4553a;--terracota-oscura:#84432d;--salvia:#b98a72;--salvia-clara:#f6ece5;--marron:#4a2e24;--texto:#4d3f39;--suave:#76665e;--linea:#eadfd2;--bw-paleta-nombre:"Terracota"}
+@media (min-width:1000px){:root[data-paleta="terracota"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+:root[data-paleta="azul"]{--arena:#f3f5f6;--terracota:#3d6788;--terracota-oscura:#2e5170;--salvia:#7f9bb3;--salvia-clara:#ebf1f6;--marron:#22364a;--texto:#3b4652;--suave:#63707c;--linea:#dfe4e8;--bw-paleta-nombre:"Azul polvo"}
+@media (min-width:1000px){:root[data-paleta="azul"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+/* ===== FIN PALETAS ===== */

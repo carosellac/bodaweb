@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fbf9f3" />
+  <!-- En la computadora la invitación se muestra dentro de un celular (comun.js arma el marco). Con ?vista=compu se ve el diseño de computadora. -->
+  <script>(function(){var d=document.documentElement;d.classList.add('js');var pa=/[?&]paleta=([a-z0-9-]{1,20})(&|$)/.exec(location.search);if(pa&&/\/modelos\/[^/]+\/?$/.test(location.pathname))d.setAttribute('data-paleta',pa[1]);try{if(window.self!==window.top){d.classList.add('bw-en-marco')}else if(window.matchMedia&&matchMedia('(min-width:900px) and (hover:hover)').matches&&!/[?&]vista=compu(&|$)/.test(location.search)){d.classList.add('bw-escritorio')}}catch(e){}})()</script>
+  <style>html.bw-escritorio body>*:not(.bw-marco){display:none!important}html.bw-escritorio,html.bw-escritorio body{overflow:hidden;height:100%}html.bw-en-marco{scrollbar-width:none}html.bw-en-marco::-webkit-scrollbar{display:none}</style>
+  <title>Catalina · Mis 15</title>
+  <meta name="description" content="Invitación a mis 15: fecha, lugar, itinerario y confirmación de asistencia." />
+  <meta name="robots" content="noindex" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Catalina · Mis 15" />
+  <meta property="og:description" content="Te invito a festejar mis 15. Toda la información y la confirmación de asistencia, acá." />
+  <!-- Título y vista previa al compartir por WhatsApp: los completa solo "node actualizar-invitaciones.js" a partir de datos.js (no hace falta tocarlos a mano). -->
+  <meta property="og:url" content="https://bodaweb-rose.vercel.app/modelos/quince-azul/" />
+  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/quince-azul/fotos/compartir.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+  <!-- Textura de papel: fija, detrás de todo, no tapa ni toca nada -->
+  <svg class="papel" aria-hidden="true" focusable="false">
+    <filter id="grano" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix values="0 0 0 0 .32  0 0 0 0 .22  0 0 0 0 .14  0 0 0 .55 0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grano)" />
+  </svg>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <!-- Íconos a línea -->
+    <symbol id="i-anillos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="9" cy="14" r="6"/><circle cx="15" cy="14" r="6"/><path d="m12 4 2-2h-4z"/></symbol>
+    <symbol id="i-copas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M7 3h4l-1 8a3 3 0 0 1-6 0zM13 3h4l1 8a3 3 0 0 1-6 0zM7 14v6M17 14v6M5 20h4M15 20h4"/></symbol>
+    <symbol id="i-cubiertos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3M17 3c-2 0-3 3-3 6s1 4 3 4v8"/></symbol>
+    <symbol id="i-nota" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></symbol>
+    <symbol id="i-fogata" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3 0-6 1-9zM4 21l16-4M4 17l16 4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-calendario" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-regalo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13M12 8c-2-4-7-4-6-1s6 1 6 1zm0 0c2-4 7-4 6-1s-6 1-6 1z"/></symbol>
+    <symbol id="i-camisa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 6l2 5 2-1v11h8V10l2 1 2-5-4-3-2 2h-4z"/></symbol>
+    <symbol id="i-corazon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.4-7 10-7 10z"/></symbol>
+    <symbol id="i-musica" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></symbol>
+    <symbol id="i-cerrar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-izq" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-der" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-abajo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m6 10 6 6 6-6"/></symbol>
+    <!-- Adornos botánicos a línea -->
+    <symbol id="ad-sol" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="40" cy="40" r="14"/><path d="M60 40h10M57.3 50l8.7 5M50 57.3l5 8.7M40 60v10M30 57.3l-5 8.7M22.7 50l-8.7 5M20 40H10M22.7 30l-8.7-5M30 22.7l-5-8.7M40 20V10M50 22.7l5-8.7M57.3 30l8.7-5"/></symbol>
+    <symbol id="ad-luna" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M48 10a30 30 0 1 0 22 50A24 24 0 1 1 48 10z"/><path d="M18 20v8M14 24h8M64 12v6M61 15h6M24 64v5M21.5 66.5h5"/></symbol>
+    <symbol id="ad-euca" viewBox="0 0 120 220" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M62 216C56 172 60 110 76 6"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(61 196)"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(59 176) scale(-1 1)"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(60 152)"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(61 130) scale(-1 1)"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(64 106)"/>
+      <path d="M0 0c-16-6-28-20-26-38 16 6 26 22 26 38z" transform="translate(66 84) scale(-1 1)"/>
+      <path d="M0 0c-14-5-24-18-22-34 14 5 22 20 22 34z" transform="translate(69 60)"/>
+      <path d="M0 0c-12-4-20-15-18-28 12 4 18 16 18 28z" transform="translate(72 40) scale(-1 1)"/>
+      <path d="M0 0c-10-3-16-12-14-22 10 3 14 13 14 22z" transform="translate(75 22)"/>
+    </symbol>
+    <symbol id="ad-pampa" viewBox="0 0 80 240" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+      <path d="M40 238V108"/>
+      <path d="M40 110c-10-20-14-46-6-72M40 110c-2-26 2-56 10-82M40 112c6-20 18-38 30-50M40 112c-10-12-24-22-32-28M41 112c-4-32-2-62 4-98M40 112c8-24 16-42 22-70M40 114c-14-14-22-34-24-58M44 100c6-26 4-54-4-82M36 104c-8-22-6-48 2-70M48 106c10-16 16-32 14-50M32 108c-12-10-18-28-14-48"/>
+      <path d="M34 42l2 4M52 36l1 4M24 70l3 3M62 66l2 2M46 24l1 4M30 90l-3 2M58 90l3 1M20 48l-3 1"/>
+    </symbol>
+    <!-- Divisor ondulado -->
+    <symbol id="onda" viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0 22C160 42 320 2 480 18S800 42 960 20 1280 0 1440 22V40H0Z"/></symbol>
+  </svg>
+
+  <!-- ================= PORTADA =================
+       Celular: la tarjeta de flores en acuarela (flores-fondo.webp, 9:16) entra ENTERA en la primera
+       pantalla, con la foto adentro de la corona de hojas. Compu: la corona con la foto a la izquierda,
+       los textos a la derecha y los ramos de las esquinas sueltos sobre un fondo en degradé.
+       La foto es fotos/portada.webp y se recorta sola en óvalo (conviene la pareja centrada).
+       Los textos salen de datos.js (titulo1, nombres, invitacion, fechaDia, fechaNumero, fechaHora,
+       fechaMes, lugarCorto, mensaje). -->
+  <header class="portada" id="inicio">
+    <img class="ramo ramo-1" src="esquina-1.webp" alt="" aria-hidden="true" />
+    <img class="ramo ramo-2" src="esquina-2.webp" alt="" aria-hidden="true" />
+    <img class="ramo ramo-3" src="esquina-3.webp" alt="" aria-hidden="true" />
+    <img class="ramo ramo-4" src="esquina-4.webp" alt="" aria-hidden="true" />
+    <div class="lamina">
+      <div class="corona">
+        <div class="retrato"><img src="fotos/portada.webp" alt="Catalina" fetchpriority="high" /></div>
+      </div>
+      <div class="portada-textos">
+        <p class="titulo" data-dato="titulo1">Mis XV</p>
+        <h1 class="portada-nombres"><span data-dato="nombre1">Catalina</span></h1>
+        <p class="portada-intro" data-dato="invitacion">Tengo el gusto de invitarte a festejar conmigo esta noche tan especial</p>
+        <div class="calendario">
+          <span class="cal-lado cal-dia" data-dato="fechaDia">Sábado</span>
+          <span class="cal-centro"><strong data-dato="fechaNumero">13</strong><small data-dato="fechaMes">Noviembre</small></span>
+          <span class="cal-lado cal-hora" data-dato="fechaHora">A las 21:30 hs</span>
+        </div>
+        <p class="portada-lugar" data-dato="lugarCorto">Villa Allende, Córdoba</p>
+        <div class="botones">
+          <a class="boton" href="#confirmar">Confirmar asistencia</a>
+          <a class="boton boton-linea" data-calendario href="#"><svg><use href="#i-calendario"/></svg>Agendar</a>
+        </div>
+        <p class="portada-mensaje" data-dato="mensaje">Te espero</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= CUENTA REGRESIVA ================= -->
+    <section class="cuenta" id="cuenta" data-cuenta-regresiva data-reveal>
+      <p class="etiqueta">Faltan</p>
+      <div class="circulos">
+        <div><strong data-cuenta="dias">—</strong><span>días</span></div>
+        <div><strong data-cuenta="horas">—</strong><span>horas</span></div>
+        <div><strong data-cuenta="minutos">—</strong><span>minutos</span></div>
+        <div><strong data-cuenta="segundos">—</strong><span>segundos</span></div>
+      </div>
+      <p class="cuenta-llego">¡Llegó el día!</p>
+    </section>
+
+    <!-- ================= INVITACIÓN ================= -->
+    <section class="frase banda-crema" data-reveal>
+      <img class="flor flor-a" src="esquina-1.webp" alt="" aria-hidden="true" loading="lazy" />
+      <img class="flor flor-b" src="esquina-4.webp" alt="" aria-hidden="true" loading="lazy" />
+      <p class="frase-texto" data-dato="frase">Entre sierras, flores y la gente que más quiero. Me haría muy feliz que estés.</p>
+      <p class="frase-firma"><span data-dato="nombre1">Catalina</span></p>
+    </section>
+
+    <!-- ================= HISTORIA ================= -->
+    <section class="historia" id="historia" data-reveal>
+      <div class="historia-fotos">
+        <img src="fotos/historia-1.webp" alt="Catalina en su vestido celeste" loading="lazy" />
+        <img src="fotos/historia-2.webp" alt="Catalina con su ramo" loading="lazy" />
+      </div>
+      <div class="historia-texto">
+        <p class="etiqueta">Mis 15</p>
+        <h2>Quince años <em>y una noche</em></h2>
+        <!-- Texto de ejemplo: cambialo por lo que quiera contar la quinceañera -->
+        <p>Hace quince años llegué a esta familia y desde entonces cada cumpleaños fue una fiesta. Este va a ser el más especial de todos.</p>
+        <p>Elegí las sierras, las flores azules y una noche de primavera para festejar con todos los que me acompañaron: la familia, las amigas de siempre y las del colegio.</p>
+        <p>Quiero que estés, que bailes y que te lleves un lindo recuerdo de mis 15.</p>
+      </div>
+    </section>
+
+    <!-- ================= CEREMONIA Y FIESTA ================= -->
+    <section class="evento banda-crema" id="evento" data-reveal>
+      <div class="centrado">
+        <p class="etiqueta">El gran día</p>
+        <h2>Misa <em>y</em> fiesta</h2>
+      </div>
+      <div class="evento-tarjetas">
+        <article class="tarjeta">
+          <span class="icono-redondo"><svg><use href="#i-corazon"/></svg></span>
+          <h3>Misa</h3>
+          <p class="tarjeta-hora"><span data-dato="ceremonia.hora">20:00</span> <small>hs</small></p>
+          <p class="tarjeta-lugar" data-dato="ceremonia.nombre">Parroquia Nuestra Señora del Rosario</p>
+          <p class="tarjeta-direccion" data-dato="ceremonia.direccion">Av. Río de Janeiro 1200, Villa Allende</p>
+          <a class="boton boton-linea" data-mapa="ceremonia" href="#"><svg><use href="#i-pin"/></svg>Cómo llegar</a>
+        </article>
+        <article class="tarjeta">
+          <span class="icono-redondo"><svg><use href="#i-copas"/></svg></span>
+          <h3>Fiesta</h3>
+          <p class="tarjeta-hora"><span data-dato="fiesta.hora">21:30</span> <small>hs</small></p>
+          <p class="tarjeta-lugar" data-dato="fiesta.nombre">Quinta Los Aromos</p>
+          <p class="tarjeta-direccion" data-dato="fiesta.direccion">Camino a Saldán km 3, Villa Allende</p>
+          <a class="boton boton-linea" data-mapa="fiesta" href="#"><svg><use href="#i-pin"/></svg>Cómo llegar</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= ITINERARIO ================= -->
+    <section class="itinerario" id="itinerario" data-reveal>
+      <div class="centrado">
+        <p class="etiqueta">Itinerario</p>
+        <h2>Así va a ser <em>el día</em></h2>
+      </div>
+      <!-- Texto de ejemplo: cambiá horas y momentos a gusto; podés agregar o sacar tarjetas -->
+      <ol class="momentos">
+        <li><span class="icono-redondo"><svg><use href="#i-corazon"/></svg></span><time>20:00</time><h3>Misa</h3><p>En la Parroquia del Rosario, con mi familia y mis padrinos.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-copas"/></svg></span><time>21:30</time><h3>Recepción</h3><p>Brindis de bienvenida en el jardín de la quinta.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-nota"/></svg></span><time>22:30</time><h3>Entrada y vals</h3><p>Mi entrada, el vals y el cambio de zapatos.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-cubiertos"/></svg></span><time>23:00</time><h3>Cena</h3><p>Cena en el salón. Si tenés alguna alergia, contame al confirmar.</p></li>
+        <li><span class="icono-redondo"><svg><use href="#i-corazon"/></svg></span><time>00:30</time><h3>Velas y baile</h3><p>Las quince velas y después, a bailar hasta el final.</p></li>
+      </ol>
+    </section>
+
+    <!-- ================= VESTIMENTA ================= -->
+    <section class="vestimenta banda-salvia" data-reveal>
+      <span class="icono-redondo"><svg><use href="#i-camisa"/></svg></span>
+      <p class="etiqueta">Código de vestimenta</p>
+      <h2 data-dato="codigoVestimenta">Elegante · Celestes y tonos claros</h2>
+      <ul class="paleta" aria-label="Paleta sugerida">
+        <li style="--c:#2e739e" title="Azul"></li>
+        <li style="--c:#8fb0d2" title="Celeste"></li>
+        <li style="--c:#d9e4ef" title="Celeste suave"></li>
+        <li style="--c:#c69c54" title="Dorado"></li>
+        <li style="--c:#fbf9f3" title="Marfil"></li>
+      </ul>
+      <!-- Texto de ejemplo: cambialo por lo que quiera aclarar la quinceañera -->
+      <p class="vestimenta-nota">Vestido de fiesta o de cocktail, traje o camisa y saco. Los celestes y los tonos claros son bienvenidos; el celeste largo queda para mí. De noche refresca en las sierras: traé un abrigo liviano.</p>
+    </section>
+
+    <!-- ================= GALERÍA ================= -->
+    <section class="galeria" id="galeria" data-reveal>
+      <div class="centrado">
+        <p class="etiqueta">Momentos</p>
+        <h2>Algunas fotos <em>mías</em></h2>
+      </div>
+      <div class="galeria-grilla" data-galeria>
+        <img src="fotos/galeria-1.webp" alt="Foto 1" loading="lazy" />
+        <img src="fotos/galeria-2.webp" alt="Foto 2" loading="lazy" />
+        <img src="fotos/galeria-3.webp" alt="Foto 3" loading="lazy" />
+        <img src="fotos/galeria-4.webp" alt="Foto 4" loading="lazy" />
+        <img src="fotos/galeria-5.webp" alt="Foto 5" loading="lazy" />
+        <img src="fotos/galeria-6.webp" alt="Foto 6" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- ================= REGALOS ================= -->
+    <section class="regalos banda-crema" id="regalos" data-reveal>
+      <img class="flor flor-a" src="esquina-1.webp" alt="" aria-hidden="true" loading="lazy" />
+      <img class="flor flor-b" src="esquina-4.webp" alt="" aria-hidden="true" loading="lazy" />
+      <span class="icono-redondo"><svg><use href="#i-regalo"/></svg></span>
+      <p class="etiqueta">Regalos</p>
+      <h2>Que vengas <em>ya es un regalo</em></h2>
+      <p class="regalos-texto" data-dato="regalo.texto">Tu presencia es mi mejor regalo. Si además querés hacerme un regalo, te dejo los datos.</p>
+      <div class="datos-regalo">
+        <p data-si="regalo.alias"><span>Alias</span><strong data-dato="regalo.alias">CATA.MIS15</strong><button type="button" class="boton boton-linea boton-chico" data-copiar="regalo.alias">Copiar</button></p>
+        <p data-si="regalo.cbu"><span>CBU</span><strong data-dato="regalo.cbu"></strong><button type="button" class="boton boton-linea boton-chico" data-copiar="regalo.cbu">Copiar</button></p>
+        <p data-si="regalo.titular"><span>Titular</span><strong data-dato="regalo.titular">Catalina Ferreyra</strong></p>
+      </div>
+    </section>
+
+    <!-- ================= CONFIRMACIÓN ================= -->
+    <section class="confirmar" id="confirmar" data-reveal>
+      <div class="centrado">
+        <p class="etiqueta">Confirmación de asistencia</p>
+        <h2>¿Venís <em>a celebrar?</em></h2>
+        <p class="confirmar-plazo">Confirmá antes del <strong data-dato="confirmarHasta">13 de octubre de 2027</strong>, así armamos las mesas.</p>
+      </div>
+      <form id="confirmacion" novalidate>
+        <label>Nombre y apellido<input name="nombre" required maxlength="80" autocomplete="name" placeholder="Tu nombre" /></label>
+        <fieldset>
+          <legend>¿Vas a venir?</legend>
+          <label class="opcion"><input type="radio" name="asistencia" value="si" /><span>¡Sí, ahí voy a estar!</span></label>
+          <label class="opcion"><input type="radio" name="asistencia" value="no" /><span>No voy a poder ir</span></label>
+        </fieldset>
+        <div class="dos-columnas">
+          <label>¿Cuántos vienen?<input name="personas" type="number" min="1" max="12" inputmode="numeric" placeholder="1" /></label>
+          <label>Comida especial o alergias<input name="comida" maxlength="120" placeholder="Vegetariano, celíaco…" /></label>
+        </div>
+        <label>Un mensaje para Catalina<textarea name="mensaje" rows="3" maxlength="300" placeholder="Opcional"></textarea></label>
+        <p class="error" data-error role="alert" hidden></p>
+        <button type="submit" class="boton" data-boton-confirmar>Confirmar por WhatsApp</button>
+        <div class="listo" data-listo hidden>
+          <p data-resultado></p>
+          <textarea data-resumen readonly rows="5" aria-label="Texto de tu confirmación"></textarea>
+          <button type="button" class="boton boton-linea" data-copiar-resumen>Copiar el texto</button>
+          <span data-copiado aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p class="pie-nombres"><span data-dato="nombre1">Catalina</span> <em>·</em> 15</p>
+    <p class="pie-hashtag" data-dato="hashtag">#Los15DeCata</p>
+    <p class="pie-gracias">Gracias por acompañarme. ¡Nos vemos en Villa Allende!</p>
+    <p class="credito" data-credito>Invitación hecha con <a href="../../">Boda Web</a></p>
+  </footer>
+
+  <!-- Galería ampliada -->
+  <dialog class="visor" id="visor" aria-label="Foto ampliada">
+    <button type="button" class="visor-boton visor-cerrar" data-visor-cerrar aria-label="Cerrar"><svg><use href="#i-cerrar"/></svg></button>
+    <button type="button" class="visor-boton visor-izq" data-visor-anterior aria-label="Anterior"><svg><use href="#i-izq"/></svg></button>
+    <img alt="" />
+    <button type="button" class="visor-boton visor-der" data-visor-siguiente aria-label="Siguiente"><svg><use href="#i-der"/></svg></button>
+  </dialog>
+
+  <!-- Música de fondo: el botón aparece sólo si en datos.js se completa "musica" con el nombre del archivo -->
+  <audio id="musica" loop preload="none"></audio>
+  <button type="button" class="musica" data-musica hidden aria-label="Reproducir música"><svg><use href="#i-musica"/></svg></button>
+
+  <script src="datos.js"></script>
+  <script src="comun.js"></script>
+</body>
+</html>

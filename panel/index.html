@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#fbf8f5" />
+  <title>Panel de la invitación · Boda Web</title>
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .panel{max-width:980px;margin:0 auto;padding:28px 16px 64px}
+    .panel-cabecera{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line-soft);background:var(--paper)}
+    .panel-cabecera a{font-family:var(--serif);font-size:24px}
+    .panel h1{font-size:clamp(32px,6vw,46px);margin:6px 0 4px}
+    .panel-sub{color:var(--muted);margin:0 0 22px}
+    .totales{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:22px}
+    .total{background:var(--paper);border:1px solid var(--line-soft);border-radius:16px;padding:14px}
+    .total strong{display:block;font-family:var(--serif);font-size:40px;line-height:1;color:var(--rose-dark)}
+    .total span{font-size:14px;color:var(--muted)}
+    .panel-acciones{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px}
+    .pestanas{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:14px;overflow-x:auto}
+    .pestanas button{border:0;background:none;padding:12px 14px;font:700 15px var(--sans);color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;min-height:44px}
+    .pestanas button[aria-selected="true"]{color:var(--ink);border-color:var(--rose-dark)}
+    .filtro{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+    .filtro input{flex:1;min-width:200px;border:1px solid #9d8e84;border-radius:10px;padding:10px 12px;font:16px var(--sans);min-height:44px}
+    .lista{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+    .item{background:var(--paper);border:1px solid var(--line-soft);border-radius:14px;padding:14px 16px}
+    .item-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+    .item-nombre{font-weight:700;font-size:17px}
+    .item-fecha{font-size:13px;color:var(--muted)}
+    .chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:700;margin:6px 6px 0 0}
+    .chip.si{background:#e4efe2;color:#2f5a33}.chip.no{background:#f6e3e0;color:#8a3226}.chip.dato{background:var(--rose-pale);color:#7a4d45}
+    .item p{margin:8px 0 0;font-size:15px;color:var(--body)}
+    .vacio,.aviso{background:var(--paper);border:1px dashed var(--line);border-radius:14px;padding:22px;text-align:center;color:var(--muted)}
+    .aviso strong{color:var(--ink)}
+    .demo{background:#fff7e6;border:1px solid #f0d9a8;color:#6b5320;border-radius:12px;padding:10px 14px;margin-bottom:18px;font-size:15px}
+    @media(max-width:600px){.totales{grid-template-columns:repeat(2,minmax(0,1fr))}.total strong{font-size:34px}}
+  </style>
+</head>
+<body>
+  <header class="panel-cabecera"><a href="/">Boda Web</a><span>Panel de la invitación</span></header>
+  <main class="panel" id="panel">
+    <p class="aviso" id="cargando">Cargando…</p>
+  </main>
+  <script>
+  /* =====================================================================
+     PANEL DE LA INVITACIÓN: confirmaciones y canciones que mandaron los invitados.
+     Link para los novios: /panel/?i=<invitación>&c=<clave>  (la clave la da crear_invitacion en Supabase).
+     /panel/?i=demo muestra un ejemplo con datos inventados.
+     PANEL_URL y PANEL_CLAVE: los mismos que en comun.js de las invitaciones (proyecto de Supabase de Boda Web).
+     ===================================================================== */
+  const PANEL_URL = 'https://PROYECTO.supabase.co';
+  const PANEL_CLAVE = 'CLAVE_PUBLICA';
+  (() => {
+    'use strict';
+    const raiz = document.getElementById('panel');
+    const q = new URLSearchParams(location.search);
+    const inv = (q.get('i') || '').trim(), clave = (q.get('c') || '').trim();
+    const esc = t => String(t == null ? '' : t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const configurado = !/PROYECTO|CLAVE_PUBLICA/.test(PANEL_URL + PANEL_CLAVE);
+    const aviso = html => { raiz.innerHTML = '<p class="aviso">' + html + '</p>'; };
+
+    const DEMO = { nombre: 'Lucía y Mateo', respuestas: [
+      { tipo: 'confirmacion', creada: '2027-01-04T21:12:00Z', datos: { nombre: 'Tía Marta', asiste: true, personas: 2, quienes: ['Marta', 'Jorge'], eventos: ['ceremonia', 'fiesta'], chicos: 0, comida: 'Jorge es celíaco', mensaje: '¡No veo la hora!', invitado: 'Familia Pérez' } },
+      { tipo: 'cancion', creada: '2027-01-04T21:15:00Z', datos: { quien: 'Tía Marta', tema: 'Persiana americana, Soda Stereo' } },
+      { tipo: 'confirmacion', creada: '2027-01-03T18:40:00Z', datos: { nombre: 'Sofía Gómez', asiste: true, personas: 1, eventos: ['fiesta'], comida: 'Vegetariana', traslado: 'si' } },
+      { tipo: 'confirmacion', creada: '2027-01-02T10:05:00Z', datos: { nombre: 'Carlos Ruiz', asiste: false, personas: 0, mensaje: 'Estoy de viaje, ¡los quiero mucho!' } },
+      { tipo: 'cancion', creada: '2027-01-02T09:00:00Z', datos: { quien: 'Juan', tema: 'Despacito, Luis Fonsi' } },
+      { tipo: 'confirmacion', creada: '2027-01-01T16:22:00Z', datos: { nombre: 'Los Fernández', asiste: true, personas: 4, chicos: 2, eventos: ['ceremonia', 'fiesta'], traslado: 'no' } },
+    ] };
+
+    async function cargar() {
+      if (inv === 'demo') return { ...DEMO, demo: true };
+      if (!inv || !clave) { aviso('<strong>Falta el link completo.</strong><br />Abrí el panel con el link que te mandamos (termina con una clave).'); return null; }
+      if (!configurado) { aviso('<strong>El panel todavía no está activado.</strong><br />Mientras tanto, las confirmaciones te siguen llegando por WhatsApp.'); return null; }
+      try {
+        const r = await fetch(PANEL_URL + '/rest/v1/rpc/ver_panel', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: PANEL_CLAVE, Authorization: 'Bearer ' + PANEL_CLAVE }, body: JSON.stringify({ p_invitacion: inv, p_clave: clave }) });
+        if (!r.ok) throw new Error(r.status);
+        const d = await r.json();
+        if (!d) { aviso('<strong>El link no es correcto.</strong><br />Revisá que esté completo o pedinos uno nuevo.'); return null; }
+        return d;
+      } catch (e) { aviso('<strong>No pudimos cargar el panel.</strong><br />Revisá tu conexión y volvé a intentar. <br /><button class="btn btn-outline" type="button" onclick="location.reload()">Reintentar</button>'); return null; }
+    }
+
+    const fecha = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · ' + d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }); };
+    const nEventos = e => (e || []).map(x => x === 'ceremonia' ? 'ceremonia' : x).join(' y ');
+
+    function pintar(d) {
+      const conf = d.respuestas.filter(r => r.tipo === 'confirmacion'), canc = d.respuestas.filter(r => r.tipo === 'cancion');
+      const van = conf.filter(r => r.datos.asiste), noVan = conf.filter(r => !r.datos.asiste);
+      const personas = van.reduce((a, r) => a + (Number(r.datos.personas) || 1), 0);
+      const chicos = van.reduce((a, r) => a + (Number(r.datos.chicos) || 0), 0);
+      const traslado = van.filter(r => r.datos.traslado === 'si').reduce((a, r) => a + (Number(r.datos.personas) || 1), 0);
+      const comidas = van.filter(r => r.datos.comida).length;
+      raiz.innerHTML = (d.demo ? '<p class="demo">Este es un <strong>ejemplo</strong> con datos inventados: así ven los novios las respuestas de su invitación.</p>' : '')
+        + '<p class="eyebrow">PANEL DE LA INVITACIÓN</p><h1>' + esc(d.nombre) + '</h1><p class="panel-sub">Cada confirmación y cada canción que mandan los invitados aparece acá, además de llegarte por WhatsApp.</p>'
+        + '<div class="totales">'
+        + '<div class="total"><strong>' + personas + '</strong><span>personas confirmadas</span></div>'
+        + '<div class="total"><strong>' + van.length + '</strong><span>respuestas de “voy”</span></div>'
+        + '<div class="total"><strong>' + noVan.length + '</strong><span>no pueden ir</span></div>'
+        + '<div class="total"><strong>' + canc.length + '</strong><span>canciones sugeridas</span></div>'
+        + '</div>'
+        + '<p class="panel-sub">' + [chicos ? chicos + (chicos === 1 ? ' chico' : ' chicos') : '', traslado ? traslado + (traslado === 1 ? ' usa el traslado' : ' usan el traslado') : '', comidas ? comidas + ' con comida especial' : ''].filter(Boolean).join(' · ') + '</p>'
+        + '<div class="panel-acciones"><button class="btn btn-primary" type="button" id="csv">Descargar planilla</button><button class="btn btn-outline" type="button" id="actualizar">Actualizar</button></div>'
+        + '<div class="pestanas" role="tablist"><button role="tab" aria-selected="true" data-p="conf">Confirmaciones (' + conf.length + ')</button><button role="tab" aria-selected="false" data-p="canc">Canciones (' + canc.length + ')</button></div>'
+        + '<div class="filtro"><input type="search" id="buscar" placeholder="Buscar un nombre…" aria-label="Buscar un nombre" /></div>'
+        + '<div id="contenido"></div>';
+      let pestana = 'conf';
+      const listar = () => {
+        const b = document.getElementById('buscar').value.trim().toLowerCase();
+        const lista = (pestana === 'conf' ? conf : canc).filter(r => !b || JSON.stringify(r.datos).toLowerCase().includes(b));
+        const cont = document.getElementById('contenido');
+        if (!lista.length) { cont.innerHTML = '<p class="vacio">' + (b ? 'No hay resultados para esa búsqueda.' : pestana === 'conf' ? 'Todavía no confirmó nadie.' : 'Todavía nadie sugirió canciones.') + '</p>'; return; }
+        cont.innerHTML = '<ul class="lista">' + lista.map(r => {
+          const x = r.datos;
+          if (r.tipo === 'cancion') return '<li class="item"><div class="item-top"><span class="item-nombre">' + esc(x.tema) + '</span><span class="item-fecha">' + fecha(r.creada) + '</span></div><p>Sugerida por ' + esc(x.quien || 'un invitado') + '</p></li>';
+          return '<li class="item"><div class="item-top"><span class="item-nombre">' + esc(x.nombre) + '</span><span class="item-fecha">' + fecha(r.creada) + '</span></div>'
+            + '<span class="chip ' + (x.asiste ? 'si">Va' : 'no">No va') + '</span>'
+            + (x.asiste ? '<span class="chip dato">' + (Number(x.personas) || 1) + (Number(x.personas) === 1 || !x.personas ? ' persona' : ' personas') + '</span>' : '')
+            + (x.asiste && x.eventos && x.eventos.length === 1 ? '<span class="chip dato">Sólo ' + esc(nEventos(x.eventos)) + '</span>' : '')
+            + (x.chicos ? '<span class="chip dato">' + esc(x.chicos) + (Number(x.chicos) === 1 ? ' chico' : ' chicos') + '</span>' : '')
+            + (x.traslado === 'si' ? '<span class="chip dato">Usa el traslado</span>' : '')
+            + (x.quienes && x.quienes.length ? '<p>Van: ' + esc(x.quienes.join(', ')) + '</p>' : '')
+            + (x.invitado ? '<p>Invitación para: ' + esc(x.invitado) + '</p>' : '')
+            + (x.comida ? '<p>Comida: ' + esc(x.comida) + '</p>' : '')
+            + (x.mensaje ? '<p>“' + esc(x.mensaje) + '”</p>' : '') + '</li>';
+        }).join('') + '</ul>';
+      };
+      raiz.querySelectorAll('[role=tab]').forEach(t => t.addEventListener('click', () => { pestana = t.dataset.p; raiz.querySelectorAll('[role=tab]').forEach(x => x.setAttribute('aria-selected', String(x === t))); listar(); }));
+      document.getElementById('buscar').addEventListener('input', listar);
+      document.getElementById('actualizar').addEventListener('click', () => location.reload());
+      document.getElementById('csv').addEventListener('click', () => {
+        // Planilla para Excel o Google Sheets. Lo que empieza con = + - @ se antepone con ' para que no se lea como fórmula
+        const celda = v => { let t = String(v == null ? '' : v); if (/^[=+\-@]/.test(t)) t = "'" + t; return '"' + t.replace(/"/g, '""') + '"'; };
+        const filas = [['Tipo', 'Fecha', 'Nombre', 'Va', 'Personas', 'Quiénes', 'A qué va', 'Chicos', 'Traslado', 'Comida', 'Mensaje', 'Canción', 'Invitación para']];
+        for (const r of d.respuestas) { const x = r.datos;
+          filas.push(r.tipo === 'cancion' ? ['Canción', fecha(r.creada), x.quien, '', '', '', '', '', '', '', '', x.tema, '']
+            : ['Confirmación', fecha(r.creada), x.nombre, x.asiste ? 'Sí' : 'No', x.asiste ? (x.personas || 1) : 0, (x.quienes || []).join(', '), nEventos(x.eventos), x.chicos || '', x.traslado === 'si' ? 'Sí' : x.traslado === 'no' ? 'No' : '', x.comida || '', x.mensaje || '', '', x.invitado || '']); }
+        const blob = new Blob(['﻿' + filas.map(f => f.map(celda).join(';')).join('\r\n')], { type: 'text/csv;charset=utf-8' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'confirmaciones-' + (inv || 'invitacion') + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+      });
+      listar();
+    }
+    cargar().then(d => { if (d) pintar(d); });
+  })();
+  </script>
+</body>
+</html>

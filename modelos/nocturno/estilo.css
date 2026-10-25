@@ -243,3 +243,12 @@ section{padding:76px 20px;text-align:center;position:relative}
 
 /* Celulares angostos: "segundos" entra con aire en su caja */
 @media (max-width:380px){.cuenta-cajas span{font-size:11px;letter-spacing:0}}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'bordo' o 'esmeralda'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Azul noche y dorado|#0b1526|#d4af37;bordo|Bordó y dorado|#2a0e18|#d4af37;esmeralda|Verde esmeralda y dorado|#0a2420|#d4af37";--bw-paleta-nombre:"Azul noche y dorado"}
+:root[data-paleta="bordo"]{--noche:#2a0e18;--negro:#15060b;--gris:#c0aab0;--bw-paleta-nombre:"Bordó y dorado"}
+:root[data-paleta="bordo"] .portada-velo{background:linear-gradient(180deg,rgba(21,6,11,.42) 0%,rgba(21,6,11,.18) 28%,rgba(42,14,24,.6) 56%,rgba(42,14,24,.94) 78%,var(--noche) 100%)}:root[data-paleta="bordo"] .credito{color:#8a6c73}:root[data-paleta="bordo"] .visor::backdrop{background:rgba(21,6,11,.94)}
+:root[data-paleta="esmeralda"]{--noche:#0a2420;--negro:#051310;--gris:#a6bcb5;--bw-paleta-nombre:"Verde esmeralda y dorado"}
+:root[data-paleta="esmeralda"] .portada-velo{background:linear-gradient(180deg,rgba(5,19,16,.42) 0%,rgba(5,19,16,.18) 28%,rgba(10,36,32,.6) 56%,rgba(10,36,32,.94) 78%,var(--noche) 100%)}:root[data-paleta="esmeralda"] .credito{color:#5f7d75}:root[data-paleta="esmeralda"] .visor::backdrop{background:rgba(5,19,16,.94)}
+/* ===== FIN PALETAS ===== */

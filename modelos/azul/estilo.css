@@ -137,7 +137,7 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 /* ================= VESTIMENTA ================= */
 .vestimenta{padding:60px 22px 64px}
 .vestimenta .icono-redondo{color:var(--salvia);border-color:var(--salvia);position:relative;z-index:1}
-.vestimenta .etiqueta{color:var(--salvia)}
+.vestimenta .etiqueta{color:var(--terracota)}
 .vestimenta h2{font-size:clamp(26px,5vw,40px);max-width:640px;margin:0 auto 18px;position:relative;z-index:1}
 .paleta{list-style:none;display:flex;justify-content:center;gap:12px;margin:0 0 20px;padding:0;position:relative;z-index:1}
 .paleta li{width:30px;height:30px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55),0 2px 8px rgba(31,58,82,.15)}
@@ -349,3 +349,12 @@ section{position:relative;padding:72px 18px;max-width:1100px;margin:0 auto;text-
 
 /* Computadora (diseño de compu): el itinerario va en cinco columnas; se devuelve el ancho completo */
 @media (min-width:1000px){.momentos{max-width:none}.momentos li{margin:0}.momentos li::after{display:none}.momentos .icono-redondo{transform:none}}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'dorado' o 'pizarra'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Azul y dorado|#eef4f9|#2e739e;dorado|Dorado|#f8f3ea|#8f6a37;pizarra|Gris pizarra|#f0f2f4|#4f5d6b";--bw-paleta-nombre:"Azul y dorado"}
+:root[data-paleta="dorado"]{--arena:#faf6ef;--terracota:#8f6a37;--terracota-oscura:#74552a;--azul:#8f6a37;--azul-oscuro:#74552a;--salvia:#c9ad80;--salvia-clara:#f8f3ea;--marron:#3f3222;--linea:#ece4d6;--bw-paleta-nombre:"Dorado"}
+@media (min-width:1000px){:root[data-paleta="dorado"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+:root[data-paleta="pizarra"]{--arena:#f4f5f6;--terracota:#4f5d6b;--terracota-oscura:#3d4955;--azul:#4f5d6b;--azul-oscuro:#3d4955;--salvia:#98a5b2;--salvia-clara:#f0f2f4;--marron:#262c33;--linea:#e1e4e8;--bw-paleta-nombre:"Gris pizarra"}
+@media (min-width:1000px){:root[data-paleta="pizarra"] .portada{background:radial-gradient(ellipse 60% 70% at 32% 45%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),radial-gradient(ellipse 50% 60% at 100% 0%,var(--salvia-clara) 0%,rgba(255,255,255,0) 70%),var(--arena)}}
+/* ===== FIN PALETAS ===== */

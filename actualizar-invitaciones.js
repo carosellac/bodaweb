@@ -75,7 +75,7 @@ function armarIcs(D, html) {
   return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Boda Web//Invitacion//ES', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
     'UID:' + utc(fecha) + '-' + crypto.createHash('md5').update(String(D.nombre1) + String(D.nombre2)).digest('hex').slice(0, 12) + '@bodaweb',
     'DTSTAMP:' + utc(new Date()), 'DTSTART:' + utc(fecha), 'DTEND:' + utc(fin),
-    'SUMMARY:' + e('Casamiento de ' + D.nombre1 + ' y ' + D.nombre2),
+    'SUMMARY:' + e(D.evento === 'quince' ? 'Los 15 de ' + D.nombre1 : 'Casamiento de ' + D.nombre1 + ' y ' + D.nombre2),
     'DESCRIPTION:' + e(vacio(D.frase) ? '' : D.frase),
     'LOCATION:' + e([lugar.nombre, lugar.direccion].filter(Boolean).join(', ')),
     'END:VEVENT', 'END:VCALENDAR'].map(plegar).join('\r\n') + '\r\n';
@@ -84,7 +84,8 @@ function armarIcs(D, html) {
 async function actualizar(c) {
   const dir = path.join(RAIZ, c);
   const D = leerDatos(path.join(dir, 'datos.js'));
-  if (vacio(D.nombre1) || vacio(D.nombre2)) { console.log('  ⚠ ' + c + ': faltan los nombres en datos.js; no se tocó nada.'); return 1; }
+  const quince = D.evento === 'quince';   // 15 años: un solo nombre
+  if (vacio(D.nombre1) || (vacio(D.nombre2) && !quince)) { console.log('  ⚠ ' + c + ': ' + (quince ? 'falta el nombre' : 'faltan los nombres') + ' en datos.js; no se tocó nada.'); return 1; }
   let html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
   const antes = html;
   let avisos = 0;
@@ -92,8 +93,8 @@ async function actualizar(c) {
 
   // Título: "Nombre & Nombre · <lo que el modelo tenía después del punto>"; si eso era una fecha, la de esta pareja
   const tituloActual = (/<title>([^<]*)<\/title>/.exec(html) || [])[1] || '';
-  const sufijo = tituloActual.includes(' · ') ? tituloActual.split(' · ').slice(1).join(' · ').replace(/&amp;/g, '&') : 'Nos casamos';
-  const titulo = D.nombre1 + ' & ' + D.nombre2 + ' · ' + (/\d/.test(sufijo) ? (D.fechaTexto || 'Nos casamos') : sufijo);
+  const sufijo = tituloActual.includes(' · ') ? tituloActual.split(' · ').slice(1).join(' · ').replace(/&amp;/g, '&') : (quince ? 'Mis 15' : 'Nos casamos');
+  const titulo = (quince ? D.nombre1 : D.nombre1 + ' & ' + D.nombre2) + ' · ' + (/\d{4}/.test(sufijo) ? (D.fechaTexto || (quince ? 'Mis 15' : 'Nos casamos')) : sufijo);
   html = html.replace(/<title>[^<]*<\/title>/, () => '<title>' + esc(titulo) + '</title>');
   html = reemplazarMeta(html, 'og:title', titulo);
 
@@ -136,7 +137,7 @@ async function actualizar(c) {
     if (!muestra) avisar('el "modelo" de datos.js ("' + D.modelo + '") no coincide con ningún modelo: no se puede comparar con el ejemplo.');
     else {
       const M = muestra.D, R = D.regalo || {}, RM = M.regalo || {};
-      if (D.nombre1 === M.nombre1 && D.nombre2 === M.nombre2) avisar('los nombres de datos.js son los del ejemplo (' + M.nombre1 + ' y ' + M.nombre2 + ').');
+      if (D.nombre1 === M.nombre1 && (D.nombre2 || '') === (M.nombre2 || '')) avisar(quince ? 'el nombre de datos.js es el del ejemplo (' + M.nombre1 + ').' : 'los nombres de datos.js son los del ejemplo (' + M.nombre1 + ' y ' + M.nombre2 + ').');
       if (D.fecha === M.fecha) avisar('la fecha de datos.js es la del ejemplo.');
       if (!vacio(R.alias) && R.alias === RM.alias) avisar('el ALIAS para regalos es el del ejemplo (' + RM.alias + '): los invitados transferirían a un alias inventado.');
       if (!vacio(R.titular) && R.titular === RM.titular) avisar('el titular de los regalos es el del ejemplo (' + RM.titular + ').');
@@ -144,7 +145,7 @@ async function actualizar(c) {
       if (portada && huella(portada) === muestra.portada) avisar('la foto de portada es la de muestra.');
       const texto = html.replace(/<!--[\s\S]*?-->/g, '').replace(/<script[\s\S]*?<\/script>/g, '').replace(/<head[\s\S]*?<\/head>/, '');
       for (const n of [M.nombre1, M.nombre2]) {
-        if (n && n !== D.nombre1 && n !== D.nombre2 && nombra(texto, n)) avisar('la página todavía nombra a "' + n + '" (pareja de ejemplo). Revisá la historia y el itinerario en index.html.');
+        if (n && n !== D.nombre1 && n !== D.nombre2 && nombra(texto, n)) avisar('la página todavía nombra a "' + n + '" (' + (quince ? 'la quinceañera' : 'pareja') + ' de ejemplo). Revisá la historia y el itinerario en index.html.');
       }
     }
     if (!String(D.whatsapp || '').replace(/\D/g, '')) avisar('falta el WhatsApp en datos.js: las confirmaciones no le van a llegar a nadie.');

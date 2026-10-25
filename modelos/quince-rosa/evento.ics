@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20270918T223000Z-53e5db093f8e@bodaweb
+DTSTAMP:20261025T015343Z
+DTSTART:20270918T223000Z
+DTEND:20270919T043000Z
+SUMMARY:Los 15 de Martina
+DESCRIPTION:Quince años\, mi familia y mis amigos de siempre en una sola n
+ oche. No sería lo mismo sin vos.
+LOCATION:Parroquia Nuestra Señora del Carmen\, Rosales 1550\, Adrogué
+END:VEVENT
+END:VCALENDAR

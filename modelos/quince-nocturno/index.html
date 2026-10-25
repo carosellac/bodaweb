@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070b14" />
+  <!-- En la computadora la invitación se muestra dentro de un celular (comun.js arma el marco). Con ?vista=compu se ve el diseño de computadora. -->
+  <script>(function(){var d=document.documentElement;d.classList.add('js');var pa=/[?&]paleta=([a-z0-9-]{1,20})(&|$)/.exec(location.search);if(pa&&/\/modelos\/[^/]+\/?$/.test(location.pathname))d.setAttribute('data-paleta',pa[1]);try{if(window.self!==window.top){d.classList.add('bw-en-marco')}else if(window.matchMedia&&matchMedia('(min-width:900px) and (hover:hover)').matches&&!/[?&]vista=compu(&|$)/.test(location.search)){d.classList.add('bw-escritorio')}}catch(e){}})()</script>
+  <style>html.bw-escritorio body>*:not(.bw-marco){display:none!important}html.bw-escritorio,html.bw-escritorio body{overflow:hidden;height:100%}html.bw-en-marco{scrollbar-width:none}html.bw-en-marco::-webkit-scrollbar{display:none}</style>
+  <title>Valentina · Mis 15</title>
+  <meta name="description" content="Invitación a mis 15: fecha, lugar, itinerario y confirmación de asistencia." />
+  <meta name="robots" content="noindex" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Valentina · Mis 15" />
+  <meta property="og:description" content="Te invito a festejar mis 15. Toda la información y la confirmación de asistencia, acá." />
+  <!-- Título y vista previa al compartir por WhatsApp: los completa solo "node actualizar-invitaciones.js" a partir de datos.js (no hace falta tocarlos a mano). -->
+  <meta property="og:url" content="https://bodaweb-rose.vercel.app/modelos/quince-nocturno/" />
+  <meta property="og:image" content="https://bodaweb-rose.vercel.app/modelos/quince-nocturno/fotos/compartir.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-anillos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="9" cy="14" r="6"/><circle cx="15" cy="14" r="6"/><path d="m12 4 2-2h-4z"/></symbol>
+    <symbol id="i-copas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M7 3h4l-1 8a3 3 0 0 1-6 0zM13 3h4l1 8a3 3 0 0 1-6 0zM7 14v6M17 14v6M5 20h4M15 20h4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-calendario" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-regalo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M3 12h18M12 8v13M12 8c-2-4-7-4-6-1s6 1 6 1zm0 0c2-4 7-4 6-1s-6 1-6 1z"/></symbol>
+    <symbol id="i-musica" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></symbol>
+    <symbol id="i-cerrar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-izq" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-der" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-abajo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m6 10 6 6 6-6"/></symbol>
+    <!-- Adornos art déco -->
+    <symbol id="esquina" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1"><path d="M.5 40V.5H40"/><path d="M7.5 30V7.5H30"/><path d="M7.5 1.5 13.5 7.5 7.5 13.5 1.5 7.5z" fill="currentColor" stroke="none"/><path d="M30 5.5 32 7.5 30 9.5 28 7.5zM5.5 30 7.5 32 9.5 30 7.5 28z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="separador" viewBox="0 0 260 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 8h104M156 8h104"/><path d="M130 1 137 8 130 15 123 8z" fill="currentColor" stroke="none"/><path d="M112 5.5 114.5 8 112 10.5 109.5 8zM148 5.5 150.5 8 148 10.5 145.5 8z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="destello" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.5 7.2 4.8 11.5 12 12-7.2.5-11.5 4.8-12 12-.5-7.2-4.8-11.5-12-12 7.2-.5 11.5-4.8 12-12z"/></symbol>
+    <symbol id="rombo" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 16 8 8 16 0 8z"/></symbol>
+  </svg>
+
+  <!-- ================= PORTADA ================= -->
+  <header class="portada" id="inicio">
+    <img class="portada-foto" src="fotos/portada.webp" alt="" fetchpriority="high" />
+    <div class="portada-velo"></div>
+    <div class="destellos" aria-hidden="true">
+      <svg class="d1"><use href="#destello"/></svg>
+      <svg class="d2"><use href="#destello"/></svg>
+      <svg class="d3"><use href="#destello"/></svg>
+      <svg class="d4"><use href="#destello"/></svg>
+      <svg class="d5"><use href="#destello"/></svg>
+      <svg class="d6"><use href="#destello"/></svg>
+      <svg class="d7"><use href="#destello"/></svg>
+      <svg class="d8"><use href="#destello"/></svg>
+      <svg class="d9"><use href="#destello"/></svg>
+    </div>
+    <div class="portada-contenido">
+      <span class="monograma" data-dato="iniciales">XV</span>
+      <p class="antetitulo">Mis 15</p>
+      <h1><span class="script oro-texto" data-dato="nombre1">Valentina</span></h1>
+      <span class="filete" aria-hidden="true"></span>
+      <p class="portada-fecha" data-dato="fechaTexto">Sábado 21 de agosto de 2027</p>
+      <p class="portada-lugar" data-dato="lugarCorto">Mendoza</p>
+      <div class="botones">
+        <a class="boton" href="#confirmar">Confirmar asistencia</a>
+        <a class="boton boton-linea" data-calendario href="#"><svg><use href="#i-calendario"/></svg>Agregar al calendario</a>
+      </div>
+    </div>
+    <a class="bajar" href="#cuenta" aria-label="Seguir leyendo"><svg><use href="#i-abajo"/></svg></a>
+  </header>
+
+  <main>
+    <!-- ================= CUENTA REGRESIVA ================= -->
+    <section class="cuenta fondo-b" id="cuenta" data-cuenta-regresiva data-reveal>
+      <div class="contenido">
+        <p class="antetitulo">Faltan</p>
+        <div class="cuenta-cajas">
+          <div><strong data-cuenta="dias">—</strong><span>días</span></div>
+          <div><strong data-cuenta="horas">—</strong><span>horas</span></div>
+          <div><strong data-cuenta="minutos">—</strong><span>minutos</span></div>
+          <div><strong data-cuenta="segundos">—</strong><span>segundos</span></div>
+        </div>
+        <p class="cuenta-llego">¡Llegó el día!</p>
+      </div>
+    </section>
+
+    <!-- ================= INVITACIÓN ================= -->
+    <section class="frase" data-reveal>
+      <div class="contenido">
+        <svg class="separador" aria-hidden="true"><use href="#separador"/></svg>
+        <p data-dato="frase">Una noche para brindar por mis 15 con la familia y los amigos de siempre. Te espero.</p>
+        <svg class="separador" aria-hidden="true"><use href="#separador"/></svg>
+      </div>
+    </section>
+
+    <!-- ================= HISTORIA ================= -->
+    <section class="historia fondo-b" id="historia" data-reveal>
+      <div class="contenido historia-grilla">
+        <div class="historia-fotos">
+          <figure class="cuadro cuadro-alto"><img src="fotos/historia-1.webp" alt="Valentina en la puerta de la iglesia" loading="lazy" /></figure>
+          <figure class="cuadro cuadro-chico"><img src="fotos/historia-2.webp" alt="Detalle del vestido y el ramo" loading="lazy" /></figure>
+        </div>
+        <div class="historia-texto">
+          <p class="antetitulo">Mis 15</p>
+          <h2>Una noche para recordar siempre</h2>
+          <!-- Texto de ejemplo: cambialo por lo que quiera contar la quinceañera -->
+          <p>Siempre me gustaron las noches: las luces, la música y esa sensación de que todo puede pasar. Por eso elegí festejar mis 15 así, de noche y con todo el brillo.</p>
+          <p>Va a haber vals, sorpresas, mesa dulce y mucha pista. Lo único que falta es que estés vos.</p>
+          <p>Te espero para brindar, bailar y empezar juntos esta nueva etapa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CEREMONIA Y FIESTA ================= -->
+    <section class="evento" id="evento" data-reveal>
+      <div class="contenido">
+        <p class="antetitulo">El gran día</p>
+        <h2>Misa y fiesta</h2>
+        <div class="evento-tarjetas">
+          <article class="tarjeta">
+            <span class="esquinas" aria-hidden="true"><svg><use href="#esquina"/></svg><svg><use href="#esquina"/></svg><svg><use href="#esquina"/></svg><svg><use href="#esquina"/></svg></span>
+            <span class="tarjeta-icono"><svg><use href="#i-corazon"/></svg></span>
+            <h3>Misa</h3>
+            <p class="tarjeta-hora"><span data-dato="ceremonia.hora">20:00</span> hs</p>
+            <p class="tarjeta-lugar" data-dato="ceremonia.nombre">Basílica de San Francisco</p>
+            <p class="tarjeta-direccion" data-dato="ceremonia.direccion">Necochea 201, Mendoza</p>
+            <a class="boton boton-linea" data-mapa="ceremonia" href="#"><svg><use href="#i-pin"/></svg>Cómo llegar</a>
+          </article>
+          <article class="tarjeta">
+            <span class="esquinas" aria-hidden="true"><svg><use href="#esquina"/></svg><svg><use href="#esquina"/></svg><svg><use href="#esquina"/></svg><svg><use href="#esquina"/></svg></span>
+            <span class="tarjeta-icono"><svg><use href="#i-copas"/></svg></span>
+            <h3>Fiesta</h3>
+            <p class="tarjeta-hora"><span data-dato="fiesta.hora">21:30</span> hs</p>
+            <p class="tarjeta-lugar" data-dato="fiesta.nombre">Salón Los Olivos</p>
+            <p class="tarjeta-direccion" data-dato="fiesta.direccion">Av. Boulogne Sur Mer 1500, Mendoza</p>
+            <a class="boton boton-linea" data-mapa="fiesta" href="#"><svg><use href="#i-pin"/></svg>Cómo llegar</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ITINERARIO ================= -->
+    <section class="itinerario fondo-b" id="itinerario" data-reveal>
+      <div class="contenido">
+        <p class="antetitulo">Itinerario</p>
+        <h2>Así va a ser la noche</h2>
+        <!-- Texto de ejemplo: cambiá horas y textos a gusto; podés agregar o sacar renglones -->
+        <ol class="linea-tiempo">
+          <li><time>20:00</time><div><h3>Misa</h3><p>En la Basílica de San Francisco, con mi familia.</p></div></li>
+          <li><time>21:30</time><div><h3>Recepción</h3><p>Copa de bienvenida en el salón.</p></div></li>
+          <li><time>22:30</time><div><h3>Entrada y vals</h3><p>Mi entrada y el vals, a la luz de las velas.</p></div></li>
+          <li><time>23:00</time><div><h3>Cena</h3><p>Menú de tres pasos. Avisame si tenés alguna restricción.</p></div></li>
+          <li><time>00:30</time><div><h3>Velas y baile</h3><p>Las quince velas, la torta y pista hasta el final.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= VESTIMENTA ================= -->
+    <section class="vestimenta" data-reveal>
+      <div class="contenido">
+        <p class="antetitulo">Código de vestimenta</p>
+        <svg class="separador" aria-hidden="true"><use href="#separador"/></svg>
+        <h2 data-dato="codigoVestimenta">Elegante · De noche</h2>
+        <!-- Texto de ejemplo: cambialo por lo que quiera aclarar la quinceañera -->
+        <p>Traje o saco oscuro para ellos, vestido de fiesta o de cocktail para ellas. Los dorados y los tonos de noche son bienvenidos; traé zapatos cómodos para la pista.</p>
+        <svg class="separador" aria-hidden="true"><use href="#separador"/></svg>
+      </div>
+    </section>
+
+    <!-- ================= GALERÍA ================= -->
+    <section class="galeria fondo-b" id="galeria" data-reveal>
+      <div class="contenido">
+        <p class="antetitulo">Momentos</p>
+        <h2>Algunas fotos de la noche</h2>
+        <div class="galeria-grilla" data-galeria>
+          <figure class="cuadro"><img src="fotos/galeria-1.webp" alt="Foto 1" loading="lazy" /></figure>
+          <figure class="cuadro"><img src="fotos/galeria-2.webp" alt="Foto 2" loading="lazy" /></figure>
+          <figure class="cuadro"><img src="fotos/galeria-3.webp" alt="Foto 3" loading="lazy" /></figure>
+          <figure class="cuadro"><img src="fotos/galeria-4.webp" alt="Foto 4" loading="lazy" /></figure>
+          <figure class="cuadro"><img src="fotos/galeria-5.webp" alt="Foto 5" loading="lazy" /></figure>
+          <figure class="cuadro"><img src="fotos/galeria-6.webp" alt="Foto 6" loading="lazy" /></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= REGALOS ================= -->
+    <section class="regalos" id="regalos" data-reveal>
+      <div class="contenido">
+        <div class="tarjeta tarjeta-regalos">
+          <span class="esquinas" aria-hidden="true"><svg><use href="#esquina"/></svg><svg><use href="#esquina"/></svg><svg><use href="#esquina"/></svg><svg><use href="#esquina"/></svg></span>
+          <span class="tarjeta-icono"><svg><use href="#i-regalo"/></svg></span>
+          <p class="antetitulo">Regalos</p>
+          <h2>Lo más importante es que vengas</h2>
+          <p class="regalos-texto" data-dato="regalo.texto">Compartir esta noche con vos es mi mayor regalo. Si querés hacerme un presente, te dejo los datos.</p>
+          <div class="datos-regalo">
+            <p data-si="regalo.alias"><span>Alias</span><strong data-dato="regalo.alias">VALEN.MIS15</strong><button type="button" class="boton boton-linea boton-chico" data-copiar="regalo.alias">Copiar</button></p>
+            <p data-si="regalo.cbu"><span>CBU</span><strong data-dato="regalo.cbu"></strong><button type="button" class="boton boton-linea boton-chico" data-copiar="regalo.cbu">Copiar</button></p>
+            <p data-si="regalo.titular"><span>Titular</span><strong data-dato="regalo.titular">Valentina Correa</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONFIRMACIÓN ================= -->
+    <section class="confirmar fondo-b" id="confirmar" data-reveal>
+      <div class="contenido">
+        <p class="antetitulo">Confirmación de asistencia</p>
+        <h2>¿Contamos con vos?</h2>
+        <p class="confirmar-plazo">Por favor confirmá antes del <strong data-dato="confirmarHasta">21 de julio de 2027</strong>.</p>
+        <form id="confirmacion" novalidate>
+          <label>Nombre y apellido<input name="nombre" required maxlength="80" autocomplete="name" placeholder="Tu nombre" /></label>
+          <fieldset>
+            <legend>¿Vas a venir?</legend>
+            <label class="opcion"><input type="radio" name="asistencia" value="si" /><span>¡Sí, ahí voy a estar!</span></label>
+            <label class="opcion"><input type="radio" name="asistencia" value="no" /><span>No voy a poder ir</span></label>
+          </fieldset>
+          <div class="dos-columnas">
+            <label>¿Cuántos vienen?<input name="personas" type="number" min="1" max="12" inputmode="numeric" placeholder="1" /></label>
+            <label>Comida especial o alergias<input name="comida" maxlength="120" placeholder="Vegetariano, celíaco…" /></label>
+          </div>
+          <label>Un mensaje para Valentina<textarea name="mensaje" rows="3" maxlength="300" placeholder="Opcional"></textarea></label>
+          <p class="error" data-error role="alert" hidden></p>
+          <button type="submit" class="boton" data-boton-confirmar>Confirmar por WhatsApp</button>
+          <div class="listo" data-listo hidden>
+            <p data-resultado></p>
+            <textarea data-resumen readonly rows="5" aria-label="Texto de tu confirmación"></textarea>
+            <button type="button" class="boton boton-linea" data-copiar-resumen>Copiar el texto</button>
+            <span data-copiado aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <svg class="separador" aria-hidden="true"><use href="#separador"/></svg>
+    <p class="pie-nombres"><span class="script oro-texto" data-dato="nombre1">Valentina</span></p>
+    <p class="pie-hashtag" data-dato="hashtag">#Los15DeValen</p>
+    <p class="pie-gracias">Gracias por acompañarme en esta noche tan especial.</p>
+    <p class="credito" data-credito>Invitación hecha con <a href="../../">Boda Web</a></p>
+  </footer>
+
+  <!-- Galería ampliada -->
+  <dialog class="visor" id="visor" aria-label="Foto ampliada">
+    <button type="button" class="visor-boton visor-cerrar" data-visor-cerrar aria-label="Cerrar"><svg><use href="#i-cerrar"/></svg></button>
+    <button type="button" class="visor-boton visor-izq" data-visor-anterior aria-label="Anterior"><svg><use href="#i-izq"/></svg></button>
+    <img alt="" />
+    <button type="button" class="visor-boton visor-der" data-visor-siguiente aria-label="Siguiente"><svg><use href="#i-der"/></svg></button>
+  </dialog>
+
+  <!-- Música de fondo: el botón aparece sólo si en datos.js se completa "musica" con el nombre del archivo -->
+  <audio id="musica" loop preload="none"></audio>
+  <button type="button" class="musica" data-musica hidden aria-label="Reproducir música"><svg><use href="#i-musica"/></svg></button>
+
+  <script src="datos.js"></script>
+  <script src="comun.js"></script>
+</body>
+</html>

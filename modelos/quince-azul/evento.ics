@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Web//Invitacion//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20271113T230000Z-e2e5b404b089@bodaweb
+DTSTAMP:20261025T015343Z
+DTSTART:20271113T230000Z
+DTEND:20271114T043000Z
+SUMMARY:Los 15 de Catalina
+DESCRIPTION:Entre sierras\, flores y la gente que más quiero. Me haría mu
+ y feliz que estés.
+LOCATION:Parroquia Nuestra Señora del Rosario\, Av. Río de Janeiro 1200\,
+  Villa Allende
+END:VEVENT
+END:VCALENDAR

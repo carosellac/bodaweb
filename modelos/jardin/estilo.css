@@ -265,3 +265,12 @@ section{position:relative;padding:64px 20px;max-width:1040px;margin:0 auto;text-
 }
 
 .cuenta.llego .antetitulo,.cuenta.llego h2{display:none}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'lila' o 'verde'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Rosa pastel|#fbe6e3|#b45a53;lila|Lila|#efe8f6|#7f5ea8;verde|Verde|#e6efe4|#4f7a55";--bw-paleta-nombre:"Rosa pastel"}
+:root[data-paleta="lila"]{--fondo:#fbf8fd;--rosa-boton:#7f5ea8;--rosa-boton-hover:#6a4c91;--rosa-tinta:#8565ad;--rosa-claro:#efe8f6;--linea:#e9def3;--sombra:0 18px 44px rgba(183,157,209,.28);--sombra-chica:0 8px 22px rgba(183,157,209,.26);--bw-paleta-nombre:"Lila"}
+:root[data-paleta="lila"] .boton{box-shadow:0 10px 24px rgba(183,157,209,.4)}:root[data-paleta="lila"] .portada-marco{border-color:rgba(183,157,209,.42)}
+:root[data-paleta="verde"]{--fondo:#f8fbf7;--rosa-boton:#4f7a55;--rosa-boton-hover:#42684a;--rosa-tinta:#5a8160;--rosa-claro:#e6efe4;--linea:#dce9d8;--sombra:0 18px 44px rgba(122,161,122,.24);--sombra-chica:0 8px 22px rgba(122,161,122,.22);--bw-paleta-nombre:"Verde"}
+:root[data-paleta="verde"] .boton{box-shadow:0 10px 24px rgba(122,161,122,.36)}:root[data-paleta="verde"] .portada-marco{border-color:rgba(122,161,122,.42)}
+/* ===== FIN PALETAS ===== */

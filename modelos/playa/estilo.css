@@ -227,3 +227,11 @@ a{color:inherit}
 }
 
 .cuenta.llego .antetitulo{display:none}
+
+/* ===== PALETAS: el mismo diseño en otros colores (en datos.js: paleta: 'turquesa' o 'atardecer'). 
+Cambian los acentos; los dibujos quedan como están. La lista la leen comun.js y la portada. ===== */
+:root{--bw-paletas:"original|Mar y coral|#eaf6f8|#ff7f66;turquesa|Turquesa|#e3f6f6|#0e7f86;atardecer|Atardecer|#fdf1ea|#5b2d4f";--bw-paleta-nombre:"Mar y coral"}
+:root[data-paleta="turquesa"]{--coral:#2bb5b8;--coral-fuerte:#0e7f86;--coral-fuerte-oscuro:#0b6a70;--coral-oscuro:#1f9ea2;--sombra-coral:0 10px 26px rgba(43,181,184,.4);--bw-paleta-nombre:"Turquesa"}
+:root[data-paleta="atardecer"]{--cielo:#fdf1ea;--agua:#d9785b;--teal:#5b2d4f;--texto:#4a2a40;--suave:#806275;--linea:#f1dcd2;--arena:#f8e6d6;--sombra:0 14px 36px rgba(91,45,79,.14);--bw-paleta-nombre:"Atardecer"}
+:root[data-paleta="atardecer"] .portada-velo{background:linear-gradient(180deg,rgba(91,45,79,.18),rgba(91,45,79,.28) 50%,rgba(91,45,79,.8))}:root[data-paleta="atardecer"] .portada-lugar{text-shadow:0 2px 10px rgba(91,45,79,.6)}:root[data-paleta="atardecer"] .portada h1{text-shadow:0 3px 6px rgba(91,45,79,.35),0 14px 44px rgba(91,45,79,.6)}:root[data-paleta="atardecer"] .visor::backdrop{background:rgba(40,18,34,.92)}:root[data-paleta="atardecer"] #confirmacion input,:root[data-paleta="atardecer"] #confirmacion textarea{background:rgba(91,45,79,.05)}
+/* ===== FIN PALETAS ===== */

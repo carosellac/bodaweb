@@ -57,6 +57,21 @@ const DATOS = {
   // Información útil (opcional): si se completa alguno, aparece una sección con esos datos. Vacíos = no aparece.
   ninos: '',          // ej. '¡Los chicos son bienvenidos!' o 'Es una fiesta para adultos'
   alojamiento: '',    // dónde dormir, si la boda es lejos
+  traslado: 'Hay un traslado desde la plaza de Villa General Belgrano a la estancia a las 19:30, con vuelta a las 4:00.',       // combi o transporte. Si se completa, la confirmación pregunta quién lo usa
+  menu: '',           // qué se va a comer
+  notas: '',          // cualquier otra cosa para tener en cuenta
+
+  // Confirmación de asistencia (opcional)
+  confirmarPorEvento: true,   // true = cada invitado marca si va a la ceremonia, a la fiesta o a las dos
+  preguntarChicos: false,      // true = pregunta cuántos chicos vienen
+  sugerirCanciones: true,     // false = no aparece "¿Qué canción no puede faltar?"
+  compartirFotos: true,       // false = no aparece "Compartí tus fotos" con el hashtag
+
+  // Colores: '' = los del diseño. Las otras paletas de este diseño están al final de su estilo.css
+  paleta: '',
+
+  // Panel de los novios (opcional): ver cada confirmación y cada canción en /panel/. Lo activa Boda Web.
+  panel: { invitacion: '' },
 
   // Cuántas personas se pueden anotar como máximo en la confirmación (si no se usa ?lugares= en el link)
   maxPersonas: 10,
