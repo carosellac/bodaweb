@@ -504,3 +504,22 @@ main:focus{outline:none}
   .tel-der{right:6%}
   .hero2-aviso{left:3%;bottom:9%}
 }
+/* Catálogo en el celular: de a dos, con la tarjeta compacta (el último, si queda solo, va centrado) */
+@media(max-width:550px){
+  .design-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .design-grid>.design-card:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 6px)}
+  .design-card{padding:6px 6px 0;border-radius:14px;display:flex;flex-direction:column}
+  .design-card-body{flex:1;display:flex;flex-direction:column}
+  .design-card-actions{margin-top:auto!important;padding-top:10px}
+  .design-image{border-radius:10px}
+  .design-card-body{padding:4px 4px 12px}
+  .design-card-title{font-size:19px;margin-top:6px}
+  .design-card-text{font-size:14px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .design-card-actions{flex-direction:column;align-items:stretch;gap:6px;margin-top:10px}
+  .design-card-actions .design-card-link{justify-content:center;min-height:40px;font-size:13px}
+  .design-card-choose{width:100%;min-height:44px;padding:10px 8px}
+}
+/* Tarjetas del catálogo: los botones siempre al pie, alineados con los de la tarjeta de al lado */
+.design-card{display:flex;flex-direction:column}
+.design-card-body{flex:1;display:flex;flex-direction:column}
+.design-card-actions{margin-top:auto;padding-top:14px}
