@@ -37,11 +37,25 @@
     const n1 = limpio(parametros.get('nombre1')), n2 = limpio(parametros.get('nombre2'));
     if (!n1 || (!n2 && !esQuince)) return null;
     const f = String(parametros.get('fecha') || '');
-    const valida = /^\d{4}-\d{2}-\d{2}$/.test(f) && !isNaN(new Date(f + 'T12:00:00Z').getTime());
+    // Tiene que existir de verdad: "2027-02-31" el navegador lo corre al 3 de marzo sin avisar
+    const valida = /^\d{4}-\d{2}-\d{2}$/.test(f) && (() => { const d = new Date(f + 'T12:00:00Z'); return !isNaN(d.getTime()) && d.toISOString().slice(0, 10) === f; })();
     return { n1, n2, fecha: valida ? f : '', viejo1: String(D.nombre1 || ''), viejo2: String(D.nombre2 || '') };
   })();
+  /* Cambia los nombres del ejemplo por los de la prueba en UNA sola pasada: con dos pasadas, probar
+     "Benjamín y Paula" en la muestra "Paula y Benjamín" dejaba los dos nombres iguales. */
+  const reemplazarNombres = (() => {
+    if (!prueba) return t => t;
+    const pares = [[prueba.viejo1, prueba.n1], [prueba.viejo2, prueba.n2]].filter(([v, n]) => v && n && v !== n);
+    if (!pares.length) return t => t;
+    const mapa = new Map(pares);
+    const escRe = v => v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    try {
+      const re = new RegExp('(^|[^\\p{L}\\p{N}])(' + pares.map(([v]) => escRe(v)).join('|') + ')(?![\\p{L}\\p{N}])', 'gu');
+      return t => t.replace(re, (m, antes, viejo) => antes + mapa.get(viejo));
+    } catch (_) { return t => t; }  // navegador viejo sin \p{L}: quedan los nombres del ejemplo en los textos sueltos
+  })();
   if (prueba) {
-    const { n1, n2, viejo1, viejo2 } = prueba;
+    const { n1, n2 } = prueba;
     const pegado = t => mayus(sinTildes(t).replace(/[^A-Za-z0-9]/g, ''));
     D.nombre1 = n1; if (!esQuince) D.nombre2 = n2;
     const ini = /^(\S)([\s\S]*?)(\S)$/u.exec(String(D.iniciales || ''));
@@ -49,7 +63,7 @@
     if (!vacio(D.hashtag)) D.hashtag = esQuince ? '#Los15De' + pegado(n1) : '#' + [n1, n2].map(pegado).join('Y');
     if (D.regalo) {
       if (!vacio(D.regalo.alias)) D.regalo.alias = esQuince ? sinTildes(n1).toUpperCase().replace(/[^A-Z0-9]/g, '') + '.MIS15' : [n1, n2].map(t => sinTildes(t).toUpperCase().replace(/[^A-Z0-9]/g, '')).join('.') + '.BODA';
-      if (!vacio(D.regalo.titular)) D.regalo.titular = String(D.regalo.titular).replace(viejo1, n1).replace(viejo2, n2);
+      if (!vacio(D.regalo.titular)) D.regalo.titular = reemplazarNombres(String(D.regalo.titular));
     }
     if (prueba.fecha && /T\d/.test(String(D.fecha))) {
       D.fecha = prueba.fecha + String(D.fecha).slice(10);
@@ -71,16 +85,17 @@
 
   /* ---------- Colores: cada diseño puede venir en otras paletas ----------
      En datos.js "paleta" (o ?paleta= en las muestras) elige una de las que define su estilo.css. */
-  const paleta = String((esMuestra && parametros.get('paleta')) || D.paleta || '').replace(/[^a-z0-9-]/g, '').slice(0, 20);
-  if (paleta) document.documentElement.dataset.paleta = paleta;
-  const nombrePaleta = () => { const v = getComputedStyle(document.documentElement).getPropertyValue('--bw-paleta-nombre').trim().replace(/^["']|["']$/g, ''); return paleta && v ? v : ''; };
+  const paletaPedida = String((esMuestra && parametros.get('paleta')) || D.paleta || '').replace(/[^a-z0-9-]/g, '').slice(0, 20);
   // Las paletas de este diseño (las declara su estilo.css en --bw-paletas: "slug|Nombre|fondo|acento;…")
   const paletas = (() => {
     const v = getComputedStyle(document.documentElement).getPropertyValue('--bw-paletas').trim().replace(/^["']|["']$/g, '');
     return v ? v.split(';').map(x => { const [slug, nombre, c1, c2] = x.split('|').map(t => (t || '').trim()); return { slug, nombre, c1, c2 }; })
       .filter(x => /^[a-z0-9-]+$/.test(x.slug) && x.nombre && /^#[0-9a-f]{3,8}$/i.test(x.c1) && /^#[0-9a-f]{3,8}$/i.test(x.c2)) : [];
   })();
-  const paletaActual = paletas.some(x => x.slug === paleta) ? paleta : 'original';
+  const paletaActual = paletas.some(x => x.slug === paletaPedida && x.slug !== 'original') ? paletaPedida : 'original';
+  const paleta = paletaActual === 'original' ? '' : paletaActual;
+  if (paleta) document.documentElement.dataset.paleta = paleta; else document.documentElement.removeAttribute('data-paleta');
+  const nombrePaleta = () => paleta ? (paletas.find(x => x.slug === paleta) || {}).nombre || '' : '';
   const urlConPaleta = slug => {
     const q = new URLSearchParams(location.search);
     if (slug === 'original') q.delete('paleta'); else q.set('paleta', slug);
@@ -144,13 +159,12 @@
   if (!vacio(D.nombre1) && (!vacio(D.nombre2) || esQuince)) {
     document.title = (esQuince ? (D.nombre1 + ' · Mis 15') : (D.nombre1 + ' & ' + D.nombre2)) + (vacio(D.fechaTexto) ? '' : ' · ' + D.fechaTexto);
   }
-  /* En la prueba con sus nombres, los nombres de la pareja de ejemplo escritos a mano en la página también cambian */
+  /* En la prueba con sus nombres, los nombres de la pareja de ejemplo escritos a mano en la página también cambian
+     (lo que ya escribió data-dato no se toca: ya tiene los nombres nuevos) */
   if (prueba) {
     try {
-      const cambios = [[prueba.viejo1, prueba.n1], [prueba.viejo2, prueba.n2]].filter(([v, n]) => v && n && v !== n)
-        .map(([v, n]) => [new RegExp('(^|[^\\p{L}\\p{N}])' + v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\p{L}\\p{N}])', 'gu'), n]);
-      const cambiar = t => cambios.reduce((acc, [re, n]) => acc.replace(re, (m, antes) => antes + n), t);
-      const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement && n.parentElement.closest('script,style,textarea') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+      const cambiar = reemplazarNombres;
+      const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement && n.parentElement.closest('script,style,textarea,[data-dato]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
       for (let n = w.nextNode(); n; n = w.nextNode()) { const t = cambiar(n.nodeValue); if (t !== n.nodeValue) n.nodeValue = t; }
       $$('[alt],[aria-label],[title]').forEach(el => ['alt', 'aria-label', 'title'].forEach(a => { const v = el.getAttribute(a); if (v) { const t = cambiar(v); if (t !== v) el.setAttribute(a, t); } }));
     } catch (_) { /* navegador viejo: quedan los nombres del ejemplo en la historia, el resto ya cambió */ }
@@ -304,7 +318,8 @@
   let ultimaExtra = null;
   const ubicar = sec => { if (ultimaExtra) ultimaExtra.after(sec); else if (baseSeccion.matches('section.vestimenta')) baseSeccion.after(sec); else baseSeccion.before(sec); ultimaExtra = sec; };
   const copiarTexto = async (texto, boton) => {
-    const original = boton.textContent;
+    if (!boton.dataset.original) boton.dataset.original = boton.textContent;
+    const original = boton.dataset.original;
     try { await navigator.clipboard.writeText(texto); boton.textContent = '¡Copiado!'; }
     catch { window.prompt('Copiá el texto:', texto); }
     setTimeout(() => { boton.textContent = original; }, 1800);
@@ -497,9 +512,13 @@
      el invitado no se entera: el WhatsApp ya salió. */
   const PANEL_URL = 'https://PROYECTO.supabase.co';
   const PANEL_CLAVE = 'CLAVE_PUBLICA';
+  let ultimoGuardado = '';
   function guardarEnPanel(tipo, datos) {
     const inv = D.panel && String(D.panel.invitacion || '').trim();
     if (!inv || esMuestra || /PROYECTO|CLAVE_PUBLICA/.test(PANEL_URL + PANEL_CLAVE)) return;
+    const huella = tipo + JSON.stringify(datos);
+    if (huella === ultimoGuardado) return;
+    ultimoGuardado = huella;
     try {
       fetch(PANEL_URL + '/rest/v1/rpc/registrar_respuesta', {
         method: 'POST', keepalive: true,
@@ -602,7 +621,7 @@
           if (!vienen.length) { decir('Marcá quiénes vienen.'); return; }
           personas = String(vienen.length);
         }
-        if (porEvento && !eventos.length) { decir('Marcá a qué vas a ir: la ceremonia, la fiesta o las dos.'); return; }
+        if (porEvento && !eventos.length) { decir('Marcá a qué vas a ir: ' + (esQuince ? 'la misa' : 'la ceremonia') + ', la fiesta o las dos.'); return; }
         if (personas) {
           const n = Number(personas);
           if (!Number.isInteger(n) || n < 1) { decir('Revisá cuántos vienen: tiene que ser un número.'); form.elements.personas.focus(); return; }
@@ -685,7 +704,14 @@
           + '<button type="button" class="boton bw-entrada-con"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>Entrar con música</button>'
           + '<button type="button" class="bw-entrada-sin">Entrar sin música</button></div>';
         const nombresEl = capa.querySelector('.bw-entrada-nombres');
-        nombresEl.style.fontFamily = h1.fontFamily; nombresEl.style.color = h1.color;
+        nombresEl.style.fontFamily = h1.fontFamily;
+        // El color del título sólo si se lee sobre el fondo de la bienvenida (3:1 para letra grande); si no, el del texto
+        const rgb = c => { const m = String(c).match(/[\d.]+/g); return m && m.length >= 3 && (m.length < 4 || +m[3] > 0.5) ? m.slice(0, 3).map(Number) : null; };
+        const luz = c => { const v = c.map(x => { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); }); return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]; };
+        const contraste = (a, b) => { const la = luz(a), lb = luz(b); return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05); };
+        const cTitulo = rgb(h1.webkitTextFillColor && !/rgba\(0, 0, 0, 0\)|transparent/.test(h1.webkitTextFillColor) ? h1.webkitTextFillColor : h1.color);
+        const cFondo = rgb(fondo) || [255, 255, 255];
+        nombresEl.style.color = cTitulo && contraste(cTitulo, cFondo) >= 3 ? 'rgb(' + cTitulo.join(',') + ')' : cs.color;
         document.body.appendChild(capa);
         document.documentElement.classList.add('bw-con-entrada');
         const entrar = conMusica => {
@@ -696,7 +722,16 @@
           setTimeout(() => capa.remove(), 450);
           document.removeEventListener('keydown', teclas);
         };
-        const teclas = e => { if (e.key === 'Escape') entrar(false); };
+        const teclas = e => {
+          if (e.key === 'Escape') entrar(false);
+          // Mientras está la bienvenida, el tabulador va y viene entre sus dos botones (no se va a la página de atrás)
+          if (e.key === 'Tab') {
+            const bs = [...capa.querySelectorAll('button')];
+            const i = bs.indexOf(document.activeElement);
+            e.preventDefault();
+            bs[(i + (e.shiftKey ? bs.length - 1 : 1) + bs.length) % bs.length].focus();
+          }
+        };
         document.addEventListener('keydown', teclas);
         capa.querySelector('.bw-entrada-con').addEventListener('click', () => entrar(true));
         capa.querySelector('.bw-entrada-sin').addEventListener('click', () => entrar(false));

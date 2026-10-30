@@ -11,7 +11,10 @@
 --   · los invitados sólo pueden AGREGAR respuestas, y sólo a una invitación que exista (registrar_respuesta);
 --   · para LEER hay que tener la clave de esa invitación (ver_panel). La clave se guarda como huella
 --     (sha256), nunca tal cual;
---   · crear una invitación lo hace sólo Boda Web, desde el editor SQL (crear_invitacion).
+--   · crear una invitación lo hace sólo Boda Web, desde el editor SQL (crear_invitacion);
+--   · freno contra respuestas falsas en masa: 20 por hora por conexión y 300 por hora por invitación.
+-- El asesor de seguridad de Supabase avisa "RLS prendido sin políticas" en las dos tablas: es a propósito.
+-- Se puede correr de nuevo sin romper nada (agrega lo que falte).
 -- =====================================================================
 
 create table if not exists public.invitaciones (
@@ -26,9 +29,12 @@ create table if not exists public.respuestas (
   invitacion  text not null references public.invitaciones(id) on delete cascade,
   tipo        text not null check (tipo in ('confirmacion', 'cancion')),
   datos       jsonb not null check (jsonb_typeof(datos) = 'object' and octet_length(datos::text) <= 4000),
+  origen      text,          -- huella (sha256) de la IP de quien respondió: sólo sirve para el freno, no se puede leer la IP
   creada      timestamptz not null default now()
 );
+alter table public.respuestas add column if not exists origen text;
 create index if not exists respuestas_invitacion_creada on public.respuestas (invitacion, creada desc);
+create index if not exists respuestas_origen_creada on public.respuestas (origen, creada desc) where origen is not null;
 
 alter table public.invitaciones enable row level security;
 alter table public.respuestas enable row level security;
@@ -41,15 +47,28 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+declare
+  ip text;
+  huella text;
 begin
   if p_tipo not in ('confirmacion', 'cancion') then raise exception 'tipo inválido'; end if;
   if p_datos is null or jsonb_typeof(p_datos) <> 'object' or octet_length(p_datos::text) > 4000 then raise exception 'datos inválidos'; end if;
   if not exists (select 1 from invitaciones where id = p_invitacion) then raise exception 'invitación inexistente'; end if;
-  -- Freno contra abusos: una invitación real no recibe 300 respuestas en una hora
+  -- Freno contra abusos. El código de la invitación es público (está en su página), así que cualquiera podría
+  -- mandar respuestas falsas: una misma conexión no puede mandar más de 20 por hora, y una invitación no
+  -- recibe más de 300 por hora entre todos. La IP la da Supabase en los encabezados; se guarda sólo su huella.
+  begin
+    ip := split_part(coalesce(current_setting('request.headers', true)::json ->> 'x-forwarded-for', ''), ',', 1);
+  exception when others then ip := '';
+  end;
+  huella := case when coalesce(trim(ip), '') = '' then null else encode(sha256(convert_to(trim(ip) || '|' || p_invitacion, 'UTF8')), 'hex') end;
+  if huella is not null and (select count(*) from respuestas where origen = huella and creada > now() - interval '1 hour') >= 20 then
+    raise exception 'demasiadas respuestas, probá más tarde';
+  end if;
   if (select count(*) from respuestas where invitacion = p_invitacion and creada > now() - interval '1 hour') >= 300 then
     raise exception 'demasiadas respuestas, probá más tarde';
   end if;
-  insert into respuestas (invitacion, tipo, datos) values (p_invitacion, p_tipo, p_datos);
+  insert into respuestas (invitacion, tipo, datos, origen) values (p_invitacion, p_tipo, p_datos, huella);
 end;
 $$;
 

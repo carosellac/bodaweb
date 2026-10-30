@@ -71,6 +71,7 @@
       { tipo: 'confirmacion', creada: '2027-01-03T18:40:00Z', datos: { nombre: 'Sofía Gómez', asiste: true, personas: 1, eventos: ['fiesta'], comida: 'Vegetariana', traslado: 'si' } },
       { tipo: 'confirmacion', creada: '2027-01-02T10:05:00Z', datos: { nombre: 'Carlos Ruiz', asiste: false, personas: 0, mensaje: 'Estoy de viaje, ¡los quiero mucho!' } },
       { tipo: 'cancion', creada: '2027-01-02T09:00:00Z', datos: { quien: 'Juan', tema: 'Despacito, Luis Fonsi' } },
+      { tipo: 'confirmacion', creada: '2026-12-28T11:00:00Z', datos: { nombre: 'Tía Marta', asiste: false, personas: 0, invitado: 'Familia Pérez', mensaje: 'Creo que no llegamos' } },
       { tipo: 'confirmacion', creada: '2027-01-01T16:22:00Z', datos: { nombre: 'Los Fernández', asiste: true, personas: 4, chicos: 2, eventos: ['ceremonia', 'fiesta'], traslado: 'no' } },
     ] };
 
@@ -90,8 +91,36 @@
     const fecha = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · ' + d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }); };
     const nEventos = e => (e || []).map(x => x === 'ceremonia' ? 'ceremonia' : x).join(' y ');
 
+    /* Las respuestas las manda cualquiera que tenga la invitación: se limpian antes de usarlas (un dato con otra forma
+       no puede romper el panel) y cada invitado cuenta UNA vez, con su última respuesta (si confirmó dos veces o
+       cambió de idea, no se suma doble). */
+    const txt = (v, n) => typeof v === 'string' ? v.trim().slice(0, n) : typeof v === 'number' && isFinite(v) ? String(v) : '';
+    const num = (v, max) => { const n = Math.floor(Number(v)); return Number.isFinite(n) && n > 0 ? Math.min(n, max) : 0; };
+    const arr = (v, n) => Array.isArray(v) ? v.filter(x => typeof x === 'string' && x.trim()).map(x => x.trim().slice(0, 40)).slice(0, n) : [];
+    function limpiarRespuesta(r) {
+      if (!r || typeof r !== 'object' || !r.datos || typeof r.datos !== 'object') return null;
+      const x = r.datos, creada = txt(r.creada, 40);
+      if (r.tipo === 'cancion') { const tema = txt(x.tema, 120); return tema ? { tipo: 'cancion', creada, datos: { quien: txt(x.quien, 60), tema } } : null; }
+      if (r.tipo !== 'confirmacion') return null;
+      const asiste = x.asiste === true;
+      return { tipo: 'confirmacion', creada, datos: {
+        nombre: txt(x.nombre, 80) || 'Sin nombre', asiste, personas: asiste ? Math.max(1, num(x.personas, 30)) : 0,
+        quienes: arr(x.quienes, 20), eventos: arr(x.eventos, 2).filter(e => e === 'ceremonia' || e === 'fiesta'), chicos: asiste ? num(x.chicos, 30) : 0,
+        traslado: x.traslado === 'si' || x.traslado === 'no' ? x.traslado : '', comida: txt(x.comida, 120), mensaje: txt(x.mensaje, 300), invitado: txt(x.invitado, 80) } };
+    }
+    const claveInvitado = x => (x.nombre + '|' + x.invitado).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ');
+
     function pintar(d) {
-      const conf = d.respuestas.filter(r => r.tipo === 'confirmacion'), canc = d.respuestas.filter(r => r.tipo === 'cancion');
+      const todas = (Array.isArray(d.respuestas) ? d.respuestas : []).map(limpiarRespuesta).filter(Boolean)
+        .sort((a, b) => String(b.creada).localeCompare(String(a.creada)));
+      const vistas = new Map();
+      const conf = [];
+      for (const r of todas.filter(r => r.tipo === 'confirmacion')) {
+        const k = claveInvitado(r.datos);
+        if (vistas.has(k)) { vistas.get(k).veces++; continue; }
+        r.veces = 1; vistas.set(k, r); conf.push(r);
+      }
+      const canc = todas.filter(r => r.tipo === 'cancion');
       const van = conf.filter(r => r.datos.asiste), noVan = conf.filter(r => !r.datos.asiste);
       const personas = van.reduce((a, r) => a + (Number(r.datos.personas) || 1), 0);
       const chicos = van.reduce((a, r) => a + (Number(r.datos.chicos) || 0), 0);
@@ -125,6 +154,7 @@
             + (x.asiste && x.eventos && x.eventos.length === 1 ? '<span class="chip dato">Sólo ' + esc(nEventos(x.eventos)) + '</span>' : '')
             + (x.chicos ? '<span class="chip dato">' + esc(x.chicos) + (Number(x.chicos) === 1 ? ' chico' : ' chicos') + '</span>' : '')
             + (x.traslado === 'si' ? '<span class="chip dato">Usa el traslado</span>' : '')
+            + (r.veces > 1 ? '<span class="chip dato">Respondió ' + r.veces + ' veces: vale la última</span>' : '')
             + (x.quienes && x.quienes.length ? '<p>Van: ' + esc(x.quienes.join(', ')) + '</p>' : '')
             + (x.invitado ? '<p>Invitación para: ' + esc(x.invitado) + '</p>' : '')
             + (x.comida ? '<p>Comida: ' + esc(x.comida) + '</p>' : '')
@@ -136,9 +166,10 @@
       document.getElementById('actualizar').addEventListener('click', () => location.reload());
       document.getElementById('csv').addEventListener('click', () => {
         // Planilla para Excel o Google Sheets. Lo que empieza con = + - @ se antepone con ' para que no se lea como fórmula
-        const celda = v => { let t = String(v == null ? '' : v); if (/^[=+\-@]/.test(t)) t = "'" + t; return '"' + t.replace(/"/g, '""') + '"'; };
+        const celda = v => { let t = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(t)) t = "'" + t; return '"' + t.replace(/"/g, '""') + '"'; };
         const filas = [['Tipo', 'Fecha', 'Nombre', 'Va', 'Personas', 'Quiénes', 'A qué va', 'Chicos', 'Traslado', 'Comida', 'Mensaje', 'Canción', 'Invitación para']];
-        for (const r of d.respuestas) { const x = r.datos;
+        // La planilla trae lo mismo que se ve: la última respuesta de cada invitado y todas las canciones
+        for (const r of [...conf, ...canc]) { const x = r.datos;
           filas.push(r.tipo === 'cancion' ? ['Canción', fecha(r.creada), x.quien, '', '', '', '', '', '', '', '', x.tema, '']
             : ['Confirmación', fecha(r.creada), x.nombre, x.asiste ? 'Sí' : 'No', x.asiste ? (x.personas || 1) : 0, (x.quienes || []).join(', '), nEventos(x.eventos), x.chicos || '', x.traslado === 'si' ? 'Sí' : x.traslado === 'no' ? 'No' : '', x.comida || '', x.mensaje || '', '', x.invitado || '']); }
         const blob = new Blob(['﻿' + filas.map(f => f.map(celda).join(';')).join('\r\n')], { type: 'text/csv;charset=utf-8' });

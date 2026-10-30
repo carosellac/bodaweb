@@ -251,7 +251,7 @@ const ANALITICA = {
         ? (primero.value.trim() && primero.name === 'email' ? 'Revisá tu email: parece incompleto.'
           : primero.value.trim() && primero.name === 'whatsapp' ? 'Revisá tu WhatsApp: tiene que tener el código de área y el número, sin el 0 ni el 15.'
           : 'Falta completar ' + faltan.map(f => fieldLabels[f.name]).join(' y ') + '.')
-        : 'La fecha de la boda ya pasó: revisala.';
+        : 'Esa fecha ya pasó: revisala.';
       errorBox.hidden = false;
       primero.setAttribute('aria-describedby', 'form-error');
       primero.focus();
@@ -298,7 +298,7 @@ const ANALITICA = {
       window.open(enlaces.whatsapp + '?text=' + encodeURIComponent(summary), '_blank', 'noopener');
       resultText.innerHTML = '<strong>Te abrimos WhatsApp con tu pedido.</strong> Si no se abrió, copialo y mandánoslo al mismo número.';
     } else if (canal === 'email') {
-      window.location.href = enlaces.email + '?subject=' + encodeURIComponent('Pedido de invitación web para boda') + '&body=' + encodeURIComponent(summary);
+      window.location.href = enlaces.email + '?subject=' + encodeURIComponent(/15 años/.test(selectedDesign) ? 'Pedido de invitación web para 15 años' : 'Pedido de invitación web para boda') + '&body=' + encodeURIComponent(summary);
       resultText.innerHTML = '<strong>Te abrimos tu correo con el pedido listo.</strong> Si no se abrió, copialo y mandánoslo a ' + email + '.';
     } else {
       resultText.innerHTML = '<strong>Tu pedido está listo.</strong> Copialo y mandánoslo por el medio que prefieras.';
